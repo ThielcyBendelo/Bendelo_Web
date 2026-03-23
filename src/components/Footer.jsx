@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   FaGithub,
   FaLinkedin,
@@ -6,7 +7,7 @@ import {
   FaFacebook,
   FaWhatsapp,
 } from 'react-icons/fa';
-import { contact } from '../assets/assets';
+import { contact } from '../assets/assets.js';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,6 +20,7 @@ export default function Footer() {
     Facebook: FaFacebook,
     WhatsApp: FaWhatsapp,
   };
+
 
   return (
     <footer className="bg-dark-200 text-gray-300 py-8 mt-16">
@@ -108,11 +110,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright uniquement */}
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
-          <p>
-            © {currentYear} Ir Bendelo DevFullStack. Tous droits réservés 2025.
-          </p>
+          <p>© {currentYear} Ir Bendelo | Dev Full Stack. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
