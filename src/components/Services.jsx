@@ -205,8 +205,8 @@ export default function Services() {
           Nos <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Services</span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-          Découvrez notre gamme complète de services informatiques professionnels.
-          Du développement web aux solutions cloud, nous accompagnons votre transformation digitale.
+          Découvrez une gamme complète de mes services informatiques professionnels.
+          Du développement web aux solutions cloud, Ingénieur Bendelo Freelance  accompagnent votre transformation digitale.
         </p>
       </motion.div>
 
