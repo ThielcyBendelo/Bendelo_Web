@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import emailService from '../services/emailService';
 
+
 const SERVICES = [
   { value: 'site-web', label: 'Site Web vitrine' },
   { value: 'e-commerce', label: 'Site E-commerce' },

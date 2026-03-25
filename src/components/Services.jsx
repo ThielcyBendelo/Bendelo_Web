@@ -202,7 +202,7 @@ export default function Services() {
         className="text-center mb-16"
       >
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Nos <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Services</span>
+          Mes <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Services</span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
           Découvrez une gamme complète de mes services informatiques professionnels.
