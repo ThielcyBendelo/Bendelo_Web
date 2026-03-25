@@ -112,7 +112,7 @@ export default function Footer() {
 
         {/* Copyright uniquement */}
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
-          <p>© {currentYear} Ir Bendelo | Dev Full Stack. Tous droits réservés.</p>
+          <p>© {currentYear} ILFSF Bendelo. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

@@ -4,13 +4,13 @@ import QuoteModal from "./QuoteModal";
 const offers = [
   {
     name: "Pack Starter",
-    price: "600€",
+    price: "800$",
     features: ["Site vitrine 1-5 pages", "Design personnalisé", "Référencement de base", "Livraison rapide"],
     best: false,
   },
   {
     name: "Pack Pro",
-    price: "1200€",
+    price: "1500$",
     features: ["Site vitrine ou e-commerce", "Design avancé", "SEO optimisé", "Sécurité renforcée", "Support 3 mois"],
     best: true,
   },
@@ -34,7 +34,7 @@ function OffersSection() {
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-blue-50 via-white to-gray-50" id="offers">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-blue-900 mb-6 drop-shadow-lg text-center">Nos Offres</h2>
+        <h2 className="text-4xl font-extrabold text-blue-900 mb-6 drop-shadow-lg text-center">Mes Offres</h2>
         <p className="text-lg text-gray-700 mb-10 text-center">Des packs adaptés à tous les besoins, transparence et accompagnement garanti.</p>
         <div className="grid gap-8 md:grid-cols-3">
           {offers.map((offer, idx) => (

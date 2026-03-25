@@ -89,9 +89,9 @@ export default function Contact() {
     try {
       const templateParams = {
         from_name: formData.name,
-        from_email: formData.email,
+        reply_to: formData.email,
         message: formData.message,
-        to_email: 'bendelothielcy@gmail.com',
+        to_email: 'servicebanamokeli@gmail.com',
       };
 
       await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);

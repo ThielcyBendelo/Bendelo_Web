@@ -19,9 +19,9 @@ function GoogleMapsSection() {
           ></iframe>
         </div>
         <div className="mt-6 text-gray-700 text-base">
-          <strong>Adresse :</strong> Avenue Kimwenza A/A25, Kinshasa, DR Congo<br />
+          <strong>Adresse :</strong> Rue Kimwenza A/A25, Kinshasa, DR Congo<br />
           <strong>Téléphone :</strong> +243 82 90 54 350<br />
-          <strong>Email :</strong> servicebanamokeli@gmail.com
+          <strong>Email :</strong> bendelothielcy@gmail.com
         </div>
       </div>
     </section>

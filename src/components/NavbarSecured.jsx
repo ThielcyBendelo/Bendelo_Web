@@ -216,7 +216,7 @@ export default function NavbarSecured() {
             >
               <GiEagleEmblem className="text-3xl text-[var(--accent-1)]" />
               <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-                Ir Bendelo
+                Bendelo Freelance
               </span>
             </div>
             {/* Desktop Navigation avec sous-menus */}

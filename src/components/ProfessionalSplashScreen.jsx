@@ -239,7 +239,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
               animate="animate"
               className="mb-8"
             >
-              <h1 className="text-4xl font-bold text-white mb-2">Ir Bendelo</h1>
+              <h1 className="text-4xl font-bold text-white mb-2">ILFSF Bendelo</h1>
               <p className="text-xl text-slate-300 font-light">
                 Solutions Digitales Innovantes
               </p>

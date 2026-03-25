@@ -158,7 +158,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                Développeur Web React & JavaScript | Flutter & Dart.
+                Ingénieur Logiciel Full stack Freelance.
               </motion.p>
             </motion.div>
           </div>
