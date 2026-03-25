@@ -145,7 +145,7 @@ const SecureRegister = () => {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="bendelothielcy@gmail.com"
+                placeholder=""
                 value={formData.email || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -182,7 +182,7 @@ const SecureRegister = () => {
                 id="password"
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="bendelo1996$$$$$"
+                placeholder=""
                 value={formData.password || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
