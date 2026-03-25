@@ -182,6 +182,7 @@ export default function NavbarSecured() {
         { href: '/experience', label: 'Expérience', icon: '💼' },
         { href: '/projects', label: 'Projets', icon: '🛠️' },
         { href: '/work', label: 'Travail', icon: '💻' },
+        { href: '/offers', label: 'Offres', icon: '📦' },
       ],
     },
     {

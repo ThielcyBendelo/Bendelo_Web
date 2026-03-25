@@ -20,6 +20,7 @@ import ClientRegistrationPage from './pages/ClientRegistrationPage';
 import ProfessionalSplashScreen from './components/ProfessionalSplashScreen';
 import SecureLogin from './components/SecureLogin';
 import SecureRegister from './components/SecureRegister';
+import OffersPage from './pages/OffersPage';
 // Dashboard imports
 import {
   Login,
@@ -75,6 +76,8 @@ const App = () => {
               <Route path="/login" element={<SecureLogin />} />
               {/* Route d'inscription utilisateur */}
               <Route path="/register" element={<SecureRegister />} />
+              {/* Route Offres */}
+              <Route path="/offers" element={<OffersPage />} />
               {/* Blog route */}
               <Route path="/blog" element={<Blog />} />
               {/* Routes du dashboard avec layout admin */}
