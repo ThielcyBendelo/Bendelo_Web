@@ -5,9 +5,9 @@ const Projet = () => {
   return (
     <section id="projets" className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Mes Projets</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mt-5">
+          <h2 className="text-4xl font-bold text-gray-800 mb-5">Mes Projets</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-5">
             Découvrez une sélection de mes réalisations récentes
           </p>
         </div>

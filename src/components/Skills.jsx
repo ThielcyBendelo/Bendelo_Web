@@ -60,9 +60,9 @@ export default function Skills() {
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mt-5">
         <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-4"
+          className="text-4xl md:text-5xl font-bold text-center mb-5"
           variants={itemVariants}
         >
           <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">

@@ -162,7 +162,7 @@ export default function Contact() {
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-2">
           <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
             Contact
           </span>

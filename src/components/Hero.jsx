@@ -1,6 +1,5 @@
 import useParallax from '../hooks/useParallax';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-
 import LazyImage from './LazyImage';
 import { useEffect, useState } from 'react';
 import notificationService from '../services/notificationService';

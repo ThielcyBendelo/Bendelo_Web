@@ -69,7 +69,7 @@ export default function About() {
         />
 
         {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+        <div className="relative z-10 max-w-8xl mx-auto flex flex-col items-center mb-5">
           <motion.div
             variants={imageVariants}
             whileHover={{
@@ -88,7 +88,7 @@ export default function About() {
             />
           </motion.div>
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-6"
+            className="text-2xl md:text-1xl font-bold text-center mb-8"
             variants={textVariants}
           >
             <span className="bg-gradient-to-r from-purple to-pink text-transparent bg-clip-text">

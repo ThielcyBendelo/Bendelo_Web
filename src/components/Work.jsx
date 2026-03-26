@@ -11,8 +11,8 @@ const pickWorkIcon = (label = '') => {
 export default function Work() {
   return (
     <section id="work" className="py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+      <div className="max-w-8xl mt-5">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-5">
           <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
             Mon Travail
           </span>

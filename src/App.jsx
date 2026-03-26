@@ -21,6 +21,12 @@ import ProfessionalSplashScreen from './components/ProfessionalSplashScreen';
 import SecureLogin from './components/SecureLogin';
 import SecureRegister from './components/SecureRegister';
 import OffersPage from './pages/OffersPage';
+import NavbarSecured from './components/NavbarSecured';
+import Hero from './components/Hero';
+import Footer from './components/Footer';
+import FAQSection from './components/FAQSection';
+import ProcessSection from './components/ProcessSection';
+
 // Dashboard imports
 import {
   Login,

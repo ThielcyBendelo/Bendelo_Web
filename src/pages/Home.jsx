@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <NavbarSecured />
-      <div className="mt-24">
+      <div className="mt-5">
         <Hero />
         <ProcessSection />
         <FAQSection />

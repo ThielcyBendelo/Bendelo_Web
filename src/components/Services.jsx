@@ -193,7 +193,7 @@ export default function Services() {
   };
 
   return (
-    <div className="py-20 px-4 sm:px-6 lg:px-8">
+    <div className="py-20 px-4 sm:px-6 mt-5">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -201,7 +201,7 @@ export default function Services() {
         transition={{ duration: 0.6 }}
         className="text-center mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-5">
           Mes <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Services</span>
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
