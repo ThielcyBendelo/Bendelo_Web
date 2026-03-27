@@ -65,7 +65,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
     };
   }, [currentStep, onComplete, loadingSteps]);
 
-  const logoVariants = {
+  const Variants = {
     initial: { scale: 0, rotate: -180, opacity: 0 },
     animate: {
       scale: 1,
@@ -198,39 +198,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
           {/* Main Content */}
           <div className="relative z-10 text-center max-w-md mx-auto px-6">
             {/* Logo */}
-            <motion.div
-              variants={logoVariants}
-              initial="initial"
-              animate={currentStep >= 2 ? 'pulse' : 'animate'}
-              className="mb-8"
-            >
-              <div className="relative mx-auto w-32 h-32 mb-6">
-                {/* Logo Background Circle */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full shadow-2xl"></div>
-
-                {/* Inner Circle */}
-                <div className="absolute inset-2 bg-slate-900 rounded-full flex items-center justify-center">
-                  <span className="text-4xl font-bold text-white">IR</span>
-                </div>
-
-                {/* Rotating Border */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border-4 border-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-border"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  style={{
-                    background:
-                      'linear-gradient(45deg, transparent, transparent), linear-gradient(45deg, #3b82f6, #a855f7)',
-                    backgroundClip: 'padding-box, border-box',
-                    backgroundOrigin: 'border-box',
-                  }}
-                />
-              </div>
-            </motion.div>
+            
 
             {/* Company Name */}
             <motion.div
@@ -239,8 +207,8 @@ export default function ProfessionalSplashScreen({ onComplete }) {
               animate="animate"
               className="mb-8"
             >
-              <h1 className="text-4xl font-bold text-white mb-2">ILFSF Bendelo</h1>
-              <p className="text-xl text-slate-300 font-light">
+              <h1 className="text-3xl font-bold font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text mb-8"><span>Software </span>Engineer</h1>
+              <p className="text-lg md:text-2xl text-gray-300 mb-2 font-medium">
                 Solutions Digitales Innovantes
               </p>
               <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>

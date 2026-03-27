@@ -169,47 +169,37 @@ export default function NavbarSecured() {
     {
       label: 'À propos',
       items: [
-        { href: '/', label: 'Accueil', icon: '🏠' },
-        { href: '/about', label: 'À propos', icon: '👤' },
-        { href: '/testimonials', label: 'Témoignages', icon: '⭐' },
+        { href: '/', label: 'Accueil'},
+        { href: '/about', label: 'À propos'},
+        { href: '/testimonials', label: 'Témoignages' },
       ],
     },
     {
       label: 'Services',
       items: [
-        { href: '/services', label: 'Services', icon: '⚡' },
-        { href: '/skills', label: 'Compétences', icon: '🚀' },
-        { href: '/experience', label: 'Expérience', icon: '💼' },
-        { href: '/projects', label: 'Projets', icon: '🛠️' },
-        { href: '/work', label: 'Travail', icon: '💻' },
-        { href: '/offers', label: 'Offres', icon: '📦' },
+        { href: '/services', label: 'Services' },
+        { href: '/skills', label: 'Compétences' },
+        { href: '/experience', label: 'Expérience' },
+        { href: '/projects', label: 'Projets' },
+        { href: '/work', label: 'Travail' },
+        { href: '/offers', label: 'Offres'},
       ],
     },
-    {
-      label: 'Blog',
-      items: [{ href: '/blog', label: 'Blog', icon: '📝' }],
-    },
-    {
-      label: 'Contact',
-      items: [{ href: '/contact', label: 'Contact', icon: '📞' }],
+  
+    { 
+      items: [{ href: '/contact', label: 'Contact'}],
     },
   ];
 
   return (
     <>
-      {/* Debug info: rôle et email utilisateur */}
-      <div className="fixed top-0 left-0 w-full bg-yellow-100 text-yellow-900 text-xs px-2 py-1 z-[100] flex justify-center items-center">
-        <span>
-          Session: {isAuthenticated ? 'Connecté' : 'Déconnecté'} | Email:{' '}
-          {currentUser?.email || 'aucun'} | Rôle: {currentUser?.role || 'aucun'}
-        </span>
-      </div>
-      <nav className="fixed top-6 left-0 right-0 bg-dark-100/80 backdrop-blur z-50 border-b border-gray-700/30">
+      
+      <nav className="fixed top-6 left-0 right-0 bg-dark-100/90 backdrop-blur z-50 border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/* Logo */}
             <div
-              className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+              className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity"
               onClick={() => {
                 navigate('/');
                 setIsOpen(false);

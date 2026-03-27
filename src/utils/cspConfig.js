@@ -5,7 +5,8 @@ export const CSPConfig = {
     'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
     'font-src': ["'self'", 'https://fonts.gstatic.com'],
     'img-src': ["'self'", 'data:', 'https:'],
-    'connect-src': ["'self'", 'http://localhost:*', 'https://api.github.com', 'https://api.emailjs.com'],
+    'connect-src': ["'self'", 'https://www.google.com', 'http://localhost:*', 'https://api.github.com', 'https://api.emailjs.com'],
+    'frame-src': ["'self'", 'https://www.google.com'],
     'frame-ancestors': ["'self'"],
   },
   production: {
