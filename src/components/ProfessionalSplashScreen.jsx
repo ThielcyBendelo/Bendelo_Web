@@ -310,7 +310,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
                 >
                   ✓
                 </motion.div>
-                <h2 className="text-2xl font-bold">Application Prête !</h2>
+                <h2 className="text-2xl font-bold">Welcome !</h2>
               </div>
             </motion.div>
           )}

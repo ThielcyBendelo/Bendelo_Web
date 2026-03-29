@@ -2,10 +2,10 @@ import React from "react";
 
 function GoogleMapsSection() {
   return (
-    <section className="py-12 px-4 bg-gradient-to-b from-gray-50 via-white to-blue-50" id="localisation">
+    <section className="py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50" id="localisation">
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-extrabold text-blue-900 mb-4 drop-shadow-lg">Localisation professionnelle</h2>
-        <p className="text-lg text-gray-700 mb-6">Retrouvez-nous à notre siège, Avenue Kimwenza A/A25, Kinshasa, DR Congo. Nous sommes disponibles pour tous vos projets professionnels.</p>
+        <h2 className="text-4xl text-center text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Localisation professionnelle</h2>
+        <p className="text-lg text-gray-400 mb-10 text-center">Retrouvez-moi à mon siège, Avenue Kimwenza A/A25, Kinshasa, DR Congo. Toujours disponibles pour tous vos projets professionnels.</p>
         <div className="rounded-2xl overflow-hidden shadow-xl border border-blue-100">
           <iframe
             title="Google Maps localisation"
@@ -18,8 +18,8 @@ function GoogleMapsSection() {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-        <div className="mt-6 text-gray-700 text-base">
-          <strong>Adresse :</strong> Rue Kimwenza A/A25, Kinshasa, DR Congo<br />
+        <div className="text-lg text-gray-400 mb-10 text-center">
+          <strong>Adresse :</strong> Kinshasa, DR Congo<br />
           <strong>Téléphone :</strong> +243 82 90 54 350<br />
           <strong>Email :</strong> bendelothielcy@gmail.com
         </div>

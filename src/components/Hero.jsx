@@ -1,5 +1,6 @@
 import useParallax from '../hooks/useParallax';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
+
 import LazyImage from './LazyImage';
 import { useEffect, useState } from 'react';
 import notificationService from '../services/notificationService';
@@ -157,7 +158,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                Ingénieur Logiciel Full stack Freelance.
+                Ingénieur Logiciel Full stack Freelance et Entrepreneur.
               </motion.p>
             </motion.div>
           </div>
@@ -188,7 +189,7 @@ export default function Hero() {
               }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.3)',
+                boxShadow: '0 20px 40px rgba(236, 144, 6, 0.69)',
               }}
               whileTap={{ scale: 0.98 }}
             >

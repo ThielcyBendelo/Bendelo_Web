@@ -55,7 +55,7 @@ export default function ModernMobileHeader({ onMenuToggle, isMenuOpen }) {
             </div>
             <div>
               <h1 className="text-white font-bold text-lg">Admin Panel</h1>
-              <p className="text-blue-200 text-xs">Ir Bendelo Dashboard</p>
+              <p className="text-blue-200 text-xs">Bendelo.Free Dashboard</p>
             </div>
           </div>
 

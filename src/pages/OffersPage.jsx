@@ -646,7 +646,7 @@ export default function OffersPage() {
                     </div>
 
                     {/* Right Side - Quote Form */}
-                    <div className="w-96 p-8 bg-slate-700/20 overflow-y-auto">
+                    <div className="w-96 p-8 bg-slate-700/20 overflow-y-auto"> 
                       <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                         <FaEnvelope className="w-5 h-5 text-blue-400" />
                         Demander un Devis

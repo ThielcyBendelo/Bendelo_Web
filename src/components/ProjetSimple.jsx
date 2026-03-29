@@ -5,8 +5,8 @@ export default function ProjetSimple() {
   return (
     <section id="projects" className="py-20 px-4 bg-dark-200 mt-5">
       <div className="container mx-auto max-w-8xl">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-white">
-          Mes Projets
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text md:text-5xl font-extrabold text-center mb-16 ">
+          <span text-4xl font-bold text-gray-800 mb-5>Mes</span> Projets
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

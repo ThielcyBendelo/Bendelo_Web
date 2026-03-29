@@ -7,7 +7,7 @@ import audioService from '../services/audioService';
 import analyticsService from '../services/analyticsService';
 import authService from '../services/authService';
 
-export default function NavbarSecured() {
+export default function NavbarSecured() { 
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(audioService.isEnabled());
@@ -132,6 +132,8 @@ export default function NavbarSecured() {
     }
   };
 
+  
+
   const handleLogout = async () => {
     try {
       await authService.logout();
@@ -167,34 +169,34 @@ export default function NavbarSecured() {
   // Structure professionnelle avec sous-menus
   const navGroups = [
     {
-      label: 'À propos',
+      label: 'À propos de moi',
       items: [
         { href: '/', label: 'Accueil'},
-        { href: '/about', label: 'À propos'},
-        { href: '/testimonials', label: 'Témoignages' },
+        { href: '/about', label: 'À propos de moi'},
+         { href: '/skills', label: 'Compétences' },
+        { href: '/experience', label: 'Expérience' },
       ],
     },
     {
-      label: 'Services',
+      label: 'Mes Services',
       items: [
         { href: '/services', label: 'Services' },
-        { href: '/skills', label: 'Compétences' },
-        { href: '/experience', label: 'Expérience' },
-        { href: '/projects', label: 'Projets' },
         { href: '/work', label: 'Travail' },
-        { href: '/offers', label: 'Offres'},
+        { href: '/offers', label: 'Offres'}, 
       ],
     },
-  
-    { 
-      items: [{ href: '/contact', label: 'Contact'}],
+{
+      items: [
+        { href: '/testimonials', label: 'Témoignages clients'},
+      ],
     },
+
   ];
 
   return (
     <>
       
-      <nav className="fixed top-6 left-0 right-0 bg-dark-100/90 backdrop-blur z-50 border-b border-gray-700/30">
+      <nav className="fixed top-6 left-0 right-0 bg-dark-100/90 backdrop-blur-black z-50 border-b border-gray-400/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/* Logo */}
@@ -205,9 +207,9 @@ export default function NavbarSecured() {
                 setIsOpen(false);
               }}
             >
-              <GiEagleEmblem className="text-3xl text-[var(--accent-1)]" />
+              <GiEagleEmblem className="text-5xl text-yellow-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-                Bendelo Freelance
+                Bendelo.Free
               </span>
             </div>
             {/* Desktop Navigation avec sous-menus */}
@@ -265,7 +267,7 @@ export default function NavbarSecured() {
                 onClick={toggleAudio}
                 onMouseEnter={() => audioService.playHover()}
                 aria-label="Basculer sons"
-                className="p-2 rounded-md text-gray-300 hover:text-white transition-colors hidden sm:block"
+                className="p-2 rounded-md text-gray-400 hover:text-white transition-colors hidden sm:block"
                 title={
                   audioEnabled ? 'Désactiver les sons' : 'Activer les sons'
                 }
@@ -307,7 +309,7 @@ export default function NavbarSecured() {
                 onClick={toggleTheme}
                 onMouseEnter={() => audioService.playHover()}
                 aria-label="Basculer thème"
-                className="p-2 rounded-md text-gray-300 hover:text-white transition-colors hidden sm:block"
+                className="p-2 rounded-md text-gray-400 hover:text-font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text transition-colors hidden sm:block"
               >
                 {theme === 'dark' ? (
                   <svg
@@ -419,14 +421,14 @@ export default function NavbarSecured() {
               <button
                 onClick={toggleMenu}
                 onMouseEnter={() => audioService.playHover()}
-                className="md:hidden p-2 rounded-md text-gray-300 hover:text-white"
+                className="md:hidden p-6 rounded-md text-yellow-500 hover:text-white"
               >
                 {isOpen ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
                     fill="none"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 26 26"
                     stroke="currentColor"
                   >
                     <path
@@ -461,14 +463,14 @@ export default function NavbarSecured() {
           <div className="md:hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800/95 backdrop-blur border-t border-gray-700/30">
             <div className="px-2 pt-2 pb-3 space-y-2">
               {navGroups.map((group) => (
-                <div key={group.label} className="mb-2">
-                  <div className="font-bold text-yellow-300 text-base mb-1 pl-2">{group.label}</div>
+                <div key={group.label} className="mb-4">
+                  <div className="font-bold text-yellow-500 text-base mb-1 pl-2">{group.label}</div>
                   {group.items.map((item) => (
                     <a
                       key={item.href}
                       href={item.href}
                       onClick={(e) => handleNavClick(item.href, e)}
-                      className="flex items-center gap-2 px-4 py-3 text-white hover:text-yellow-300 hover:bg-purple/40 text-base rounded-xl transition-all duration-200 font-medium"
+                      className="flex items-center gap-2 px-4 py-3 text-white hover:text-yellow-500 hover:bg-purple/40 text-base rounded-xl transition-all duration-200 font-medium"
                     >
                       <span className="text-lg">{item.icon}</span> {item.label}
                     </a>

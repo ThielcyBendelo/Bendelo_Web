@@ -192,10 +192,10 @@ export default function ModernMobileSidebar({ isOpen, onClose }) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-2xl font-bold text-white">IR</span>
+                    <span className="text-2xl font-bold text-white">BF</span>
                   </div>
                   <div>
-                    <h2 className="text-white font-bold text-lg">Ir Bendelo</h2>
+                    <h2 className="text-white font-bold text-lg">Bendelo.Free</h2>
                     <p className="text-blue-100 text-sm">Admin Dashboard</p>
                   </div>
                 </div>

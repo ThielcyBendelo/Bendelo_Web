@@ -47,23 +47,44 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4" id="footer-quick-links">Liens Rapides</h4>
             <ul className="space-y-2" aria-labelledby="footer-quick-links">
               <li>
-                <Link to="/about" className="hover:text-purple transition-colors">À propos</Link>
+                <Link to="/home" className="hover:text-purple transition-colors">Mon Accueil</Link>
               </li>
               <li>
-                <Link to="/support" className="hover:text-purple transition-colors">Support</Link>
+                <Link to="/about" className="hover:text-purple transition-colors">À propos de moi</Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-purple transition-colors">Contact</Link>
+                <Link to="/testimonials" className="hover:text-purple transition-colors">Les Témoignages</Link>
+              </li>
+              <li>
+                <Link to="/experience" className="hover:text-purple transition-colors">Mes Expériences</Link>
+              </li>
+              <li>
+                <Link to="/Projects" className="hover:text-purple transition-colors">Mes Projets</Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-purple transition-colors">Mes Services</Link>
+              </li>
+              <li>
+                <Link to="/work" className="hover:text-purple transition-colors">Mon Travail</Link>
+              </li>
+              <li>
+                <Link to="/offers" className="hover:text-purple transition-colors">Mes Offres</Link>
+              </li>
+              <li>
+                <Link to="/skills" className="hover:text-purple transition-colors">Mes Compétences</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-purple transition-colors">Contactez-moi</Link>
               </li>
             </ul>
           </div>
 
           {/* Réseaux sociaux */}
           <div className="text-center md:text-right">
-            <h4 className="text-lg font-semibold mb-4">Me Suivre</h4>
+            <h4 className="text-lg font-semibold mb-4 ">Me Suivre</h4>
             <div className="flex justify-center md:justify-end space-x-4">
               {contact
-                .filter((item) => !['Instagram', 'Facebook', 'WhatsApp'].includes(item.label))
+                .filter((item) => !['Instagram', 'Facebook', 'WhatsApp', 'Github', 'LinkedIn'].includes(item.label))
                 .map((item) => {
                   const Icon = socialIcons[item.label];
                   if (!Icon) return null;
@@ -94,7 +115,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright agence */}
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-700 text-center font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
           <p>© {currentYear} Bendelo freelance | Software Engineer. Tous droits réservés.</p>
         </div>
       </div>

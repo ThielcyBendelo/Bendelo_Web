@@ -206,7 +206,7 @@ export default function Services() {
         </h1>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
           Découvrez une gamme complète de mes services informatiques professionnels.
-          Du développement web aux solutions cloud, Ingénieur Bendelo Freelance  accompagnent votre transformation digitale.
+          Du développement web aux solutions cloud, Bendelo Freelance  accompagne votre transformation digitale.
         </p>
       </motion.div>
 

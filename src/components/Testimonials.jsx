@@ -227,19 +227,19 @@ export default function Testimonials() {
           variants={itemVariants}
         >
           <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2">50+</div>
+            <div className="text-3xl font-bold text-white mb-2"></div>
             <div className="text-gray-400">Projets réalisés</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2">100%</div>
+            <div className="text-3xl font-bold text-white mb-2"></div>
             <div className="text-gray-400">Satisfaction</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2">5★</div>
+            <div className="text-3xl font-bold text-white mb-2"></div>
             <div className="text-gray-400">Note moyenne</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2">2025</div>
+            <div className="text-3xl font-bold text-white mb-2"></div>
             <div className="text-gray-400">Année</div>
           </div>
         </Motion.div>

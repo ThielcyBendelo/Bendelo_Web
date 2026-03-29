@@ -106,19 +106,19 @@ export default function About() {
             variants={textVariants}
           >
             <p>
-              <strong>Expertise complète :</strong> Ingénieur Logiciel Full Stack Freelance propose des solutions informatiques sur mesure : développement web, cybersécurité, cloud, maintenance, et transformation digitale. Nous accompagnons les entreprises dans leur croissance grâce à des technologies innovantes et des conseils stratégiques.
+              <strong><span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Expertise complète</span> :</strong> Ingénieur Logiciel Full Stack Freelance propose des solutions informatiques sur mesure : développement web, cybersécurité, cloud, maintenance, et transformation digitale. Nous accompagnons les entreprises dans leur croissance grâce à des technologies innovantes et des conseils stratégiques.
             </p>
             <p>
-              <strong>Certification :</strong> Ingénieur Bendelo et ses consultants sont certifiés dans les dernières technologies (AWS, Azure, Google Cloud, React, Node.js, DevOps) et suivent une formation continue pour garantir la qualité et la sécurité de vos projets.
+              <strong><span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Certification</span> :</strong> Bendelo Freelance et ses collaborateurs de MUAMOKEL AGENCY sont certifiés dans les dernières technologies (AWS, Azure, Google Cloud, React, Node.js, DevOps) et suivent une formation continue pour garantir la qualité et la sécurité de vos projets.
             </p>
             <p>
-              <strong>Accompagnement personnalisé :</strong> De l’audit à la mise en production, nous assurons un suivi rigoureux, des livrables clairs, et une communication transparente. Mon objectif : la réussite de votre projet et la satisfaction de vos utilisateurs.
+              <strong><span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Accompagnement personnalisé</span> :</strong> De l’audit à la mise en production, nous assurons un suivi rigoureux, des livrables clairs, et une communication transparente. Mon objectif : la réussite de votre projet et la satisfaction de vos utilisateurs.
             </p>
             <p>
-              <strong>Engagement qualité :</strong> ILFSF Bendelo respecte les meilleures pratiques, les normes de sécurité, et les délais. Chaque projet bénéficie d’un support dédié et d’une garantie de performance.
+              <strong><span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Engagement qualité</span> :</strong> Bendelo Freelance respecte les meilleures pratiques, les normes de sécurité, et les délais. Chaque projet bénéficie d’un support dédié et d’une garantie de performance.
             </p>
             <p>
-              <strong>Contactez-moi</strong> pour un devis gratuit, une démonstration, ou un rendez-vous dans mon bureau à Kinshasa. Votre transformation digitale commence ici !
+              <strong></strong> pour un devis gratuit, une démonstration, ou un rendez-vous dans nos bureaux à Kinshasa. Votre transformation digitale commence ici !
             </p>
           </motion.div>
         </div>
