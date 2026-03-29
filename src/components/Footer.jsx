@@ -115,7 +115,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright agence */}
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+        <div className="mt-3 pt-3 border-t border-gray-400 text-center font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-1)] text-transparent bg-clip-text">
           <p>© {currentYear} Bendelo freelance | Software Engineer. Tous droits réservés.</p>
         </div>
       </div>

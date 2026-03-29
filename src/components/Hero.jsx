@@ -158,7 +158,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                Ingénieur Logiciel Full stack Freelance et Entrepreneur.
+                Ingénieur Logiciel Full stack Freelance & Entrepreneur.
               </motion.p>
             </motion.div>
           </div>

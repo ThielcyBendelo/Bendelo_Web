@@ -10,7 +10,6 @@ import authService from '../services/authService';
 export default function NavbarSecured() { 
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(audioService.isEnabled());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -60,36 +59,9 @@ export default function NavbarSecured() {
     }
   }, [theme]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    audioService.playClick();
-    analyticsService.trackEvent('theme_toggle', {
-      theme: newTheme,
-      category: 'user_interface',
-    });
-    notificationService.info(
-      `Mode ${newTheme === 'dark' ? 'sombre' : 'clair'} activé`,
-      { autoClose: 2000, icon: newTheme === 'dark' ? '🌙' : '☀️' }
-    );
-  };
 
-  const toggleAudio = async () => {
-    const newState = audioService.toggle();
-    setAudioEnabled(newState);
 
-    analyticsService.trackEvent('audio_toggle', {
-      enabled: newState,
-      category: 'user_preferences',
-    });
-
-    if (newState) {
-      audioService.playSuccess();
-      notificationService.success('🔊 Sons activés', { autoClose: 2000 });
-    } else {
-      notificationService.info('🔇 Sons désactivés', { autoClose: 2000 });
-    }
-  };
+  
 
   const toggleMenu = () => {
     const newState = !isOpen;
@@ -186,6 +158,7 @@ export default function NavbarSecured() {
       ],
     },
 {
+  
       items: [
         { href: '/testimonials', label: 'Témoignages clients'},
       ],
@@ -196,8 +169,8 @@ export default function NavbarSecured() {
   return (
     <>
       
-      <nav className="fixed top-6 left-0 right-0 bg-dark-100/90 backdrop-blur-black z-50 border-b border-gray-400/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="fixed top-4 left-4 right-4 bg-dark-90/100 backdrop-blur-yellow-600 z-50 border-b border-yellow-500 via-orange-500 to-red-500 ">
+        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/* Logo */}
             <div
@@ -207,7 +180,7 @@ export default function NavbarSecured() {
                 setIsOpen(false);
               }}
             >
-              <GiEagleEmblem className="text-5xl text-yellow-500" />
+              <GiEagleEmblem className="text-5xl text-yellow-500 via-orange-500 to-red-500 text-transparent" />
               <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
                 Bendelo.Free
               </span>
@@ -217,7 +190,7 @@ export default function NavbarSecured() {
               {navGroups.map((group) => (
                 <div key={group.label} className="relative group">
                   <button
-                    className="text-gray-300 hover:text-white font-semibold text-sm px-3 py-2 rounded-lg bg-transparent group-hover:bg-dark-300 transition-colors"
+                    className="text-gray-300 hover:text-yellow-500 via-orange-500 to-red-500 font-semibold text-sm px-3 py-2 rounded-lg bg-transparent group-hover:bg-dark-300 transition-colors"
                     style={{
                       cursor: group.items.length > 1 ? 'pointer' : 'default',
                     }}
@@ -231,7 +204,7 @@ export default function NavbarSecured() {
                           key={item.href}
                           href={item.href}
                           onClick={(e) => handleNavClick(item.href, e)}
-                          className="flex items-center gap-2 px-5 py-3 text-gray-300 hover:text-white hover:bg-purple/20 text-base rounded-xl transition-all duration-200 font-medium group-hover:scale-105"
+                          className="flex items-center gap-2 px-5 py-3 text-gray-400 hover:text-yellow-500 via-orange-500 to-red-500 hover:bg-purple/20 text-base rounded-xl transition-all duration-200 font-medium group-hover:scale-105"
                         >
                           <span className="text-lg">{item.icon}</span> {item.label}
                         </a>
@@ -260,89 +233,9 @@ export default function NavbarSecured() {
                 </button>
               )}
             </div>
-            {/* Controls & Auth */}
-            <div className="flex items-center gap-2 sm:gap-3">
-              {/* Audio toggle */}
-              <button
-                onClick={toggleAudio}
-                onMouseEnter={() => audioService.playHover()}
-                aria-label="Basculer sons"
-                className="p-2 rounded-md text-gray-400 hover:text-white transition-colors hidden sm:block"
-                title={
-                  audioEnabled ? 'Désactiver les sons' : 'Activer les sons'
-                }
-              >
-                {audioEnabled ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M9 12a3 3 0 013-3m-3 3a3 3 0 01-3-3m3 3v4l-6-4H3a1 1 0 01-1-1V8a1 1 0 011-1h3l6-4v4"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5.586 15H4a1 1 0 01-1-1V8a1 1 0 011-1h1.586l4.707-4.707C10.923 1.663 12 2.109 12 3v18c0 .891-1.077 1.337-1.707.707L5.586 17M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-                    />
-                  </svg>
-                )}
-              </button>
+            
               {/* Theme toggle */}
-              <button
-                onClick={toggleTheme}
-                onMouseEnter={() => audioService.playHover()}
-                aria-label="Basculer thème"
-                className="p-2 rounded-md text-gray-400 hover:text-font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text transition-colors hidden sm:block"
-              >
-                {theme === 'dark' ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                )}
-              </button>
+             
               {/* Dashboard Button (Secure) */}
               {isAuthenticated && (
                 <button
@@ -403,7 +296,7 @@ export default function NavbarSecured() {
                   <button
                     onClick={handleLogin}
                     onMouseEnter={() => audioService.playHover()}
-                    className="flex items-center gap-2 px-3 py-2 text-gray-300 border border-gray-600/50 rounded-lg hover:text-white hover:border-purple/50 transition-colors text-sm"
+                    className="flex items-center gap-2 px-3 py-2 text-gray-300 border-gray-600/50 rounded-lg hover:text-yellow-400 via-orange-500 to-red-500 hover:border-purple/50 transition-colors text-sm"
                   >
                     <FaSignInAlt className="h-4 w-4" />
                     Connexion
@@ -411,7 +304,7 @@ export default function NavbarSecured() {
                   <button
                     onClick={handleRegister}
                     onMouseEnter={() => audioService.playHover()}
-                    className="px-4 py-2 bg-gradient-to-r from-purple to-pink text-white rounded-lg hover:shadow-lg hover:shadow-purple-500/40 transition-all text-sm font-semibold"
+                    className="px-4 py-2 bg-gradient-to-r from-purple to-pink text-gray-300 border-gray-600/50 rounded-lg hover:text-yellow-400 via-orange-500 to-red-500 hover:border-purple/50 transition-colors text-sm"
                   >
                     S'inscrire
                   </button>
@@ -457,10 +350,10 @@ export default function NavbarSecured() {
               </button>
             </div>
           </div>
-        </div>
+        
         {/* Mobile menu avec sous-menus professionnels */}
         {isOpen && (
-          <div className="md:hidden bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800/95 backdrop-blur border-t border-gray-700/30">
+          <div className="md:hidden bg-gradient-to-br from-gray-400 via-purple-900 to-gray-800/95 backdrop-blur border-t border-gray-700/30">
             <div className="px-2 pt-2 pb-3 space-y-2">
               {navGroups.map((group) => (
                 <div key={group.label} className="mb-4">

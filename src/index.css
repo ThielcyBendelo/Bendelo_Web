@@ -53,16 +53,16 @@
   --border-color: #374151;
 }
 
-/* Mode clair */
+Mode clair
 [data-theme='light'] {
   --bg: #ffffff;
-  --surface: #f8fafc;
+  --surface: #00050a;
   --muted: #0f172a;
-  --muted-2: #334155;
+  --muted-2: #ffffff;
   --accent-1: #7c3aed;
   --accent-2: #db2777;
-  --text-primary: #0f172a;
-  --text-secondary: #1e293b;
+  --text-primary: #01050f;
+  --text-secondary: #010a18;
   --border-color: #e2e8f0;
 }
 
@@ -260,16 +260,16 @@ body {
   }
 
   /* Améliorations pour le mode clair */
-  [data-theme='light'] .text-gray-300 {
-    color: #374151 !important;
+  [data-theme='light'] .text-black {
+    color: #000008 !important;
   }
 
   [data-theme='light'] .text-gray-400 {
-    color: #1f2937 !important;
+    color: #f7f7f8 !important;
   }
 
   [data-theme='light'] .text-gray-500 {
-    color: #111827 !important;
+    color: #f7f7f8 !important;
   }
 
   [data-theme='light'] .bg-dark-100 {
@@ -289,8 +289,8 @@ body {
   }
 
   /* Textes spécifiques en mode clair */
-  [data-theme='light'] .text-white {
-    color: #0f172a !important;
+  [data-theme='light'] .text-black {
+    color: #010e1f !important;
   }
 
   [data-theme='light'] .border-dark-300 {
@@ -298,37 +298,37 @@ body {
   }
 
   [data-theme='light'] .hover\:border-purple:hover {
-    border-color: #7c3aed !important;
+    border-color: #ac08c2 !important;
   }
 
   /* Cards en mode clair */
   [data-theme='light'] .card-base {
-    background-color: #ffffff;
+    background-color: #ac08c2;
     border: 1px solid #e2e8f0;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px 0 rgb(0 0 0 / 0.06);
   }
 
   /* Amélioration des textes gris en mode clair */
-  [data-theme='light'] .text-gray-200 {
-    color: #1e293b !important;
+  [data-theme='light'] .text-gray-400 {
+    color: #010113 !important;
   }
 
-  [data-theme='light'] .text-gray-600 {
+  [data-theme='light'] .text-gray-400 {
     color: #0f172a !important;
   }
 
-  [data-theme='light'] .text-gray-700 {
+  [data-theme='light'] .text-gray-400 {
     color: #0f172a !important;
   }
 
   /* Bordures grises en mode clair */
-  [data-theme='light'] .border-gray-700 {
-    border-color: #cbd5e1 !important;
+  [data-theme='light'] .border-gray-400 {
+    border-color: #290135 !important;
   }
 
   /* Backgrounds pour formulaires et modals en mode clair */
   [data-theme='light'] .bg-dark-200\/50 {
-    background-color: rgba(248, 250, 252, 0.9) !important;
+    background-color: #7c3aed !important;
   }
 
   [data-theme='light'] .backdrop-blur-sm {
