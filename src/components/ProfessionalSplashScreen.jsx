@@ -308,7 +308,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
                   transition={{ duration: 0.6 }}
                   className="text-6xl mb-4"
                 >
-                  ✓
+  
                 </motion.div>
                 <h2 className="text-2xl font-bold">Welcome !</h2>
               </div>

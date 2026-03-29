@@ -28,7 +28,7 @@ function FAQSection() {
         <div className="space-y-6">
           {faqs.map((faq, idx) => (
             <details key={idx} className="bg-from-black via-black-50 to-blur-50 rounded-xl shadow p-4 border border-blue-100">
-              <summary className="text-xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text cursor-pointer text-lg">{faq.question}</summary>
+              <summary className="font-semibold text-blue-400 cursor-pointer text-lg">{faq.question}</summary>
               <div className="mt-2 text-gray-400 text-base">{faq.answer}</div>
             </details>
           ))}
