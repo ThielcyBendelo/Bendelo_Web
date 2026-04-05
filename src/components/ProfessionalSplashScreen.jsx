@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
+import { logocopy } from '../assets/assets.js';
 
 export default function ProfessionalSplashScreen({ onComplete }) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -65,41 +66,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
     };
   }, [currentStep, onComplete, loadingSteps]);
 
-  const Variants = {
-    initial: { scale: 0, rotate: -180, opacity: 0 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: 'easeOut',
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
-    pulse: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  };
-
-  const textVariants = {
-    initial: { y: 30, opacity: 0 },
-    animate: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        delay: 0.5,
-        duration: 0.8,
-        ease: 'easeOut',
-      },
-    },
-  };
+ 
 
   const progressVariants = {
     initial: { scaleX: 0 },
@@ -132,8 +99,11 @@ export default function ProfessionalSplashScreen({ onComplete }) {
           exit={exitVariants.exit}
           className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{
-            background:
-              'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%)',
+            background: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${logocopy}) no-repeat center center fixed`,
+            backgroundSize: '50% 250px',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+           
           }}
         >
           {/* Animated Background */}
@@ -195,24 +165,7 @@ export default function ProfessionalSplashScreen({ onComplete }) {
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="relative z-10 text-center max-w-md mx-auto px-6">
-            {/* Logo */}
-            
-
-            {/* Company Name */}
-            <motion.div
-              variants={textVariants}
-              initial="initial"
-              animate="animate"
-              className="mb-8"
-            >
-              <h1 className="text-3xl font-bold font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text mb-8"><span>Software </span>Engineer</h1>
-              <p className="text-lg md:text-2xl text-gray-300 mb-2 font-medium">
-                Solutions Digitales Innovantes
-              </p>
-              <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
-            </motion.div>
+       
 
             {/* Loading Steps */}
             <motion.div
@@ -265,55 +218,13 @@ export default function ProfessionalSplashScreen({ onComplete }) {
             </motion.div>
 
             {/* Features Preview */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: currentStep >= 3 ? 1 : 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex justify-center space-x-8 text-slate-400"
-            >
-              {[
-                { icon: '🎨', label: 'Design' },
-                { icon: '⚡', label: 'Performance' },
-                { icon: '🚀', label: 'Innovation' },
-              ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{
-                    delay: 1.5 + index * 0.2,
-                    duration: 0.4,
-                    type: 'spring',
-                    stiffness: 200,
-                  }}
-                  className="text-center"
-                >
-                  <div className="text-2xl mb-1">{feature.icon}</div>
-                  <div className="text-xs">{feature.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+         
+       
 
           {/* Loading Completion */}
-          {currentStep >= loadingSteps.length && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600"
-            >
-              <div className="text-center text-white">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                  className="text-6xl mb-4"
-                >
-  
-                </motion.div>
-                <h2 className="text-2xl font-bold">Welcome !</h2>
-              </div>
-            </motion.div>
-          )}
+          
+            
+       
         </motion.div>
       )}
     </AnimatePresence>

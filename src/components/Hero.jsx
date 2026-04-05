@@ -18,7 +18,7 @@ export default function Hero() {
   const backgrounds = [
     '/background1.jpg',
     '/background2.jpg',
-    '/background4.jpg',
+    '/background7.jpeg',
   ];
   const [bgIndex, setBgIndex] = useState(0);
 
@@ -85,149 +85,117 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-20">
-        {/* Profile Image avec animation sophistiquée */}
-        <AnimatedSection variant="scaleIn" delay={0.2}>
-          <div className="mb-8 flex justify-center">
-            <motion.div
-              whileHover={{
-                scale: 1.1,
-                rotate: 5,
-                transition: { type: 'spring', stiffness: 300 },
-              }}
-              className="relative"
-            >
-              <LazyImage
-                src={profile1Image}
-                alt="Ir Bendelo Thielcy"
-                className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-purple shadow-neon-purple relative z-10"
-                priority={true}
-                placeholder={
-                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-r from-purple to-pink animate-pulse border-4 border-purple" />
-                }
-              />
-              {/* Cercle animé autour de la photo */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-gradient-to-r from-blue-400 to-purple-500"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              />
-              <motion.div
-                className="absolute inset-[-8px] rounded-full border border-purple-400/30"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-              />
-            </motion.div>
-          </div>
-        </AnimatedSection>
+      <div className="relative z-20 max-w-4xl mx-auto px-4 py-12">
+  {/* Profile Image avec animation sophistiquée */}
+  <AnimatedSection variant="scaleIn" delay={0.2}>
+    <div className="mb-12 flex justify-center">
+      <motion.div
+        whileHover={{
+          scale: 1.05,
+          rotate: 2,
+          transition: { type: 'spring', stiffness: 300 },
+        }}
+        className="relative p-2"
+      >
+        {/* Glow de fond pour la profondeur */}
+        <div className="absolute inset-0 bg-purple-600/20 blur-3xl rounded-full" />
+        
+        <LazyImage
+          src={profile1Image}
+          alt="Ir Bendelo Thielcy"
+          className="w-48 h-48 md:w-62 md:h-60 rounded-full object-cover border-4 border-[var(--accent-1)] shadow-2xl relative z-10"
+          style={{ objectPosition: 'center 35%' }}
+          priority={true}
+          placeholder={
+            <div className="w-44 h-44 md:w-60 md:h-60 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 animate-pulse" />
+          }
+        />
 
-        {/* Titre d'accueil avec animations staggered */}
-        <AnimatedSection variant="slideUp" delay={0.4}>
-          <div className="mb-8 text-center">
-            <motion.h2
-              className="text-2xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-transparent bg-clip-text"
-              animate={{
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              style={{ backgroundSize: '200% 200%' }}
-            >
-              BONJOUR! 👋
-            </motion.h2>
+        {/* Cercles orbitaux plus élégants */}
+        <motion.div
+          className="absolute inset-0 rounded-full border-2 border-dashed border-purple-500/40"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+        />
+        <motion.div
+          className="absolute inset-[-12px] rounded-full border border-blue-400/20"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        />
+      </motion.div>
+    </div>
+  </AnimatedSection>
 
-            <motion.p
-              className="text-lg md:text-2xl text-gray-300 mb-2 font-medium"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Bienvenue Chez Moi, Je suis
-            </motion.p>
+  {/* Titre d'accueil avec typographie améliorée */}
+  <AnimatedSection variant="slideUp" delay={0.4}>
+    <div className="mb-10 text-center space-y-4">
+      <motion.h2
+        className="text-3xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-transparent bg-clip-text leading-tight"
+        animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+        style={{ backgroundSize: '200% 200%', fontFamily: "'Antonio', sans-serif" }}
+      >
+        Bendelo Thielcy
+      </motion.h2>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
-            >
-              <motion.p
-                className="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-4"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              >
-                Ingénieur Logiciel Full stack Freelance & Entrepreneur.
-              </motion.p>
-            </motion.div>
-          </div>
-        </AnimatedSection>
+      <motion.div className="space-y-2">
+        <p className="text-xl md:text-3xl text-white font-bold tracking-tight">
+          Freelance & Entrepreneur
+        </p>
+        <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Ingénieur Logiciel spécialisé en développement <span className="text-blue-400">web</span> et <span className="text-purple-400">mobile</span>.
+        </p>
+      </motion.div>
 
-        {/* Boutons avec animations micro-interactions */}
-        <AnimatedSection variant="slideUp" delay={1.0}>
-          <motion.div
-            className="flex gap-4 justify-center"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.2,
-                },
-              },
-            }}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.button
-              type="button"
-              onClick={() => navigate('/contact')}
-              className="group relative px-8 py-3 bg-gradient-to-r from-purple to-pink text-white rounded-lg overflow-hidden"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: '0 20px 40px rgba(236, 144, 6, 0.69)',
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span className="relative z-10 font-semibold">Me contacter</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-pink-500 to-red-500"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.8 }}
+        className="pt-4"
+      >
+        <motion.p
+          className="inline-block px-6 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-sm md:text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"
+          whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.08)" }}
+        >
+          Propulsant l'innovation chez <span className="font-bold underline decoration-purple-500/50">MUAMOKEL AGENCY</span>
+        </motion.p>
+      </motion.div>
+    </div>
+  </AnimatedSection>
 
-            <motion.button
-              type="button"
-              onClick={() => navigate('/projects')}
-              className="group relative px-8 py-3 bg-dark-300 text-white rounded-lg border border-purple overflow-hidden"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: '0 20px 40px rgba(139, 92, 246, 0.2)',
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span className="relative z-10 font-semibold">Mes Projets</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-                style={{ originX: 0.5, originY: 0.5 }}
-              />
-            </motion.button>
-          </motion.div>
-        </AnimatedSection>
-      </div>
+  {/* Boutons d'action avec meilleur équilibre visuel */}
+  <AnimatedSection variant="slideUp" delay={1.0}>
+    <motion.div
+      className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.button
+        onClick={() => navigate('/contact')}
+        className="w-full sm:w-auto group relative px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-lg shadow-purple-500/25 overflow-hidden transition-all"
+        whileHover={{ scale: 1.05, y: -2 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <span className="relative z-10 font-bold tracking-wide">Me contacter</span>
+        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+      </motion.button>
+
+      <motion.button
+        onClick={() => navigate('/projects')}
+        className="w-full sm:w-auto group relative px-10 py-4 bg-transparent text-white rounded-xl border-2 border-purple-500/50 overflow-hidden backdrop-blur-md"
+        whileHover={{ scale: 1.05, borderColor: "var(--accent-1)" }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <span className="relative z-10 font-bold tracking-wide">Mes Projets</span>
+        <motion.div
+          className="absolute inset-0 bg-purple-600/10"
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+        />
+      </motion.button>
+    </motion.div>
+  </AnimatedSection>
+</div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">

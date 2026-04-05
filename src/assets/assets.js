@@ -13,56 +13,127 @@ export const programmationImage = '/images/image.programmation2.jpg';
 export const reactLogo = '/images/react.svg';
 export const logoImage = '/images/logo.png';
 export const logocopy = '/images/logocopy.jpeg';
+export const background7 = '/images/background7.jpeg';
+export const irBendelo = '/images/irbendelo1.jpeg';
+export const irthielcy1 = '/images/irthielcy1.jpeg';
 
 export const about =
   "Ingénieur logiciel polyvalent avec expertise en développement Full Stack, spécialisé dans la création d'applications web et mobiles robustes et évolutives. Expérience en gestion de projet, tests logiciels et architecture moderne.";
 
+// --- SECTION SKILLS (COMPÉTENCES) ---
 export const skills = [
-  // Frontend
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Vue.js',
-  'HTML',
-  'CSS',
-  'Tailwind CSS',
-  // Backend
-  'Node.js',
-  'Express',
-  'Python',
-  'Django',
-  'PHP',
-  'Java',
-  // Databases
-  'MongoDB',
-  'PostgreSQL',
-  'MySQL',
-  // Testing & QA
-  'Jest',
-  'Cypress',
-  'Postman',
-  // DevOps & Tools
-  'Git',
-  'Docker',
-  'CI/CD',
-  // Ajout des nouvelles compétences
-  'AI',
-  'Excel Avancé',
-  'Leadership',
+  // FRONTEND
+  { name: "React", level: 95, category: "frontend" },
+  { name: "JavaScript", level: 92, category: "frontend" },
+  { name: "HTML", level: 100, category: "frontend" },
+  { name: "CSS", level: 95, category: "frontend" },
+  { name: "Tailwind CSS", level: 90, category: "frontend" },
+  { name: "TypeScript", level: 85, category: "frontend" },
+
+  // BACKEND
+  { name: "Node.js", level: 88, category: "backend" },
+  { name: "Express.js", level: 85, category: "backend" },
+  { name: "MongoDB", level: 82, category: "backend" },
+  { name: "Firebase", level: 80, category: "backend" },
+  { name: "API Rest", level: 90, category: "backend" },
+
+  // TOOLS & CLOUD
+  { name: "Git", level: 90, category: "tools" },
+  { name: "Docker", level: 75, category: "tools" },
+  { name: "Responsive Design", level: 100, category: "tools" },
+  { name: "AWS", level: 70, category: "tools" },
+  { name: "Cybersécurité", level: 80, category: "tools" }
 ];
+
+export const projets = [
+  {
+    titre: 'TechInnov - Site Vitrine',
+    image: 'https://unsplash.com',
+    description: 'Refonte complète du site vitrine pour TechInnov avec design moderne et SEO optimisé.',
+    technologies: ['React', 'Tailwind CSS', 'Next.js'],
+    categorie: 'web', // <--- IMPORTANT : web, mobile ou all
+    lienDemo: '#',
+    lienGithub: '#',
+  },
+  {
+    id: 2,
+    titre: 'EcomAfrica - E-commerce',
+    image: 'https://unsplash.com',
+    description: "Plateforme e-commerce sur-mesure avec paiement sécurisé et gestion des stocks.",
+    technologies: ['Node.js', 'MongoDB', 'React'],
+    categorie: 'web',
+    lienDemo: '#',
+    lienGithub: '#',
+  },
+  {
+    id: 3,
+    titre: 'StartupX - App Mobile',
+    image: 'https://unsplash.com',
+    description: 'Application mobile hybride pour StartupX avec notifications push et design responsive.',
+    technologies: ['React Native', 'Firebase', 'Expo'],
+    categorie: 'mobile',
+    lienDemo: '#',
+    lienGithub: '#',
+  },
+  {
+    id: 4,
+    titre: 'DataFlow - Dashboard',
+    image: 'https://unsplash.com',
+    description: 'Tableau de bord analytique en temps réel avec visualisations avancées.',
+    technologies: ['React', 'D3.js', 'Python'],
+    categorie: 'web',
+    lienDemo: '#',
+    lienGithub: '#',
+  },
+  {
+    id: 5,
+    titre: 'SecureBank - Fintech',
+    image: 'https://unsplash.com',
+    description: 'Application bancaire sécurisée avec authentification biométrique.',
+    technologies: ['React Native', 'Node.js', 'PostgreSQL'],
+    categorie: 'mobile',
+    lienDemo: '#',
+    lienGithub: '#',
+  }
+];
+
+
+
+export const testimonials = [
+  {
+    name: "Jean-Marc Kabila",
+    role: "Directeur IT - TechRDC",
+    content: "Bendelo a transformé notre infrastructure cloud avec une efficacité redoutable. Un expert passionné et très rigoureux.",
+    avatar: "https://randomuser.me"
+  },
+  {
+    name: "Sarah Maluku",
+    role: "Fondatrice - Boutique Connect",
+    content: "Grâce à son expertise React, notre site e-commerce est plus rapide que jamais. Je recommande vivement ses services freelance.",
+    avatar: "https://randomuser.me"
+  },
+  {
+    name: "Alain Ngoy",
+    role: "Product Manager - Muamokeli Agency",
+    content: "Un collaborateur précieux qui maîtrise aussi bien le frontend que le backend. Ses solutions sont toujours scalables et sécurisées.",
+    avatar: "https://randomuser.me"
+  }
+];
+
+
 
 export const experiences = [
   {
     role: 'Ingénieur Full Stack',
-    company: 'Digital Innovation Lab',
-    year: '2024-Présent',
+    company: 'Muamokel-Agency',
+    year: '2025-Présent',
     type: 'full-time',
     description:
       "Développement end-to-end d'applications web (React/Node.js/MongoDB), intégration CI/CD, et optimisation des performances (+40% de rapidité).",
   },
   {
     role: 'Développeur Backend',
-    company: 'Mwamokel Services',
+    company: 'Mwamokel-Agency',
     year: '2023-2024',
     type: 'full-time',
     description:
@@ -70,7 +141,7 @@ export const experiences = [
   },
   {
     role: 'Testeur Logiciel / QA Engineer',
-    company: 'Mwamokel Services',
+    company: 'Mwamokel-Agency',
     year: '2023-2024',
     type: 'full-time',
     description:
@@ -78,15 +149,32 @@ export const experiences = [
   },
   {
     role: 'Développeur Frontend',
-    company: 'Mwamokel Sevice',
+    company: 'Mwamokel-Agency',
     year: '2023-2024',
     type: 'full-time',
     description:
       "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
   },
+{
+    role: 'Ingénieur Full Stack',
+    company: 'Chargé de rélation publiques & maintenance système informatique',
+    year: 'Présent',
+    type: 'full-time',
+    description:
+      "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
+  },
+  {
+    role: 'Ingénieur Full stack',
+    company: 'Il-Christ-Business',
+    year: 'Présent',
+    type: 'full-time',
+    description:
+      "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
+  },
+
 ];
 
-export const projets = [
+export const projects = [
   {
     titre: 'Portfolio React',
     description: 'Site personnel pour présenter mes projets et compétences.',

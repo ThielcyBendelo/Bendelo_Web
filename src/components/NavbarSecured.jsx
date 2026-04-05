@@ -1,415 +1,258 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GiEagleEmblem } from 'react-icons/gi';
-import { FaSignInAlt, FaSignOutAlt, FaTachometerAlt } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+// Un seul bloc d'importation sans doublons
+import { 
+  FaBars, FaTimes, FaSun, FaMoon, FaEnvelope, 
+  FaSignInAlt, FaSignOutAlt, FaTachometerAlt,
+  FaHome, FaTools, FaBriefcase, FaUser, FaCode, FaChevronDown,  FaLayerGroup  
+} from 'react-icons/fa';
+
 import notificationService from '../services/notificationService';
 import audioService from '../services/audioService';
 import analyticsService from '../services/analyticsService';
 import authService from '../services/authService';
 
-export default function NavbarSecured() { 
+export default function NavbarSecured() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(audioService.isEnabled());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const [theme, setTheme] = useState(() => {
     try {
       const stored = localStorage.getItem('theme');
       if (stored) return stored;
-      if (
-        window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      )
-        return 'dark';
-    } catch {
-      // ignore errors (e.g., SSR or private mode)
-    }
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    } catch { return 'light'; }
     return 'light';
   });
-  // Log après tous les hooks
-  console.log('[NavbarSecured] Render:', { isAuthenticated, currentUser });
+
   useEffect(() => {
-    // Initialiser la session automatiquement au chargement
     authService.initialize().then(() => {
-      const loggedIn = authService.isLoggedIn();
-      const user = authService.getCurrentUser();
-      setIsAuthenticated(loggedIn);
-      setCurrentUser(user);
-      console.log('[NavbarSecured] INIT:', { loggedIn, user });
+      setIsAuthenticated(authService.isLoggedIn());
+      setCurrentUser(authService.getCurrentUser());
     });
 
-    // Écouter les changements d'authentification
     const interval = setInterval(() => {
-      const loggedIn = authService.isLoggedIn();
-      const user = authService.getCurrentUser();
-      setIsAuthenticated(loggedIn);
-      setCurrentUser(user);
-      console.log('[NavbarSecured] INTERVAL:', { loggedIn, user });
+      setIsAuthenticated(authService.isLoggedIn());
+      setCurrentUser(authService.getCurrentUser());
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    try {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-    } catch {
-      // ignore write errors
-    }
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
-
-
-  
-
-  const toggleMenu = () => {
-    const newState = !isOpen;
-    setIsOpen(newState);
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
     audioService.playClick();
-    analyticsService.trackEvent('mobile_menu_toggle', {
-      isOpen: newState,
-      category: 'navigation',
-    });
+    notificationService.info(`Mode ${newTheme === 'dark' ? 'sombre' : 'clair'} activé`, { icon: newTheme === 'dark' ? '🌙' : '☀️' });
   };
-
-  const handleLogin = () => {
-    navigate('/login');
-    setIsOpen(false);
-    audioService.playNavigate();
-  };
-
-  const handleRegister = () => {
-    navigate('/register');
-    setIsOpen(false);
-    audioService.playNavigate();
-  };
-
-  const handleDashboard = () => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
-      setIsOpen(false);
-      audioService.playNavigate();
-      notificationService.info('Redirection vers votre tableau de bord...', {
-        autoClose: 2000,
-      });
-    } else {
-      notificationService.warning(
-        '🔐 Veuillez vous connecter pour accéder au dashboard',
-        {
-          autoClose: 3000,
-        }
-      );
-      navigate('/login');
-    }
-  };
-
-  
 
   const handleLogout = async () => {
     try {
       await authService.logout();
       setIsAuthenticated(false);
       setCurrentUser(null);
-      setShowUserMenu(false);
-      setIsOpen(false);
-      notificationService.success('✓ Déconnexion réussie', { autoClose: 2000 });
+      notificationService.success('✓ Déconnexion réussie');
       navigate('/');
-      audioService.playSuccess();
     } catch {
-      notificationService.error('Erreur lors de la déconnexion', {
-        autoClose: 3000,
-      });
+      notificationService.error('Erreur lors de la déconnexion');
     }
   };
 
-  // ...existing code...
   const handleNavClick = (section, e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (isOpen) setIsOpen(false);
     audioService.playNavigate();
-    analyticsService.trackEvent('navigation_click', {
-      section,
-      category: 'navigation',
-    });
-    if (section.startsWith('/')) {
-      navigate(section);
-    }
+    if (section.startsWith('/')) navigate(section);
   };
 
-  // Navigation items
-  // Structure professionnelle avec sous-menus
+  const [activeGroup, setActiveGroup] = useState(null); // Pour gérer l'ouverture des catégories mobiles
+
+
   const navGroups = [
     {
-      label: 'À propos de moi',
+      label: 'Navigation',
       items: [
-        { href: '/', label: 'Accueil'},
-        { href: '/about', label: 'À propos de moi'},
-         { href: '/skills', label: 'Compétences' },
-        { href: '/experience', label: 'Expérience' },
+        { href: '/', label: 'Accueil', icon: <FaHome /> },
+        { href: '/services', label: 'Services', icon: <FaTools /> },
+        { href: '/projects', label: 'Projets', icon: <FaBriefcase /> },
+        { href: '/experience', label: 'Expérience', icon: <FaBriefcase /> },
+        { href: '/contact', label: 'Contact', icon: <FaEnvelope /> },
       ],
     },
     {
-      label: 'Mes Services',
+      label: 'Découvrir',
       items: [
-        { href: '/services', label: 'Services' },
-        { href: '/work', label: 'Travail' },
-        { href: '/offers', label: 'Offres'}, 
+        { href: '/about', label: 'À propos de moi', icon: <FaUser /> },
+        { href: '/testimonials', label: 'Témoignages', icon: <FaUser /> },
+        { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
+        { href: '/skills', label: 'Compétences', icon: <FaCode /> },
       ],
     },
-{
-  
-      items: [
-        { href: '/testimonials', label: 'Témoignages clients'},
-      ],
-    },
-
   ];
 
   return (
-    <>
-      
-      <nav className="fixed top-4 left-4 right-4 bg-dark-90/100 backdrop-blur-yellow-600 z-50 border-b border-yellow-500 via-orange-500 to-red-500 ">
-        <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            {/* Logo */}
-            <div
-              className="flex items-center gap-2 cursor-pointer hover:opacity-90 transition-opacity"
-              onClick={() => {
-                navigate('/');
-                setIsOpen(false);
-              }}
-            >
-              <GiEagleEmblem className="text-5xl text-yellow-500 via-orange-500 to-red-500 text-transparent" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-                Bendelo.Free
-              </span>
-            </div>
-            {/* Desktop Navigation avec sous-menus */}
-            <div className="hidden md:flex md:items-center gap-6">
-              {navGroups.map((group) => (
-                <div key={group.label} className="relative group">
-                  <button
-                    className="text-gray-300 hover:text-yellow-500 via-orange-500 to-red-500 font-semibold text-sm px-3 py-2 rounded-lg bg-transparent group-hover:bg-dark-300 transition-colors"
-                    style={{
-                      cursor: group.items.length > 1 ? 'pointer' : 'default',
-                    }}
-                  >
-                    {group.label}
-                  </button>
-                  {group.items.length > 1 && (
-                    <div className="absolute left-0 mt-2 min-w-[180px] bg-dark-300 border border-gray-700 rounded-xl shadow-2xl z-20 opacity-0 group-hover:opacity-100 group-hover:translate-y-2 transition-all duration-300">
-                      {group.items.map((item) => (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          onClick={(e) => handleNavClick(item.href, e)}
-                          className="flex items-center gap-2 px-5 py-3 text-gray-400 hover:text-yellow-500 via-orange-500 to-red-500 hover:bg-purple/20 text-base rounded-xl transition-all duration-200 font-medium group-hover:scale-105"
-                        >
-                          <span className="text-lg">{item.icon}</span> {item.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                  {group.items.length === 1 && (
-                    <a
-                      href={group.items[0].href}
-                      onClick={(e) => handleNavClick(group.items[0].href, e)}
-                      className="text-gray-300 hover:text-white text-sm px-3 py-2 rounded-lg transition-colors"
-                    >
-                      {group.items[0].icon} {group.items[0].label}
-                    </a>
-                  )}
-                </div>
-              ))}
-              {/* Bouton Clients visible uniquement pour admin */}
-              {isAuthenticated && currentUser?.role === 'admin' && (
-                <button
-                  type="button"
-                  onClick={() => navigate('/clients')}
-                  className="text-gray-300 hover:text-white transition-colors text-sm font-semibold px-3 py-1 rounded-lg border border-purple-500/40 bg-purple-500/10 ml-2"
-                >
-                  Clients
-                </button>
-              )}
-            </div>
-            
-              {/* Theme toggle */}
-             
-              {/* Dashboard Button (Secure) */}
-              {isAuthenticated && (
-                <button
-                  onClick={handleDashboard}
-                  onMouseEnter={() => audioService.playHover()}
-                  className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple to-pink text-white rounded-lg hover:shadow-lg hover:shadow-purple-500/40 transition-all text-sm font-semibold"
-                  title="Accéder au tableau de bord"
-                >
-                  <FaTachometerAlt className="h-4 w-4" />
-                  Dashboard
-                </button>
-              )}
-              {/* User Menu or Login Buttons */}
-              {isAuthenticated ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    onMouseEnter={() => audioService.playHover()}
-                    className="flex items-center gap-2 px-3 py-2 bg-dark-200 border border-gray-600/50 rounded-lg hover:bg-dark-300 transition-colors text-sm"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple to-pink flex items-center justify-center text-white text-xs font-bold">
-                      {currentUser?.email?.[0]?.toUpperCase() || 'U'}
-                    </div>
-                    <span className="hidden sm:inline text-gray-300">
-                      {currentUser?.email?.split('@')[0] || 'User'}
-                    </span>
-                  </button>
-                  {/* Dropdown Menu */}
-                  {showUserMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-dark-300 border border-gray-600/50 rounded-lg shadow-lg overflow-hidden z-50">
-                      <div className="px-4 py-3 border-b border-gray-600/30">
-                        <p className="text-sm text-gray-300">
-                          Connecté en tant que
-                        </p>
-                        <p className="text-sm font-semibold text-white truncate">
-                          {currentUser?.email}
-                        </p>
-                      </div>
-                      <button
-                        onClick={handleDashboard}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-dark-200 hover:text-white transition-colors flex items-center gap-2"
-                      >
-                        <FaTachometerAlt className="h-4 w-4" />
-                        Mon Dashboard
-                      </button>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-dark-200 transition-colors flex items-center gap-2 border-t border-gray-600/30"
-                      >
-                        <FaSignOutAlt className="h-4 w-4" />
-                        Déconnexion
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="hidden sm:flex items-center gap-2">
-                  <button
-                    onClick={handleLogin}
-                    onMouseEnter={() => audioService.playHover()}
-                    className="flex items-center gap-2 px-3 py-2 text-gray-300 border-gray-600/50 rounded-lg hover:text-yellow-400 via-orange-500 to-red-500 hover:border-purple/50 transition-colors text-sm"
-                  >
-                    <FaSignInAlt className="h-4 w-4" />
-                    Connexion
-                  </button>
-                  <button
-                    onClick={handleRegister}
-                    onMouseEnter={() => audioService.playHover()}
-                    className="px-4 py-2 bg-gradient-to-r from-purple to-pink text-gray-300 border-gray-600/50 rounded-lg hover:text-yellow-400 via-orange-500 to-red-500 hover:border-purple/50 transition-colors text-sm"
-                  >
-                    S'inscrire
-                  </button>
-                </div>
-              )}
-              {/* Mobile menu button */}
-              <button
-                onClick={toggleMenu}
-                onMouseEnter={() => audioService.playHover()}
-                className="md:hidden p-6 rounded-md text-yellow-500 hover:text-white"
-              >
-                {isOpen ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 26 26"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
+    <nav className="fixed top-0 left-0 right-0 backdrop-blur-md z-50 border-b transition-all duration-300"
+         style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
+          
+          {/* Logo */}
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+            <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text"
+                  style={{ fontFamily: "'Antonio', sans-serif" }}>
+              Mon Portfolio<span className="opacity-10"></span>
+            </span>
           </div>
-        
-        {/* Mobile menu avec sous-menus professionnels */}
-        {isOpen && (
-          <div className="md:hidden bg-gradient-to-br from-gray-400 via-purple-900 to-gray-800/95 backdrop-blur border-t border-gray-700/30">
-            <div className="px-2 pt-2 pb-3 space-y-2">
-              {navGroups.map((group) => (
-                <div key={group.label} className="mb-4">
-                  <div className="font-bold text-yellow-500 text-base mb-1 pl-2">{group.label}</div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8">
+            {navGroups.map((group) => (
+              <div key={group.label} className="relative group">
+                <button className="flex items-center gap-1 text-sm font-bold uppercase tracking-wider transition-colors hover:text-[var(--accent-1)]"
+                        style={{ color: 'var(--text-primary)' }}>
+                  {group.label} <FaChevronDown className="text-[10px] group-hover:rotate-180 transition-transform" />
+                </button>
+                <div className="absolute left-0 mt-2 min-w-[200px] rounded-2xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 overflow-hidden shadow-2xl"
+                     style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}>
                   {group.items.map((item) => (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      onClick={(e) => handleNavClick(item.href, e)}
-                      className="flex items-center gap-2 px-4 py-3 text-white hover:text-yellow-500 hover:bg-purple/40 text-base rounded-xl transition-all duration-200 font-medium"
-                    >
-                      <span className="text-lg">{item.icon}</span> {item.label}
-                    </a>
+                    <Link key={item.href} to={item.href} onClick={(e) => handleNavClick(item.href, e)}
+                          className="flex items-center gap-3 px-5 py-3 text-sm hover:bg-[var(--accent-1)] hover:text-white transition-colors"
+                          style={{ color: 'var(--text-secondary)' }}>
+                      {item.icon} {item.label}
+                    </Link>
                   ))}
                 </div>
-              ))}
-              <div className="border-t border-gray-700/30 pt-2 mt-2">
-                {isAuthenticated ? (
-                  <>
-                    <button
-                      onClick={handleDashboard}
-                      className="w-full text-left px-4 py-3 text-purple hover:bg-dark-300 rounded-xl text-base font-semibold transition-colors flex items-center gap-2"
-                    >
-                      <FaTachometerAlt className="h-4 w-4" />
-                      Dashboard
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-3 text-red-400 hover:bg-dark-300 rounded-xl text-base font-semibold transition-colors flex items-center gap-2"
-                    >
-                      <FaSignOutAlt className="h-4 w-4" />
-                      Déconnexion
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={handleLogin}
-                      className="w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-dark-300 rounded-xl text-base transition-colors flex items-center gap-2"
-                    >
-                      <FaSignInAlt className="h-4 w-4" />
-                      Connexion
-                    </button>
-                    <button
-                      onClick={handleRegister}
-                      className="w-full text-left px-4 py-3 text-purple hover:bg-dark-300 rounded-xl text-base font-semibold transition-colors"
-                    >
-                      S'inscrire
-                    </button>
-                  </>
-                )}
               </div>
+            ))}
+
+            {/* Actions */}
+            <div className="flex items-center gap-4 pl-4 border-l" style={{ borderColor: 'var(--border-color)' }}>
+              <button onClick={toggleTheme} className="p-2 rounded-xl transition-colors hover:bg-[var(--bg)]" style={{ color: 'var(--text-primary)' }}>
+                {theme === 'dark' ? <FaSun /> : <FaMoon />}
+              </button>
+
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3">
+                  <button onClick={() => navigate('/dashboard')} className="p-2 text-[var(--accent-1)] hover:scale-110 transition-transform">
+                    <FaTachometerAlt />
+                  </button>
+                  <button onClick={handleLogout} className="text-sm font-bold text-red-500 hover:opacity-80">
+                    <FaSignOutAlt className="inline mr-1" /> Quitter
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => navigate('/login')} className="text-sm font-bold text-[var(--accent-1)] hover:opacity-80">
+                  <FaSignInAlt className="inline mr-1" /> Connexion
+                </button>
+              )}
             </div>
           </div>
-        )}
-      </nav>
-    </>
+
+          {/* Mobile Toggle */}
+          <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)} style={{ color: 'var(--text-primary)' }}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+      </div>
+
+     {/* Mobile Menu avec Catégories Filtrées */}
+    <AnimatePresence>
+    {isOpen && (
+    <motion.div 
+      initial={{ x: '100%' }} 
+      animate={{ x: 0 }} 
+      exit={{ x: '100%' }} 
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      // C'est ici qu'on définit la hauteur totale (h-screen)
+      className="fixed inset-0 h-screen w-full md:hidden z-[100] flex flex-col" 
+      style={{ backgroundColor: 'var(--surface)' }}
+    >
+      {/* Header fixe */}
+      <div className="flex justify-between items-center px-6 h-16 border-b shrink-0" style={{ borderColor: 'var(--border-color)' }}>
+        <span className="font-bold text-[var(--accent-1)]">MENU PRINCIPAL</span>
+        <button onClick={() => setIsOpen(false)} className="text-2xl" style={{ color: 'var(--text-primary)' }}>
+          <FaTimes />
+        </button>
+      </div>
+
+      {/* Contenu défilant */}
+      <div className="flex-1 overflow-y-auto px-6 py-8">
+        <div className="space-y-4">
+          {navGroups.map((group) => (
+            <div key={group.label} className="border-b pb-2" style={{ borderColor: 'var(--border-color)' }}>
+              <button 
+                onClick={() => setActiveGroup(activeGroup === group.label ? null : group.label)}
+                className="flex items-center justify-between w-full py-3 text-lg font-bold uppercase"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                <span className="flex items-center gap-3">
+                  <FaLayerGroup className="text-[var(--accent-1)]" /> {group.label}
+                </span>
+                <FaChevronDown className={`transition-transform duration-300 ${activeGroup === group.label ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {activeGroup === group.label && (
+                  <motion.div 
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden pl-4"
+                  >
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={(e) => {
+                          handleNavClick(item.href, e);
+                          setIsOpen(false);
+                        }}
+                        className="flex items-center gap-4 py-4 text-base transition-colors"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        <span className="text-[var(--accent-1)]">{item.icon}</span>
+                        {item.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+
+        {/* Pied du menu mobile */}
+        <div className="pt-10 pb-10 flex flex-col gap-4">
+          <button onClick={toggleTheme} className="flex items-center gap-3 py-3 font-bold" style={{ color: 'var(--text-primary)' }}>
+            {theme === 'dark' ? <><FaSun className="text-yellow-400" /> Mode Clair</> : <><FaMoon className="text-blue-400" /> Mode Sombre</>}
+          </button>
+
+          {!isAuthenticated ? (
+            <button onClick={() => { navigate('/login'); setIsOpen(false); }} className="flex items-center gap-3 py-3 font-bold text-[var(--accent-1)]">
+              <FaSignInAlt /> Connexion
+            </button>
+          ) : (
+            <>
+              <button onClick={() => { navigate('/dashboard'); setIsOpen(false); }} className="flex items-center gap-3 py-3 font-bold text-[var(--accent-1)]">
+                <FaTachometerAlt /> Dashboard
+              </button>
+              <button onClick={handleLogout} className="flex items-center gap-3 py-3 font-bold text-red-500">
+                <FaSignOutAlt /> Déconnexion
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+    </nav>
   );
 }

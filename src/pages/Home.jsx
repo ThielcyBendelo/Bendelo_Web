@@ -3,10 +3,10 @@ import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
 import ProcessSection from '../components/ProcessSection';
-// import PortfolioSection from '../components/PortfolioSection';
+import PortfolioSection from '../components/PortfolioSection';
 import TechnologiesSection from '../components/TechnologiesSection';
 // import Testimonials from '../components/Testimonials';
-// import TeamSection from '../components/TeamSection';
+import TeamSection from '../components/TeamSection';
 
 
 
@@ -17,10 +17,10 @@ export default function Home() {
       <NavbarSecured />
       <div className="mt-5">
         <Hero />
-        {/* <PortfolioSection/> */}
+        <PortfolioSection/>
         <TechnologiesSection/>
         <ProcessSection />
-        {/* <TeamSection/> */}
+        <TeamSection/>
         {/* <Testimonials/> */}
         <FAQSection />
       </div>

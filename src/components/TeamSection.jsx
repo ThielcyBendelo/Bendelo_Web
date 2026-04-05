@@ -1,7 +1,6 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-// ...existing code...
+import { FaLinkedin, FaUsers, FaCheckCircle } from 'react-icons/fa';
 
 const team = [
   {
@@ -17,7 +16,7 @@ const team = [
     name: 'Mohamed Ben Salah',
     role: 'Expert Sécurité & DevOps',
     bio: 'Automatisation, sécurité, CI/CD, infrastructures cloud. Garant de la performance et de la protection des données clients.',
-    avatar: '/assets/icon-cloud.png',
+    avatar: 'https://randomuser.me/api/portraits/men/50.jpg',
     linkedin: 'https://www.linkedin.com/in/mohamedbensalah/',
     skills: ['DevOps', 'Sécurité', 'Docker', 'CI/CD'],
     badge: 'DevOps Pro',
@@ -26,94 +25,110 @@ const team = [
     name: 'Laura Garcia',
     role: 'Product Owner & Scrum Master',
     bio: 'Gestion de produit, organisation agile, satisfaction client. Experte en pilotage de projets informatiques.',
-    avatar: '/assets/icon-design.png',
+    avatar: 'https://randomuser.me/api/portraits/women/51.jpg',
     linkedin: 'https://www.linkedin.com/in/lauragarcia/',
     skills: ['Agile', 'Scrum', 'Communication', 'Gestion Produit'],
     badge: 'Scrum Master',
   },
   {
     name: 'Fatou Ndiaye',
-    role: 'Développeuse Frontend & Animatrice Tech',
-    bio: "Spécialiste React, animations web, accessibilité. Passionnée par l'éducation et la vulgarisation tech.",
+    role: 'Frontend & Animatrice Tech',
+    bio: "Spécialiste React, animations web et accessibilité. Passionnée par l'éducation et la vulgarisation tech.",
     avatar: 'https://randomuser.me/api/portraits/women/49.jpg',
     linkedin: 'https://www.linkedin.com/in/fatoundiaye/',
     skills: ['React', 'GSAP', 'Accessibilité', 'Pédagogie'],
     badge: 'Animatrice Tech',
   },
-  {
-    name: 'Mohamed Ben Salah',
-    role: 'DevOps & Backend Engineer',
-    bio: 'Automatisation, CI/CD, APIs robustes. Garant de la performance et de la sécurité des infrastructures.',
-    avatar: 'https://randomuser.me/api/portraits/men/50.jpg',
-    linkedin: 'https://www.linkedin.com/in/mohamedbensalah/',
-    skills: ['Node.js', 'Docker', 'CI/CD', 'Sécurité'],
-    badge: 'DevOps Pro',
-  },
-  {
-    name: 'Laura Garcia',
-    role: 'Product Owner & Scrum Master',
-    bio: 'Gestion de projet agile, communication, vision produit. Experte en organisation et satisfaction client.',
-    avatar: 'https://randomuser.me/api/portraits/women/51.jpg',
-    linkedin: 'https://www.linkedin.com/in/lauragarcia/',
-    skills: ['Agile', 'Scrum', 'Communication', 'Gestion Produit'],
-    badge: 'Scrum Master',
-  },
+  // ... Vous pouvez ajouter les autres membres ici de la même manière
 ];
 
 function TeamSection() {
   return (
-    <section
-      className="py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50"
-      id="team"
-    >
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-4xl font-extrabold text-blue-900 mb-6 drop-shadow-lg animate-pulse">
-          Mon équipe
-        </h2>
-        <p className="text-lg text-gray-400 mb-10 animate-fade-in">
-          Des experts en digital, cloud, sécurité et design, réunis pour
-          propulser votre entreprise vers l’innovation et la performance.
-        </p>
-        <div className="grid gap-8 md:grid-cols-3 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50">
+    <section className="py-20 px-6 transition-colors duration-300 relative" 
+             style={{ backgroundColor: 'var(--bg)' }} 
+             id="team">
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border"
+            style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', color: 'var(--accent-1)' }}
+          >
+            <FaUsers />
+            <span className="text-sm font-bold" style={{ color: 'var(--text-secondary)' }}>L'Expertise Collective</span>
+          </motion.div>
+
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text inline-block">
+            Mon Équipe
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            Des experts réunis pour propulser votre entreprise vers l’innovation et la performance.
+          </p>
+        </div>
+
+        {/* Grille des membres */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {team.map((member, idx) => (
             <motion.div
               key={idx}
-              className="bg-white rounded-2xl shadow-xl p-6 flex flex-col items-center border border-blue-100 hover:shadow-2xl transition"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.2, type: 'spring', stiffness: 120 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="group relative p-8 rounded-3xl border transition-all duration-300 hover:shadow-2xl"
+              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}
             >
-              <img
-                src={member.avatar}
-                alt={member.name}
-                className="w-32 h-32 rounded-full mb-4 border-4 border-blue-200 shadow-py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50"
-              />
-              <div className="font-bold text-blue-800 text-lg mb-1 flex items-center gap-2">
-                {member.name}
-                <span className="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full font-semibold">
+              {/* Avatar avec badge */}
+              <div className="relative w-32 h-32 mx-auto mb-6">
+                <img
+                  src={member.avatar}
+                  alt={member.name}
+                  className="w-full h-full rounded-full object-cover border-4 border-[var(--bg)] shadow-lg transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute -bottom-2 -right-2 bg-[var(--accent-1)] text-white p-1.5 rounded-full shadow-lg border-2 border-[var(--surface)]">
+                  <FaCheckCircle className="text-sm" />
+                </div>
+              </div>
+
+              {/* Infos Membre */}
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{member.name}</h3>
+                <span className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border" 
+                      style={{ color: 'var(--accent-2)', borderColor: 'var(--accent-2)' }}>
                   {member.badge}
                 </span>
+                <p className="text-sm font-medium mt-3" style={{ color: 'var(--accent-1)' }}>{member.role}</p>
               </div>
-              <div className="text-sm text-purple-700 mb-2">{member.role}</div>
-              <div className="mb-2 flex flex-wrap gap-2 justify-center">
+
+              {/* Bio & Skills */}
+              <p className="text-sm text-center mb-6 line-clamp-3" style={{ color: 'var(--text-secondary)' }}>
+                {member.bio}
+              </p>
+
+              <div className="flex flex-wrap gap-2 justify-center mb-8">
                 {member.skills.map((skill, i) => (
-                  <span
-                    key={i}
-                    className="inline-block bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-xs font-semibold shadow"
-                  >
+                  <span key={i} className="text-[10px] px-2 py-1 rounded-md border font-mono" 
+                        style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
                     {skill}
                   </span>
                 ))}
               </div>
-              <p className="text-gray-400 text-center mb-2">{member.bio}</p>
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline hover:text-blue-800 text-sm"
-              >
-                LinkedIn
-              </a>
+
+              {/* LinkedIn Button */}
+              <div className="flex justify-center">
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full transition-all duration-300 hover:scale-110"
+                  style={{ backgroundColor: 'var(--bg)', color: 'var(--text-primary)' }}
+                >
+                  <FaLinkedin className="text-2xl hover:text-[#0077b5]" />
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>

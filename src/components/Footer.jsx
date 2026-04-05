@@ -1,122 +1,102 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  FaGithub,
-  FaLinkedin,
-  FaEnvelope,
-  FaInstagram,
-  FaFacebook,
-  FaWhatsapp,
-} from 'react-icons/fa';
-import { contact } from '../assets/assets.js';
+import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp } from 'react-icons/fa';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const socialIcons = {
-    Email: FaEnvelope,
-    LinkedIn: FaLinkedin,
-    GitHub: FaGithub,
-    Instagram: FaInstagram,
-    Facebook: FaFacebook,
-    WhatsApp: FaWhatsapp,
-  };
+  // Liste des liens regroupés pour une meilleure lecture
+  const links = [
+    { name: "Accueil", path: "/home" },
+    { name: "Services", path: "/services" },
+    { name: "Projets", path: "/projects" },
+    { name: "Expériences", path: "/experience" },
+    { name: "Contact", path: "/contact" },
+  ];
 
+  const secondaryLinks = [
+    { name: "À propos", path: "/about" },
+    { name: "Témoignages", path: "/testimonials" },
+    { name: "Offres", path: "/offers" },
+    { name: "Compétences", path: "/skills" },
+  ];
 
   return (
-    <footer className="bg-dark-200 text-gray-300 py-8 font-saira" role="contentinfo" aria-label="Pied de page agence informatique">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Logo et Description agence */}
-          <div className="text-center md:text-left flex flex-col items-center md:items-start">
+    <footer className="border-t transition-colors duration-300" 
+            style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}>
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          
+          {/* Colonne 1 : Branding */}
+          <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">BF</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-[var(--accent-1)] to-[var(--accent-2)] rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-lg">BF</span>
               </div>
-              <span className="text-xl font-bold text-white tracking-wide" style={{fontFamily: 'Antonio, Saira, sans-serif'}}>
-                Bendelo<span className="text-pink-400">.Free</span>
+              <span className="text-xl font-bold tracking-wide" style={{ color: 'var(--text-primary)', fontFamily: 'Antonio, sans-serif' }}>
+                Bendelo<span className="text-[var(--accent-2)]">.Free</span>
               </span>
             </div>
-            <p className="text-sm text-gray-400 max-w-xs">
-              Ingénieur Logiciel Full stack Freelance : développement web, cloud, cybersécurité, design UX/UI, conseil et accompagnement digital.
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              Ingénieur Logiciel Full stack Freelance. Expert en développement web, cloud et design UX/UI.
             </p>
           </div>
 
-          {/* Liens rapides */}
-          <div className="text-center">
-            <h4 className="text-lg font-semibold mb-4" id="footer-quick-links">Liens Rapides</h4>
-            <ul className="space-y-2" aria-labelledby="footer-quick-links">
-              <li>
-                <Link to="/home" className="hover:text-purple transition-colors">Mon Accueil</Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-purple transition-colors">À propos de moi</Link>
-              </li>
-              <li>
-                <Link to="/testimonials" className="hover:text-purple transition-colors">Les Témoignages</Link>
-              </li>
-              <li>
-                <Link to="/experience" className="hover:text-purple transition-colors">Mes Expériences</Link>
-              </li>
-              <li>
-                <Link to="/Projects" className="hover:text-purple transition-colors">Mes Projets</Link>
-              </li>
-              <li>
-                <Link to="/services" className="hover:text-purple transition-colors">Mes Services</Link>
-              </li>
-              <li>
-                <Link to="/work" className="hover:text-purple transition-colors">Mon Travail</Link>
-              </li>
-              <li>
-                <Link to="/offers" className="hover:text-purple transition-colors">Mes Offres</Link>
-              </li>
-              <li>
-                <Link to="/skills" className="hover:text-purple transition-colors">Mes Compétences</Link>
-              </li>
-              <li>
-                <Link to="/contact" className="hover:text-purple transition-colors">Contactez-moi</Link>
-              </li>
+          {/* Colonne 2 : Liens Principaux */}
+          <div>
+            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Navigation</h4>
+            <ul className="space-y-2">
+              {links.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-sm hover:translate-x-1 inline-block transition-all hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Réseaux sociaux */}
-          <div className="text-center md:text-right">
-            <h4 className="text-lg font-semibold mb-4 ">Me Suivre</h4>
-            <div className="flex justify-center md:justify-end space-x-4">
-              {contact
-                .filter((item) => !['Instagram', 'Facebook', 'WhatsApp', 'Github', 'LinkedIn'].includes(item.label))
-                .map((item) => {
-                  const Icon = socialIcons[item.label];
-                  if (!Icon) return null;
-                  // If the contact link is an email address (no protocol), convert to mailto
-                  let href = item.link;
-                  if (item.label === 'Email' && !/^mailto:/i.test(href)) {
-                    href = `mailto:${href}`;
-                  }
-                  return (
-                    <a
-                      key={item.label}
-                      href={href}
-                      target={href.startsWith('mailto:') ? undefined : '_blank'}
-                      rel={
-                        href.startsWith('mailto:')
-                          ? undefined
-                          : 'noopener noreferrer'
-                      }
-                      className="text-2xl hover:text-purple transition-colors hover:scale-110 transform duration-200"
-                      aria-label={item.label}
-                    >
-                      <Icon />
-                    </a>
-                  );
-                })}
+          {/* Colonne 3 : Autres liens */}
+          <div>
+            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Découvrir</h4>
+            <ul className="space-y-2">
+              {secondaryLinks.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-sm hover:translate-x-1 inline-block transition-all hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Colonne 4 : Social & Contact */}
+          <div className="flex flex-col items-start md:items-end">
+            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Me suivre</h4>
+            <div className="flex space-x-4">
+              <a href="mailto:votre@email.com" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaEnvelope /></a>
+              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaLinkedin /></a>
+              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaGithub /></a>
+              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaWhatsapp /></a>
+            </div>
+            <div className="mt-6 text-right hidden md:block">
+              <span className="text-xs font-mono px-3 py-1 rounded-full border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                Disponible pour nouveaux projets
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Copyright agence */}
-        <div className="mt-3 pt-3 border-t border-gray-400 text-center font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-1)] text-transparent bg-clip-text">
-          <p>© {currentYear} Bendelo freelance | Software Engineer. Tous droits réservés.</p>
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t text-center md:flex md:justify-between md:text-left" style={{ borderColor: 'var(--border-color)' }}>
+          <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+            © {currentYear} Bendelo Freelance | Software Engineer. Tous droits réservés.
+          </p>
+          <div className="mt-2 md:mt-0">
+            <p className="text-xs italic" style={{ color: 'var(--text-secondary)' }}>
+              Propulsé par la passion et le code.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

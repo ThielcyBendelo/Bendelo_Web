@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from './AnimatedSection';
-import { FaExternalLinkAlt, FaGithub, FaEye, FaFilter } from 'react-icons/fa';
+import { 
+  FaGithub, FaEye, FaGlobe, FaMobileAlt, 
+  FaShoppingCart, FaStar, FaCode, FaLayerGroup 
+} from 'react-icons/fa';
 
+// Les données restent identiques, j'ai juste ajouté une icône par défaut si besoin
 const portfolio = [
   {
     id: 1,
     title: 'TechInnov - Site Vitrine',
     titleEn: 'TechInnov - Showcase Website',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    image: 'https://unsplash.com',
     description: 'Refonte complète du site vitrine pour TechInnov avec design moderne, SEO optimisé et sécurité renforcée.',
     descriptionEn: 'Complete redesign of the showcase website for TechInnov with modern design, optimized SEO and enhanced security.',
     tags: ['React', 'SEO', 'UI/UX', 'Performance'],
@@ -50,7 +54,7 @@ const portfolio = [
     id: 4,
     title: 'DataFlow - Dashboard Analytics',
     titleEn: 'DataFlow - Analytics Dashboard',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    image: 'https://unsplash.com',
     description: 'Tableau de bord analytique en temps réel avec visualisations avancées et rapports automatisés.',
     descriptionEn: 'Real-time analytics dashboard with advanced visualizations and automated reports.',
     tags: ['Dashboard', 'Analytics', 'D3.js', 'API'],
@@ -78,7 +82,7 @@ const portfolio = [
     id: 6,
     title: 'EduLearn - Plateforme E-learning',
     titleEn: 'EduLearn - E-learning Platform',
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
+    image: 'https://unsplash.com',
     description: 'Plateforme de formation en ligne avec cours interactifs, quiz et suivi de progression.',
     descriptionEn: 'Online learning platform with interactive courses, quizzes and progress tracking.',
     tags: ['E-learning', 'Video', 'Progression', 'API'],
@@ -91,277 +95,138 @@ const portfolio = [
 ];
 
 const categories = [
-  { id: 'all', label: 'Tous', labelEn: 'All', icon: '🎯' },
-  { id: 'web', label: 'Web', labelEn: 'Web', icon: '🌐' },
-  { id: 'mobile', label: 'Mobile', labelEn: 'Mobile', icon: '📱' },
-  { id: 'ecommerce', label: 'E-commerce', labelEn: 'E-commerce', icon: '🛒' }
+  { id: 'all', label: 'Tous', labelEn: 'All', icon: <FaLayerGroup /> },
+  { id: 'web', label: 'Web', labelEn: 'Web', icon: <FaGlobe /> },
+  { id: 'mobile', label: 'Mobile', labelEn: 'Mobile', icon: <FaMobileAlt /> },
+  { id: 'ecommerce', label: 'E-commerce', labelEn: 'E-commerce', icon: <FaShoppingCart /> }
 ];
 
 function PortfolioSection() {
   const [isEnglish, setIsEnglish] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedProject, setSelectedProject] = useState(null);
 
   const filteredProjects = selectedCategory === 'all'
     ? portfolio
     : portfolio.filter(project => project.category === selectedCategory);
 
   return (
-    <section className="py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50" id="portfolio">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50">
-        <div className="absolute inset-0 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50">
-        {/* Header */}
+    <section className="py-20 px-6 transition-colors duration-300 relative" style={{ backgroundColor: 'var(--bg)' }} id="portfolio">
+      <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* Header avec icône animée */}
         <AnimatedSection variant="fadeIn" delay={0.2}>
           <div className="text-center mb-16">
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full mb-6 border border-purple-200/50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border"
+              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', color: 'var(--accent-1)' }}
               whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
             >
-              <span className="text-2xl">💼</span>
-              <span className="text-sm font-semibold text-gray-700">
+              <FaStar className="animate-pulse" />
+              <span className="text-sm font-bold" style={{ color: 'var(--text-secondary)' }}>
                 {isEnglish ? 'Our Work' : 'Mes Réalisations'}
               </span>
             </motion.div>
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-                {isEnglish ? 'Portfolio' : 'Portfolio'}
+              <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+                Portfolio
               </span>
             </h2>
 
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-              {isEnglish
-                ? 'Discover our latest projects and see how we transform ideas into digital success stories.'
-                : 'Découvrez nos derniers projets et voyez comment nous transformons les idées en succès digitaux.'
-              }
-            </p>
-
-            {/* Language Toggle */}
-            <motion.button
+            <button
               onClick={() => setIsEnglish(!isEnglish)}
-              className="px-4 py-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-all border border-gray-400 text-sm font-medium mb-4"
-              whileHover={{ scale: 1.05 }}
+              className="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-lg border transition-all hover:bg-[var(--accent-1)] hover:text-white"
+              style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+            >
+              {isEnglish ? '🇫🇷 Version Française' : '🇺🇸 English Version'}
+            </button>
+          </div>
+        </AnimatedSection>
+
+        {/* Filtres avec React-Icons */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((cat) => (
+            <motion.button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium transition-all border ${
+                selectedCategory === cat.id ? 'bg-[var(--accent-1)] text-white border-transparent' : ''
+              }`}
+              style={{ 
+                backgroundColor: selectedCategory === cat.id ? '' : 'var(--surface)',
+                borderColor: 'var(--border-color)',
+                color: selectedCategory === cat.id ? 'white' : 'var(--text-primary)'
+              }}
+              whileHover={{ y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              {isEnglish ? '🇫🇷 Français' : '🇺🇸 English'}
+              <span className={selectedCategory === cat.id ? 'text-white' : 'text-[var(--accent-1)]'}>
+                {cat.icon}
+              </span>
+              {isEnglish ? cat.labelEn : cat.label}
             </motion.button>
-          </div>
-        </AnimatedSection>
+          ))}
+        </div>
 
-        {/* Filter Categories */}
-        <AnimatedSection variant="slideUp" delay={0.4}>
-          <div className="flex flex-wrap justify-center gap-4 mb-12 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50">
-            {categories.map((category) => (
-              <motion.button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
-                  selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 shadow-md border border-gray-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-lg">{category.icon}</span>
-                {isEnglish ? category.labelEn : category.label}
-              </motion.button>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* Portfolio Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, idx) => (
-              <AnimatedSection
-                key={project.id}
-                variant="scaleIn"
-                delay={0.1 * idx}
-              >
-                <motion.div
-                  layout
-                  className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 group cursor-pointer py-16 px-8 bg-gradient-to-b from-black via-black-50 to-blur-50 ${
-                    project.featured ? 'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50' : 'border-gray-100'
-                  }`}
-                  whileHover={{
-                    y: -8,
-                    scale: 1.02,
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  onClick={() => setSelectedProject(project)}
-                >
-                  {/* Featured Badge */}
-                  {project.featured && (
-                    <div className="absolute top-4 right-4 z-10 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                      ⭐ {isEnglish ? 'Featured' : 'Vedette'}
-                    </div>
-                  )}
-
-                  {/* Image */}
-                  <div className="relative overflow-hidden">
-                    <motion.img
-                      src={project.image}
-                      alt={isEnglish ? project.titleEn : project.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                      whileHover={{ scale: 1.1 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Overlay Actions */}
-                    <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <motion.button
-                        className="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-800 hover:bg-white transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.link, '_blank');
-                        }}
-                      >
-                        <FaExternalLinkAlt className="text-lg" />
-                      </motion.button>
-                      <motion.button
-                        className="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-800 hover:bg-white transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(project.github, '_blank');
-                        }}
-                      >
-                        <FaGithub className="text-lg" />
-                      </motion.button>
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors">
-                      {isEnglish ? project.titleEn : project.title}
-                    </h3>
-                    <p className="text-blue-800 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {isEnglish ? project.descriptionEn : project.description}
-                    </p>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.slice(0, 3).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 3 && (
-                        <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-md text-xs font-medium">
-                          +{project.technologies.length - 3}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* View Project Button */}
-                    <motion.button
-                      className="w-full flex items-center justify-center gap-2 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <FaEye className="text-sm" />
-                      {isEnglish ? 'View Project' : 'Voir le Projet'}
-                    </motion.button>
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Project Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-              onClick={() => setSelectedProject(null)}
-            >
+        {/* Grille de projets */}
+        <motion.div layout className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence>
+            {filteredProjects.map((project) => (
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="group rounded-2xl border overflow-hidden transition-all hover:shadow-2xl"
+                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}
               >
-                <div className="relative">
-                  <img
-                    src={selectedProject.image}
-                    alt={isEnglish ? selectedProject.titleEn : selectedProject.title}
-                    className="w-full h-64 object-cover"
-                  />
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors"
-                  >
-                    ✕
-                  </button>
+                {/* Image & Overlay Action */}
+                <div className="relative h-52 overflow-hidden">
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6">
+                    <a href={project.link} className="flex flex-col items-center text-white hover:text-[var(--accent-1)] transition-colors">
+                      <FaEye className="text-3xl mb-1" />
+                      <span className="text-[10px] font-bold uppercase">Démo</span>
+                    </a>
+                    <a href={project.github} className="flex flex-col items-center text-white hover:text-[var(--accent-1)] transition-colors">
+                      <FaGithub className="text-3xl mb-1" />
+                      <span className="text-[10px] font-bold uppercase">Code</span>
+                    </a>
+                  </div>
                 </div>
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                    {isEnglish ? selectedProject.titleEn : selectedProject.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {isEnglish ? selectedProject.descriptionEn : selectedProject.description}
-                  </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {selectedProject.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium"
-                      >
+                {/* Contenu de la carte */}
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <FaCode className="text-[var(--accent-1)] text-sm" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
+                      {project.category}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+                    {isEnglish ? project.titleEn : project.title}
+                  </h3>
+
+                  <p className="text-sm leading-relaxed mb-4 line-clamp-2" 
+   style={{ color: 'var(--text-secondary)' }}>
+  {isEnglish ? project.descriptionEn : project.description}
+</p>
+                  
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="text-[10px] px-2 py-1 rounded border font-bold" 
+                            style={{ borderColor: 'var(--border-color)', color: 'var(--accent-1)', backgroundColor: 'rgba(var(--accent-1-rgb), 0.1)' }}>
                         {tech}
                       </span>
                     ))}
                   </div>
-
-                  <div className="flex gap-4">
-                    <motion.button
-                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open(selectedProject.link, '_blank')}
-                    >
-                      <FaExternalLinkAlt />
-                      {isEnglish ? 'View Live' : 'Voir en Ligne'}
-                    </motion.button>
-                    <motion.button
-                      className="flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => window.open(selectedProject.github, '_blank')}
-                    >
-                      <FaGithub />
-                      GitHub
-                    </motion.button>
-                  </div>
                 </div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
