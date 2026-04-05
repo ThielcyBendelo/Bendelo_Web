@@ -124,7 +124,7 @@ export default function About() {
           >
             <p className="text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>
               Votre transformation digitale commence ici à <span className="text-[var(--accent-1)]">Kinshasa</span>. 
-              Contactez-moi pour un devis gratuit !
+              Contactez-moi pour un devis gratui.t !
             </p>
           </motion.div>
         </div>
