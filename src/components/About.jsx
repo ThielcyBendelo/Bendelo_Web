@@ -1,5 +1,7 @@
 import { about } from '../assets/assets.js';
-import { about as irBendelo,} from '../assets/assets.js';
+import {
+  profile1Image as profileImg,
+} from '../assets/assets.js';
 import { motion } from 'framer-motion';
 import LazyImage from './LazyImage';
 import GoogleMapsSection from './GoogleMapsSection';
@@ -40,8 +42,8 @@ export default function About() {
               className="relative p-1 rounded-full bg-gradient-to-tr from-[var(--accent-1)] to-[var(--accent-2)] shadow-2xl mb-8"
             >
               <LazyImage
-                src={irBendelo}
-                alt="Bendelo"
+                src={profileImg}
+                alt="Profil"
                 className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-[var(--surface)] shadow-inner"
                 style={{ objectPosition: 'center 35%' }}
               />

@@ -4,7 +4,7 @@ import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import LazyImage from './LazyImage';
 import { useEffect, useState } from 'react';
 import notificationService from '../services/notificationService';
-import { profile1Image } from '../assets/assets.js';
+import { irThielcy } from '../assets/assets.js';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from './AnimatedSection';
@@ -19,6 +19,8 @@ export default function Hero() {
     '/background1.jpg',
     '/background2.jpg',
     '/background7.jpeg',
+    '/irbendelo1.jpeg',
+    '/irthielcy1.jpeg',
   ];
   const [bgIndex, setBgIndex] = useState(0);
 
@@ -101,7 +103,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-purple-600/20 blur-3xl rounded-full" />
         
         <LazyImage
-          src={profile1Image}
+          src={irThielcy}
           alt="Ir Bendelo Thielcy"
           className="w-48 h-48 md:w-62 md:h-60 rounded-full object-cover border-4 border-[var(--accent-1)] shadow-2xl relative z-10"
           style={{ objectPosition: 'center 35%' }}

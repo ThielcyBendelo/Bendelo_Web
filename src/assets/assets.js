@@ -15,7 +15,7 @@ export const logoImage = '/images/logo.png';
 export const logocopy = '/images/logocopy.jpeg';
 export const background7 = '/images/background7.jpeg';
 export const irBendelo = '/images/irbendelo1.jpeg';
-export const irthielcy1 = '/images/irthielcy1.jpeg';
+export const irThielcy = '/images/irthielcy1.jpeg';
 
 export const about =
   "Ingénieur logiciel polyvalent avec expertise en développement Full Stack, spécialisé dans la création d'applications web et mobiles robustes et évolutives. Expérience en gestion de projet, tests logiciels et architecture moderne.";
