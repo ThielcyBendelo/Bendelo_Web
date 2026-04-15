@@ -77,7 +77,7 @@ export default function Experience() {
     {/* Description stratégique */}
     <div className="max-w-3xl mx-auto">
       <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)] mb-6">
-        Plus de <span className="font-bold text-[var(--accent-1)]">8 ans</span> à concevoir des infrastructures complexes et à diriger des cycles de développement critiques.
+        Plus de <span className="font-bold text-[var(--accent-1)]">3 ans</span> à concevoir des infrastructures complexes et à diriger des cycles de développement critiques.
       </p>
       
       {/* Séparateur minimaliste avec icône de chronologie */}

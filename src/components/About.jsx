@@ -59,7 +59,7 @@ export default function About() {
                     />
                   </motion.div>
                   <motion.div style={{ y: yBadge }} className="absolute bottom-8 right-8 bg-black/80 backdrop-blur-xl border border-white/20 p-5 rounded-2xl shadow-2xl z-20">
-                    <p className="text-3xl font-black text-white italic">8+<span className="text-[var(--accent-1)]">ans</span></p>
+                    <p className="text-3xl font-black text-white italic">3+<span className="text-[var(--accent-1)]">ans</span></p>
                     <p className="text-[10px] uppercase tracking-widest text-slate-300 font-bold">D'expertise Logicielle</p>
                   </motion.div>
                 </div>
@@ -123,7 +123,7 @@ export default function About() {
               <h4 className="text-2xl md:text-3xl font-black text-white mb-4 uppercase italic">Prêt à digitaliser votre avenir ?</h4>
               <p className="text-white/80 max-w-2xl mx-auto font-medium mb-8">Propulsons ensemble vos projets avec une expertise de grade ingénieur.</p>
               <button 
-                 onClick={() => window.open("https://wa.me/243829054350", "_blank")}
+                 onClick={() => window.open("https://wa.me/243829054350", "_blank")}s
                     className="px-10 py-4 bg-white text-black font-black rounded-full uppercase tracking-widest text-sm hover:scale-105 transition-transform shadow-xl"
 >
                  Démarrer une consultation
