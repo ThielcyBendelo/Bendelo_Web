@@ -1,39 +1,115 @@
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Page non trouvée</title>
-    <style>
-      body {
-        background: #18181b;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { FaHome, FaTerminal, FaHistory } from 'react-icons/fa';
+
+export default function NotFound() {
+  const navigate = useNavigate();
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "GET /system/requested_resource --status 404 NOT_FOUND";
+
+  // Effet d'écriture lettre par lettre (Typewriter effect)
+  useEffect(() => {
+    let i = 0;
+    const typing = setInterval(() => {
+      if (i < fullText.length) {
+        setDisplayText(fullText.substring(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typing);
       }
-      h1 {
-        font-size: 4rem;
-        color: #a21caf;
-      }
-      p {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-      }
-      a {
-        color: #38bdf8;
-        text-decoration: underline;
-        margin-top: 2rem;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>404</h1>
-    <p>Oups, cette page n'existe pas ou a été déplacée.</p>
-    <a href="/">Retour à l'accueil</a>
-  </body>
-</html>
+    }, 50); // Vitesse d'écriture
+    return () => clearInterval(typing);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#050505] px-6">
+      
+      {/* Grille technique de fond */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      </div>
+
+      {/* Lueur d'erreur violette/orange */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-purple-600/10 to-orange-500/10 blur-[120px] rounded-full -z-10" />
+
+      <div className="relative z-10 text-center space-y-12">
+        
+        {/* Code 404 Massif */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-[10rem] md:text-[15rem] font-black leading-none tracking-tighter italic uppercase select-none">
+            <span className="bg-gradient-to-b from-white via-white to-white/5 text-transparent bg-clip-text">
+              404
+            </span>
+          </h1>
+        </motion.div>
+
+        {/* Console Terminal Interactive */}
+        <div className="space-y-6">
+          <div className="inline-flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl">
+              <FaTerminal className="text-orange-500 text-sm" />
+              <p className="font-mono text-sm md:text-base text-slate-300">
+                {displayText}
+                <motion.span 
+                  animate={{ opacity: [0, 1, 0] }} 
+                  transition={{ repeat: Infinity, duration: 0.8 }}
+                  className="inline-block w-2 h-4 bg-orange-500 ml-1 translate-y-0.5"
+                />
+              </p>
+            </div>
+            
+            <motion.h2 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2 }}
+              className="text-2xl md:text-3xl font-black text-white uppercase italic tracking-tight"
+            >
+              Ressource <span className="text-orange-500 italic underline decoration-white/20">Interrompue</span>.
+            </motion.h2>
+          </div>
+
+          <p className="max-w-md mx-auto text-slate-500 font-medium text-sm md:text-base leading-relaxed">
+            Le noyau du système n'a pas pu résoudre l'adresse spécifiée. 
+            Vérifiez l'URL ou réinitialisez la session.
+          </p>
+        </div>
+
+        {/* Boutons d'Action Premium */}
+        <motion.div 
+          className="flex flex-col md:flex-row gap-5 justify-center pt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.5 }}
+        >
+          <button
+            onClick={() => navigate('/')}
+            className="group relative flex items-center gap-3 px-10 py-4 bg-orange-500 text-white font-black rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:scale-105 transition-all shadow-2xl shadow-orange-500/20 active:scale-95"
+          >
+            <FaHome className="text-sm" /> Revenir à la base
+          </button>
+          
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-3 px-10 py-4 bg-transparent border border-white/10 text-white font-black rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white/5 transition-all backdrop-blur-sm active:scale-95"
+          >
+            <FaHistory className="text-sm" /> Retour arrière
+          </button>
+        </motion.div>
+      </div>
+
+      {/* Identité technique en bas */}
+      <div className="absolute bottom-10 flex items-center gap-4 opacity-30">
+        <div className="h-px w-12 bg-slate-500" />
+        <span className="text-[9px] font-black uppercase tracking-[0.5em] text-slate-500 italic">
+          Error Log: 0x829054350-BENDELO
+        </span>
+        <div className="h-px w-12 bg-slate-500" />
+      </div>
+    </div>
+  );
+}
