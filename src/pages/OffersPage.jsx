@@ -169,15 +169,47 @@ export default function OffersPage() {
       <main className="pt-24 min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
         <div className="max-w-7xl mx-auto px-6">
           
-          {/* Header */}
-          <div className="text-center mb-20">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-              Offres Exclusives
-            </h1>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-              Choisissez le pack adapté à vos ambitions. Des solutions complètes avec des réductions allant jusqu'à 25%.
-            </p>
-          </div>
+         <div className="text-center mb-24 relative">
+  {/* Badge Promotionnel Dynamique */}
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+  >
+    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+      Limited Opportunity / Up to -25%
+    </span>
+  </motion.div>
+
+  {/* Titre Offres Ultra-Massif */}
+  <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+    <span className="text-[var(--text-primary)] opacity-90">Paliers d'</span>
+    <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+      Impact
+    </span>
+    <span className="text-orange-500">.</span>
+  </h1>
+
+  {/* Description orientée "Scalability & ROI" */}
+  <div className="max-w-4xl mx-auto space-y-6">
+    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
+      Sélectionnez le moteur de croissance adapté à votre échelle. Des solutions 
+      <span className="font-bold italic text-orange-500 mx-2">End-to-End</span> 
+      conçues pour maximiser votre retour sur investissement digital.
+    </p>
+
+    {/* Indicateur de flexibilité */}
+    <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
+      <div className="h-[1px] w-12 bg-slate-500" />
+      <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">
+        Standard • Pro • Enterprise Custom
+      </p>
+      <div className="h-[1px] w-12 bg-slate-500" />
+    </div>
+  </div>
+</div>
+
 
           {/* Pricing Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { projets } from '../assets/assets.js';
+import { projects } from '../assets/assets.js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaCode, FaGlobe, FaMobileAlt, FaLayerGroup } from 'react-icons/fa';
 
@@ -15,25 +15,54 @@ export default function ProjetSimple() {
 
   // Filtrage des projets (assurez-vous que vos objets dans assets.js ont une propriété 'categorie')
   const filteredProjects = activeFilter === 'all' 
-    ? projets 
-    : projets.filter(p => p.categorie?.toLowerCase() === activeFilter);
+    ? projects 
+    : projects.filter(p => p.categorie?.toLowerCase() === activeFilter);
 
   return (
     <section id="projects" className="py-24 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
-        <div className="text-center mb-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text inline-block"
-          >
-            Mes Projets
-          </motion.h2>
-          <p className="text-lg max-w-2xl mx-auto mb-12" style={{ color: 'var(--text-secondary)' }}>
-            Explorez mes réalisations filtrées par domaine d'expertise.
-          </p>
+        <div className="text-center mb-24 relative">
+  {/* Surtitre : Preuve de compétence */}
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+  >
+    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+      Engineered Case Studies
+    </span>
+  </motion.div>
+
+  {/* Titre Projets Ultra-Massif */}
+  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+    <span className="text-[var(--text-primary)] opacity-90">Labora</span>
+    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+      toire
+    </span>
+    <span className="text-[var(--accent-1)]">.</span>
+  </h2>
+
+  {/* Description orientée "Technical Excellence" */}
+  <div className="max-w-4xl mx-auto space-y-6">
+    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
+      Explorez une sélection de systèmes complexes et d'architectures numériques conçus pour 
+      <span className="font-bold italic text-orange-500 mx-2">transformer</span> 
+      le paysage technologique de nos partenaires.
+    </p>
+
+    {/* Filtre Contextuel / Indicateur de volume */}
+    <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
+      <div className="h-[1px] w-12 bg-slate-500" />
+      <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--text-secondary)] font-bold">
+        Web • Mobile • Cloud Architecture
+      </p>
+      <div className="h-[1px] w-12 bg-slate-500" />
+    </div>
+  </div>
+</div>
+
 
           {/* Boutons de Filtrage */}
           <div className="flex flex-wrap justify-center gap-3 mb-16">
@@ -106,7 +135,6 @@ export default function ProjetSimple() {
             ))}
           </AnimatePresence>
         </motion.div>
-      </div>
     </section>
   );
 }

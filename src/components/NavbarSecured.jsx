@@ -82,7 +82,7 @@ export default function NavbarSecured() {
         { href: '/', label: 'Accueil', icon: <FaHome /> },
         { href: '/services', label: 'Services', icon: <FaTools /> },
         { href: '/projects', label: 'Projets', icon: <FaBriefcase /> },
-        { href: '/experience', label: 'Expérience', icon: <FaBriefcase /> },
+        { href: '/experience', label: 'Parcours', icon: <FaBriefcase /> },
         { href: '/contact', label: 'Contact', icon: <FaEnvelope /> },
       ],
     },
@@ -92,7 +92,7 @@ export default function NavbarSecured() {
         { href: '/about', label: 'À propos de moi', icon: <FaUser /> },
         { href: '/testimonials', label: 'Témoignages', icon: <FaUser /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
-        { href: '/skills', label: 'Compétences', icon: <FaCode /> },
+        { href: '/skills', label: 'Techniques', icon: <FaCode /> },
       ],
     },
   ];
@@ -103,13 +103,30 @@ export default function NavbarSecured() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           
-          {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-            <span className="text-2xl font-bold bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text"
-                  style={{ fontFamily: "'Antonio', sans-serif" }}>
-              Mon Portfolio<span className="opacity-10"></span>
-            </span>
-          </div>
+          {/* Logo Navbar - Identité Visuelle BT */}
+<div 
+  className="flex items-center gap-3 cursor-pointer group" 
+  onClick={() => navigate('/')}
+>
+  {/* Le Carré Logo BT */}
+  <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+    <span className="text-white font-black text-lg">BT</span>
+  </div>
+
+  {/* Le Texte du Nom */}
+  <div className="flex flex-col">
+    <span 
+      className="text-xl font-black tracking-tighter text-orange-500 dark:text-white leading-none uppercase italic"
+      style={{ fontFamily: "'Antonio', sans-serif" }}
+    >
+      Bendelo<span className="text-orange-500">.</span>Thielcy
+    </span>
+    <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-gray-400 dark:text-slate-400 leading-tight">
+      Principal Software Engineer
+    </span>
+  </div>
+</div>
+
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
@@ -132,35 +149,57 @@ export default function NavbarSecured() {
               </div>
             ))}
 
-            {/* Actions */}
-            <div className="flex items-center gap-4 pl-4 border-l" style={{ borderColor: 'var(--border-color)' }}>
-              <button onClick={toggleTheme} className="p-2 rounded-xl transition-colors hover:bg-[var(--bg)]" style={{ color: 'var(--text-primary)' }}>
-                {theme === 'dark' ? <FaSun /> : <FaMoon />}
-              </button>
+            {/* Actions
+          //   <div className="flex items-center gap-4 pl-4 border-l" style={{ borderColor: 'var(--border-color)' }}>
+          //     <button onClick={toggleTheme} className="p-2 rounded-xl transition-colors hover:bg-[var(--bg)]" style={{ color: 'var(--text-primary)' }}>
+          //       {theme === 'dark' ? <FaSun /> : <FaMoon />}
+          //     </button>
 
-              {isAuthenticated ? (
-                <div className="flex items-center gap-3">
-                  <button onClick={() => navigate('/dashboard')} className="p-2 text-[var(--accent-1)] hover:scale-110 transition-transform">
-                    <FaTachometerAlt />
-                  </button>
-                  <button onClick={handleLogout} className="text-sm font-bold text-red-500 hover:opacity-80">
-                    <FaSignOutAlt className="inline mr-1" /> Quitter
-                  </button>
-                </div>
-              ) : (
-                <button onClick={() => navigate('/login')} className="text-sm font-bold text-[var(--accent-1)] hover:opacity-80">
-                  <FaSignInAlt className="inline mr-1" /> Connexion
-                </button>
-              )}
-            </div>
+          //     {isAuthenticated ? (
+          //       <div className="flex items-center gap-3">
+          //         <button onClick={() => navigate('/dashboard')} className="p-2 text-[var(--accent-1)] hover:scale-110 transition-transform">
+          //           <FaTachometerAlt />
+          //         </button>
+          //         <button onClick={handleLogout} className="text-sm font-bold text-red-500 hover:opacity-80">
+          //           <FaSignOutAlt className="inline mr-1" /> Quitter
+          //         </button>
+          //       </div>
+          //     ) : (
+          //       <button onClick={() => navigate('/login')} className="text-sm font-bold text-[var(--accent-1)] hover:opacity-80">
+          //         <FaSignInAlt className="inline mr-1" /> Connexion
+          //       </button>
+          //     )}
+          // </div> */}
           </div>
 
-          {/* Mobile Toggle */}
-          <button className="md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)} style={{ color: 'var(--text-primary)' }}>
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
-      </div>
+         {/* Actions & Mobile Toggle */}
+<div className="flex items-center gap-2 md:gap-4">
+  
+  {/* Bouton Thème - Visible partout */}
+  <button 
+    onClick={toggleTheme} 
+    className="p-2.5 rounded-xl transition-all duration-300 bg-white/5 border border-white/10 backdrop-blur-md hover:scale-110 active:scale-95" 
+    style={{ color: 'var(--text-primary)' }}
+    aria-label="Toggle Theme"
+  >
+    {theme === 'dark' ? <FaSun className="text-orange-400" /> : <FaMoon className="text-purple-500" />}
+  </button>
+
+  {/* Séparateur vertical (optionnel, uniquement desktop) */}
+  <div className="hidden md:block h-6 w-px bg-white/10 mx-2" />
+
+  {/* Mobile Toggle (Burger) */}
+  <button 
+    className="md:hidden p-2.5 text-2xl rounded-xl hover:bg-white/5 transition-colors" 
+    onClick={() => setIsOpen(!isOpen)} 
+    style={{ color: 'var(--text-primary)' }}
+  >
+    {isOpen ? <FaTimes /> : <FaBars />}
+  </button>
+</div>
+</div>
+</div>
+      
 
      {/* Mobile Menu avec Catégories Filtrées */}
     <AnimatePresence>
@@ -229,7 +268,7 @@ export default function NavbarSecured() {
         </div>
 
         {/* Pied du menu mobile */}
-        <div className="pt-10 pb-10 flex flex-col gap-4">
+        {/* <div className="pt-10 pb-10 flex flex-col gap-4">
           <button onClick={toggleTheme} className="flex items-center gap-3 py-3 font-bold" style={{ color: 'var(--text-primary)' }}>
             {theme === 'dark' ? <><FaSun className="text-yellow-400" /> Mode Clair</> : <><FaMoon className="text-blue-400" /> Mode Sombre</>}
           </button>
@@ -248,7 +287,7 @@ export default function NavbarSecured() {
               </button>
             </>
           )}
-        </div>
+        </div> */}
       </div>
     </motion.div>
   )}

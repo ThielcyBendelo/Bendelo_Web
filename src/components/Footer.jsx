@@ -1,54 +1,72 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp, FaTerminal } from 'react-icons/fa';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Liste des liens regroupés pour une meilleure lecture
   const links = [
     { name: "Accueil", path: "/home" },
     { name: "Services", path: "/services" },
     { name: "Projets", path: "/projects" },
-    { name: "Expériences", path: "/experience" },
     { name: "Contact", path: "/contact" },
   ];
 
   const secondaryLinks = [
     { name: "À propos", path: "/about" },
-    { name: "Témoignages", path: "/testimonials" },
-    { name: "Offres", path: "/offers" },
+    { name: "Expériences", path: "/experience" },
     { name: "Compétences", path: "/skills" },
   ];
 
   return (
-    <footer className="border-t transition-colors duration-300" 
-            style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}>
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer className="relative border-t border-slate-200/50 dark:border-white/10 overflow-hidden" 
+            style={{ backgroundColor: 'var(--bg)' }}>
+      
+      {/* Glow décoratif en arrière-plan */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-orange-500/5 blur-[120px] rounded-full -z-10" />
+
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
           
-          {/* Colonne 1 : Branding */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-[var(--accent-1)] to-[var(--accent-2)] rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">BF</span>
+          {/* Colonne 1 : Branding & Status (4 colonnes) */}
+          <div className="md:col-span-4 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl shadow-orange-500/20">
+                <span className="text-white font-black text-xl">BT</span>
               </div>
-              <span className="text-xl font-bold tracking-wide" style={{ color: 'var(--text-primary)', fontFamily: 'Antonio, sans-serif' }}>
-                Bendelo<span className="text-[var(--accent-2)]">.Free</span>
+              <div>
+                <span className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white block uppercase italic">
+                  Bendelo<span className="text-orange-500">.</span>Thielcy
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-500 dark:text-slate-400">
+                  Principal Software Engineer
+                </span>
+              </div>
+            </div>
+            
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 max-w-xs">
+              Architecte de solutions digitales haut de gamme spécialisé dans la transformation des entreprises à Kinshasa et à l'international.
+            </p>
+
+            {/* Badge de statut temps réel */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-green-600 dark:text-green-400">
+                Disponible pour consultation
               </span>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Ingénieur Logiciel Full stack Freelance. Expert en développement web, cloud et design UX/UI.
-            </p>
           </div>
 
-          {/* Colonne 2 : Liens Principaux */}
-          <div>
-            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Navigation</h4>
-            <ul className="space-y-2">
+          {/* Colonne 2 : Navigation (2 colonnes) */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 mb-6 flex items-center gap-2">
+              <FaTerminal className="text-[10px]" /> Index
+            </h4>
+            <ul className="space-y-4">
               {links.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-sm hover:translate-x-1 inline-block transition-all hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}>
+                  <Link to={link.path} className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -56,13 +74,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Colonne 3 : Autres liens */}
-          <div>
-            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Découvrir</h4>
-            <ul className="space-y-2">
+          {/* Colonne 3 : Découvrir (2 colonnes) */}
+          <div className="md:col-span-2">
+            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 mb-6">Expertise</h4>
+            <ul className="space-y-4">
               {secondaryLinks.map((link) => (
                 <li key={link.path}>
-                  <Link to={link.path} className="text-sm hover:translate-x-1 inline-block transition-all hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}>
+                  <Link to={link.path} className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -70,32 +88,44 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Colonne 4 : Social & Contact */}
-          <div className="flex flex-col items-start md:items-end">
-            <h4 className="font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Me suivre</h4>
-            <div className="flex space-x-4">
-              <a href="mailto:votre@email.com" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaEnvelope /></a>
-              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaLinkedin /></a>
-              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaGithub /></a>
-              <a href="#" className="text-2xl transition-transform hover:scale-125 hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}><FaWhatsapp /></a>
+          {/* Colonne 4 : Social (4 colonnes) */}
+          <div className="md:col-span-4 flex flex-col md:items-end">
+            <h4 className="text-xs font-black uppercase tracking-[0.2em] text-orange-500 mb-6">Connecter le système</h4>
+            <div className="flex gap-4">
+              {[
+                { icon: <FaLinkedin />, href: "https://linkedin.com/in/ir-thielcy-bendelo-b1101233a", color: "hover:bg-blue-600" },
+                { icon: <FaGithub />, href: "https://github.com/ThielcyBendelo", color: "hover:bg-slate-800" },
+                { icon: <FaWhatsapp />, href: "https://wa.me/243829054350", color: "hover:bg-green-600" },
+                { icon: <FaEnvelope />, href: "mailto:bendelothieclcy@gmail.com", color: "hover:bg-orange-600" }
+              ].map((social, i) => (
+                <motion.a
+                  key={i}
+                  href={social.href}
+                  target="_blank"           // Ouvre WhatsApp dans un nouvel onglet
+                  rel="noopener noreferrer" // Sécurise le transfert
+                  whileHover={{ y: -5 }}
+                  className={`w-12 h-12 rounded-xl bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-xl text-slate-600 dark:text-slate-400 ${social.color} hover:text-white hover:border-transparent transition-all duration-300 shadow-sm`}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
             </div>
-            <div className="mt-6 text-right hidden md:block">
-              <span className="text-xs font-mono px-3 py-1 rounded-full border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                Disponible pour nouveaux projets
-              </span>
+            
+            <div className="mt-10 text-right">
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Localisation</p>
+              <p className="text-sm font-bold text-gray-400 dark:text-gray italic">Kinshasa, RD Congo</p>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t text-center md:flex md:justify-between md:text-left" style={{ borderColor: 'var(--border-color)' }}>
-          <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-            © {currentYear} Bendelo Freelance | Software Engineer. Tous droits réservés.
+        {/* Bottom Bar : Ligne de copyright épurée */}
+        <div className="mt-20 pt-8 border-t border-gray-400 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[10px] font-gray-400 text-orange-500 dark:text-white uppercase tracking-widest text-center md:text-left">
+            © {currentYear} Bendelo Thielcy <span className="mx-2 opacity-30">|</span> Crafted with Passion & Code
           </p>
-          <div className="mt-2 md:mt-0">
-            <p className="text-xs italic" style={{ color: 'var(--text-secondary)' }}>
-              Propulsé par la passion et le code.
-            </p>
+          <div className="flex gap-6">
+            <span className="text-[10px] text-gray-400 font-medium uppercase tracking-[0.2em]">Privacy Policy</span>
+            <span className="text-[10px] text-gray-400 font-medium uppercase tracking-[0.2em]">Terms of Service</span>
           </div>
         </div>
       </div>

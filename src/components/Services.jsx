@@ -106,12 +106,49 @@ export default function Services() {
   return (
     <section className="py-24 px-6" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">Nos Services</h1>
-          <p className="text-lg max-w-3xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            Découvrez nos solutions informatiques professionnelles conçues par Bendelo Freelance et MUAMOKEL AGENCY.
-          </p>
-        </div>
+       <div className="text-center mb-24 relative">
+  {/* Surtitre stratégique */}
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+  >
+    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+      Expertise Opérationnelle
+    </span>
+  </motion.div>
+
+  {/* Titre Principal : Look Agence Digitale */}
+  <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+    <span className="text-[var(--text-primary)] opacity-90">Nos </span>
+    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+      Solutions
+    </span>
+    <span className="text-[var(--accent-1)]">.</span>
+  </h1>
+
+  {/* Description avec hiérarchie de noms (Branding) */}
+  <div className="max-w-4xl mx-auto space-y-4">
+    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
+      Propulser votre vision grâce à l'ingénierie de pointe développée par  
+      <span className="font-black italic text-orange-500 mx-2">Bendelo.Thielcy</span> 
+      en synergie avec 
+      <span className="font-black italic dark:text-white text-slate-900 ml-2 underline decoration-orange-500/30">
+        MUAMOKEL AGENCY
+      </span>.
+    </p>
+    
+    <div className="flex justify-center items-center gap-4 pt-4">
+      <div className="h-[1px] w-12 bg-orange-500/30" />
+      <p className="text-xs md:text-sm uppercase tracking-[0.2em] text-[var(--text-secondary)] font-bold">
+        Digitalisation • Architecture Cloud • Cybersécurité
+      </p>
+      <div className="h-[1px] w-12 bg-orange-500/30" />
+    </div>
+  </div>
+</div>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (

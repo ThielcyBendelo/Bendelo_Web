@@ -1,28 +1,58 @@
 import React from "react";
+import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaMap } from "react-icons/fa";
 
 function GoogleMapsSection() {
   return (
-    <section className="py-20 px-6 transition-colors duration-300 relative" 
+    <section className="py-20 px-6 transition-colors duration-300 relative border-t border-slate-200/50 dark:border-white/5" 
              style={{ backgroundColor: 'var(--bg)' }} 
              id="localisation">
-      
-      <div className="max-w-4xl mx-auto">
+   
         {/* Header avec Icône */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border"
-               style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', color: 'var(--accent-1)' }}>
-            <FaMap />
-            <span className="text-sm font-bold" style={{ color: 'var(--text-secondary)' }}>Où me trouver ?</span>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text inline-block">
-            Localisation Professionnelle
-          </h2>
-          <p className="max-w-2xl mx-auto text-lg leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            Basé à Kinshasa, j'accompagne les entreprises locales et internationales dans leur transformation digitale.
-          </p>
-        </div>
+         <div className="text-center mb-20 relative">
+  {/* Badge de localisation dynamique */}
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+  >
+    <FaMap className="text-orange-500 animate-bounce" />
+    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+      Global Presence / Local Hub
+    </span>
+  </motion.div>
+  
+  {/* Titre Localisation Ultra-Massif */}
+  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+    <span className="text-[var(--text-primary)] opacity-90">Ancrage </span>
+    <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
+      Stratégique
+    </span>
+    <span className="text-orange-500">.</span>
+  </h2>
+
+  {/* Description orientée "Business Hub" */}
+  <div className="max-w-3xl mx-auto space-y-6">
+    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
+      Opérant depuis le cœur de <span className="font-bold italic text-orange-500">Kinshasa</span>, 
+      je déploie des écosystèmes technologiques pour des partenaires 
+      <span className="font-black dark:text-white text-slate-900 ml-2 border-b-2 border-orange-500/30">
+        panafricains et globaux.
+      </span>
+    </p>
+
+    {/* Indicateur de connectivité */}
+    <div className="flex justify-center items-center gap-4 pt-4 opacity-60">
+      <div className="h-[1px] w-8 bg-slate-500" />
+      <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">
+        Connectivité Fibre • Serveurs Localisés • Support 24/7
+      </p>
+      <div className="h-[1px] w-8 bg-slate-500" />
+    </div>
+  </div>
+</div>
+
 
         {/* Conteneur Carte + Infos */}
         <div className="grid md:grid-cols-3 gap-8 items-start">

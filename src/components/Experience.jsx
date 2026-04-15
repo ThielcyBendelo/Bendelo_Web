@@ -51,15 +51,47 @@ export default function Experience() {
       style={{ backgroundColor: 'var(--bg)' }}
     >
       <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text inline-block">
-            Expériences
-          </h2>
-          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
-            Mon parcours professionnel et mes réalisations clés.
-          </p>
-        </div>
+  {/* Header avec typographie "Architecte Système" */}
+  <div className="text-center mb-24 relative">
+    
+    {/* Petit label flottant - Donne le ton immédiatement */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 mb-8"
+    >
+      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-500">
+        Parcours & Leadership
+      </span>
+    </motion.div>
+
+    {/* Titre Expérience Ultra-Massif */}
+    <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+      <span className="text-[var(--text-primary)] opacity-90">Trajec</span>
+      <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+        toire
+      </span>
+      <span className="text-[var(--accent-1)]">.</span>
+    </h2>
+
+    {/* Description stratégique */}
+    <div className="max-w-3xl mx-auto">
+      <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)] mb-6">
+        Plus de <span className="font-bold text-[var(--accent-1)]">8 ans</span> à concevoir des infrastructures complexes et à diriger des cycles de développement critiques.
+      </p>
+      
+      {/* Séparateur minimaliste avec icône de chronologie */}
+      <div className="flex justify-center items-center gap-6">
+        <div className="h-[1px] flex-1 bg-gradient-to-l from-orange-500/50 to-transparent" />
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--text-secondary)] whitespace-nowrap">
+          Roadmap Professionnelle
+        </p>
+        <div className="h-[1px] flex-1 bg-gradient-to-r from-orange-500/50 to-transparent" />
+      </div>
+    </div>
+  </div>
+</div>
+
 
         {/* Timeline Container */}
         <motion.div 
@@ -127,7 +159,7 @@ export default function Experience() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+   
     </section>
   );
 }

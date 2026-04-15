@@ -6,7 +6,7 @@ import ProcessSection from '../components/ProcessSection';
 import PortfolioSection from '../components/PortfolioSection';
 import TechnologiesSection from '../components/TechnologiesSection';
 // import Testimonials from '../components/Testimonials';
-import TeamSection from '../components/TeamSection';
+// import TeamSection from '../components/TeamSection';
 
 
 
@@ -20,7 +20,7 @@ export default function Home() {
         <PortfolioSection/>
         <TechnologiesSection/>
         <ProcessSection />
-        <TeamSection/>
+        {/* <TeamSection/> */}
         {/* <Testimonials/> */}
         <FAQSection />
       </div>

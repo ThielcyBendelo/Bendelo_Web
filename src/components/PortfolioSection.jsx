@@ -12,14 +12,14 @@ const portfolio = [
     id: 1,
     title: 'TechInnov - Site Vitrine',
     titleEn: 'TechInnov - Showcase Website',
-    image: 'https://unsplash.com',
+    image: '/images/projet1.jpg',
     description: 'Refonte complète du site vitrine pour TechInnov avec design moderne, SEO optimisé et sécurité renforcée.',
     descriptionEn: 'Complete redesign of the showcase website for TechInnov with modern design, optimized SEO and enhanced security.',
     tags: ['React', 'SEO', 'UI/UX', 'Performance'],
     category: 'web',
     technologies: ['React', 'Tailwind CSS', 'Next.js', 'Vercel'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: true
   },
   {
@@ -32,8 +32,8 @@ const portfolio = [
     tags: ['E-commerce', 'Sécurité', 'Node.js', 'MongoDB'],
     category: 'ecommerce',
     technologies: ['Node.js', 'MongoDB', 'Stripe', 'React'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: true
   },
   {
@@ -46,22 +46,22 @@ const portfolio = [
     tags: ['Mobile', 'React Native', 'UX', 'Firebase'],
     category: 'mobile',
     technologies: ['React Native', 'Firebase', 'Expo', 'Node.js'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: false
   },
   {
     id: 4,
     title: 'DataFlow - Dashboard Analytics',
     titleEn: 'DataFlow - Analytics Dashboard',
-    image: 'https://unsplash.com',
+    image: '/images/projet4.jpg',
     description: 'Tableau de bord analytique en temps réel avec visualisations avancées et rapports automatisés.',
     descriptionEn: 'Real-time analytics dashboard with advanced visualizations and automated reports.',
     tags: ['Dashboard', 'Analytics', 'D3.js', 'API'],
     category: 'web',
     technologies: ['React', 'D3.js', 'Python', 'PostgreSQL'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: false
   },
   {
@@ -74,22 +74,22 @@ const portfolio = [
     tags: ['Sécurité', 'Fintech', 'API', 'Mobile'],
     category: 'mobile',
     technologies: ['React Native', 'Node.js', 'PostgreSQL', 'JWT'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: true
   },
   {
     id: 6,
     title: 'EduLearn - Plateforme E-learning',
     titleEn: 'EduLearn - E-learning Platform',
-    image: 'https://unsplash.com',
+    image: '/images/projet6.jpg',
     description: 'Plateforme de formation en ligne avec cours interactifs, quiz et suivi de progression.',
     descriptionEn: 'Online learning platform with interactive courses, quizzes and progress tracking.',
     tags: ['E-learning', 'Video', 'Progression', 'API'],
     category: 'web',
     technologies: ['React', 'Node.js', 'MongoDB', 'WebRTC'],
-    link: '#',
-    github: '#',
+    link: '',
+    github: '',
     featured: false
   }
 ];
@@ -110,38 +110,61 @@ function PortfolioSection() {
     : portfolio.filter(project => project.category === selectedCategory);
 
   return (
-    <section className="py-20 px-6 transition-colors duration-300 relative" style={{ backgroundColor: 'var(--bg)' }} id="portfolio">
+    <section className="py-20 px-6 transition-colors duration-300 relative border-t border-slate-200/50 dark:border-white/5" style={{ backgroundColor: 'var(--bg)' }} id="portfolio">
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Header avec icône animée */}
-        <AnimatedSection variant="fadeIn" delay={0.2}>
-          <div className="text-center mb-16">
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border"
-              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', color: 'var(--accent-1)' }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <FaStar className="animate-pulse" />
-              <span className="text-sm font-bold" style={{ color: 'var(--text-secondary)' }}>
-                {isEnglish ? 'Our Work' : 'Mes Réalisations'}
-              </span>
-            </motion.div>
+        {/* Header avec typographie "Principal Engineer" */}
+<AnimatedSection variant="fadeIn" delay={0.2}>
+  <div className="text-center mb-16">
+    {/* Badge de contexte - Style Agence */}
+    <motion.div
+      className="inline-flex items-center gap-3 px-6 py-2 rounded-full mb-8 border backdrop-blur-md"
+      style={{ 
+        backgroundColor: 'var(--surface)', 
+        borderColor: 'var(--border-color)', 
+        opacity: 0.9 
+      }}
+      whileHover={{ scale: 1.05, borderColor: 'var(--accent-1)' }}
+    >
+      <FaStar className="animate-pulse text-[var(--accent-1)]" />
+      <span className="text-xs font-black uppercase tracking-[0.3em]" style={{ color: 'var(--text-secondary)' }}>
+        {isEnglish ? 'Selected Works' : 'Mes Réalisations'}
+      </span>
+    </motion.div>
 
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-                Portfolio
-              </span>
-            </h2>
+    {/* Titre Portfolio Ultra-Premium */}
+    <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+      <span className="text-[var(--text-primary)] opacity-90">
+        Portfo
+      </span>
+      <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+        lio
+      </span>
+      <span className="text-[var(--accent-1)]">.</span>
+    </h2>
 
-            <button
-              onClick={() => setIsEnglish(!isEnglish)}
-              className="text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-lg border transition-all hover:bg-[var(--accent-1)] hover:text-white"
-              style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-            >
-              {isEnglish ? '🇫🇷 Version Française' : '🇺🇸 English Version'}
-            </button>
-          </div>
-        </AnimatedSection>
+    {/* Sélecteur de Langue - Style Minimaliste & Pro */}
+    <div className="flex flex-col items-center gap-6">
+      <motion.div 
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        className="h-1 w-24 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] rounded-full mb-2"
+      />
+      
+      <button
+        onClick={() => setIsEnglish(!isEnglish)}
+        className="group relative text-[10px] font-black uppercase tracking-[0.2em] px-8 py-3 rounded-xl border transition-all duration-300 overflow-hidden"
+        style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
+      >
+        <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+          {isEnglish ? '🇫🇷 Passer au Français' : '🇺🇸 Switch to English'}
+        </span>
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+      </button>
+    </div>
+  </div>
+</AnimatedSection>
+
 
         {/* Filtres avec React-Icons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">

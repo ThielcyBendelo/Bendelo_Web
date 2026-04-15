@@ -9,6 +9,8 @@ import {
 import notificationService from '../services/notificationService';
 import analyticsService from '../services/analyticsService';
 import messagingService from '../dashboard/services/messagingService';
+import { motion } from 'framer-motion';
+
 
 const contactIcons = {
   Email: FaEnvelope, LinkedIn: FaLinkedin, GitHub: FaGithub,
@@ -63,17 +65,49 @@ export default function Contact() {
   };
 
   return (
-    <section ref={elementRef} id="contact" className="py-24 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
+    <section ref={elementRef} id="contact" className="py-20 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
       <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
         
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text inline-block">
-            Contactez-moi
-          </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Un projet en tête ? Parlons-en ensemble pour transformer vos idées en réalité numérique.
-          </p>
-        </div>
+       <div className="text-center mb-24 relative">
+  {/* Petit label flottant - Engagement Professionnel */}
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+  >
+    <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
+    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+      Open for collaboration
+    </span>
+  </motion.div>
+
+  {/* Titre Contact Ultra-Massif */}
+  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+    <span className="text-[var(--text-primary)] opacity-90">Initier le </span>
+    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
+      Contact
+    </span>
+    <span className="text-[var(--accent-1)]">.</span>
+  </h2>
+
+  {/* Description orientée "Business Value" */}
+  <div className="max-w-3xl mx-auto">
+    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)] mb-8">
+      Prêt à scaler votre infrastructure ou à lancer votre prochain écosystème digital ? 
+      <span className="block mt-2 font-bold italic text-orange-500">Analysons vos besoins ensemble.</span>
+    </p>
+    
+    {/* Séparateur avec indicateur de fuseau horaire ou localisation */}
+    <div className="flex justify-center items-center gap-6">
+      <div className="h-[1px] flex-1 bg-gradient-to-l from-orange-500/50 to-transparent" />
+      <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--text-secondary)] whitespace-nowrap">
+        Basé à Kinshasa • Disponible Worldwide
+      </p>
+      <div className="h-[1px] flex-1 bg-gradient-to-r from-orange-500/50 to-transparent" />
+    </div>
+  </div>
+</div>
+
 
         <div className="grid lg:grid-cols-5 gap-12 items-start">
           
