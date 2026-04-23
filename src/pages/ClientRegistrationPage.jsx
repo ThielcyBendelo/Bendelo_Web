@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
+import GoogleAnalyticsTracker from "../components/Analytics"; 
 import {
   fetchClients,
   addClient,

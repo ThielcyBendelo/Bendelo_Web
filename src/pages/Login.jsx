@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import GoogleAnalyticsTracker from "../components/Analytics"; 
 import { toast } from 'react-toastify';
 import { authService } from '../services/authService.firebase';
 

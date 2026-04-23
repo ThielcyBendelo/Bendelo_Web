@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { skills } from '../assets/assets.js';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaReact, FaNodeJs, FaGitAlt, FaTerminal, FaCode, FaServer, FaTools } from 'react-icons/fa';
+import { FaReact, FaNodeJs, FaGitAlt, FaTerminal, FaCode, FaServer, FaTools, FaBrain } from 'react-icons/fa';
 import { SiJavascript, SiTailwindcss, SiTypescript, SiMongodb, SiFirebase, SiDocker } from 'react-icons/si';
 
 const skillIcons = {
@@ -15,6 +15,7 @@ const categories = [
   { id: 'frontend', label: 'Frontend', icon: <FaReact /> },
   { id: 'backend', label: 'Backend', icon: <FaServer /> },
   { id: 'tools', label: 'Outils & Cloud', icon: <FaTools /> },
+   { id: 'impact', label: 'Soft Skills & Éveil', icon: <FaBrain /> },
 ];
 
 export default function Skills() {
@@ -28,53 +29,36 @@ export default function Skills() {
   });
 
   return (
-    <section className="py-24 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }} id="skills">
+    <section className="py-24 px-6 transition-all duration-700" style={{ backgroundColor: 'var(--bg)' }} id="skills">
       <div className="max-w-6xl mx-auto">
         
         <div className="text-center mb-24 relative">
-  {/* Surtitre d'autorité technique */}
-  <motion.div
-    initial={{ opacity: 0, y: -10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 mb-8"
-  >
-    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">
-      Engineered Performance
-    </span>
-  </motion.div>
+          {/* Surtitre adaptatif */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--accent-1)]/20 bg-[var(--accent-1)]/5 mb-8"
+          >
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-2)] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--accent-1)]">
+              Architecture & Conscience
+            </span>
+          </motion.div>
 
-  {/* Titre Skills Ultra-Massif */}
-  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-    <span className="text-[var(--text-primary)] opacity-90">Stack </span>
-    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-      Technique
-    </span>
-    <span className="text-[var(--accent-1)]">.</span>
-  </h2>
+          {/* Titre Ultra-Massif Adaptatif */}
+          <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none" style={{ color: 'var(--text-primary)' }}>
+            Arsenal <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)]">
+              Cognitif
+            </span>
+            <span className="text-[var(--accent-2)]">.</span>
+          </h2>
 
-  {/* Description orientée "Architecture & Scalability" */}
-  <div className="max-w-4xl mx-auto space-y-6">
-    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
-      Maîtrise avancée des environnements 
-      <span className="font-bold italic text-orange-500 mx-2">Multi-Cloud</span> 
-      et des architectures distribuées pour des solutions 
-      <span className="font-black dark:text-white text-slate-900 ml-2 border-b-2 border-orange-500/30">
-        scalables et sécurisées.
-      </span>
-    </p>
-
-    {/* Indicateur de polyvalence technique */}
-    <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
-      <div className="h-[1px] w-12 bg-slate-500" />
-      <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">
-        Full-Stack • DevOps • Architecture Système
-      </p>
-      <div className="h-[1px] w-12 bg-slate-500" />s
-    </div>
-  </div>
-</div>
-
+          <p className="text-xl md:text-2xl font-light leading-relaxed max-w-4xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+            Une fusion de <span className="font-bold italic text-[var(--accent-1)]">maîtrise technologique</span> et de 
+            <span className="font-black italic text-[var(--accent-2)] mx-2">leadership humain</span> pour bâtir des solutions à fort impact.
+          </p>
+        </div>
 
         {/* Filtres de Catégories */}
         <div className="flex flex-wrap justify-center gap-3 mb-16">

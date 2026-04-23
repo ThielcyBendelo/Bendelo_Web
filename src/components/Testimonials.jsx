@@ -1,249 +1,153 @@
 import React, { useState } from 'react';
-import dataService from '../services/dataService';
-import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { motion as Motion, AnimatePresence } from 'framer-motion';
-// Remplacer StarRating, itemVariants par vos propres composants ou valeurs si besoin
-// import StarRating from './StarRating';
-const itemVariants = {};
+import { FaBook, FaShoppingBag, FaStar, FaChevronLeft, FaChevronRight, FaTimes, FaGlobeAfrica } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const initialTestimonials = [
+const initialBooks = [
   {
-    name: 'Alice',
-    role: 'Client',
-    company: 'Entreprise X',
-    project: 'Site Web',
-    date: '2025',
+    id: 1,
+    title: "Le Réveil du Lion Africain",
+    subtitle: "Guide pratique pour une souveraineté mentale",
+    author: "Bendelo Thielcy",
+    price: 25,
     rating: 5,
-    text: 'Super service, je recommande !',
+    category: "Éveil",
+    description: "Un manifeste puissant explorant les clés de l'indépendance intellectuelle et technologique pour la jeunesse du continent.",
+    image: "/public/images/book1.jpg", // Remplacez par vos images
+    status: "Disponible"
   },
-  // Ajoutez d'autres témoignages ici
+  {
+    id: 2,
+    title: "Code & Conscience",
+    subtitle: "L'ingénierie au service de l'impact humain",
+    author: "Bendelo Thielcy",
+    price: 30,
+    rating: 5,
+    category: "Technologie",
+    description: "Comment allier la rigueur du logiciel avec la profondeur de l'âme pour bâtir des solutions durables.",
+    image: "/public/images/book2.jpg",
+    status: "Bientôt disponible"
+  }
 ];
 
-export default function Testimonials() {
-  const [testimonials, setTestimonials] = useState(initialTestimonials);
+export default function Library() {
+  const [books] = useState(initialBooks);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [form, setForm] = useState({
-    name: '',
-    project: '',
-    text: '',
-    rating: 5,
-  });
+  const [showOrderModal, setShowOrderModal] = useState(false);
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
-  const goToNext = () => {
-    setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-  };
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
+  const nextBook = () => setCurrentIndex((prev) => (prev === books.length - 1 ? 0 : prev + 1));
+  const prevBook = () => setCurrentIndex((prev) => (prev === 0 ? books.length - 1 : prev - 1));
+
+  const handleOrder = () => {
+    const message = `Bonjour Ir Bendelo, je souhaite commander le livre : ${books[currentIndex].title}`;
+    window.open(`https://wa.me{encodeURIComponent(message)}`, '_blank');
   };
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: name === 'rating' ? Number(value) : value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newTestimonial = dataService.addTestimonial(form);
-    setTestimonials((prev) => [...prev, newTestimonial]);
-    setCurrentIndex(testimonials.length);
-    setShowModal(false);
-    setForm({ name: '', project: '', text: '', rating: 5 });
-  };
-
-  // Ajout de l'id testimonials pour le scroll
   return (
-    <div
-      id="testimonials"
-      className="py-20 bg-gradient-to-br from-dark-200 via-dark-100 to-dark-200"
-      style={{ zIndex: 1000 }}
-    >
+    <section id="library" className="py-24 transition-all duration-700" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="container mx-auto px-6">
-        {/* ...existing code... */}
-        <div>
-          {/* Bouton pour ouvrir le modal d'avis */}
-          <div className="flex justify-center mb-8">
-            <button
-              onClick={handleOpenModal}
-              className="px-6 py-3 bg-purple text-white font-bold rounded shadow-lg hover:bg-purple/80 transition-all duration-300"
+        
+        {/* EN-TÊTE DE LA BIBLIOTHÈQUE */}
+        <div className="text-center mb-20">
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-6">
+            <FaGlobeAfrica className="text-orange-500 animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">Impact Littéraire Africain</span>
+          </motion.div>
+          <h2 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter uppercase italic" style={{ color: 'var(--text-primary)' }}>
+            Biblio<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">thèque</span>.
+          </h2>
+          <p className="text-xl max-w-2xl mx-auto font-light italic" style={{ color: 'var(--text-secondary)' }}>
+            "Les mots sont les graines de l'éveil. Cultivons ensemble le jardin du futur."
+          </p>
+        </div>
+
+        {/* AFFICHAGE DU LIVRE (CARROUSEL 3D) */}
+        <div className="relative max-w-5xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.9, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={{ opacity: 0, scale: 0.9, x: -20 }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 backdrop-blur-xl"
+              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}
             >
-              Laisser ton avis
+              {/* Couverture du Livre */}
+              <div className="relative group perspective-1000">
+                <div className="absolute inset-0 bg-orange-500/20 blur-[100px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
+                <motion.div 
+                  whileHover={{ rotateY: -20, rotateX: 5 }}
+                  className="relative aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden border border-white/20"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
+                  <img 
+                    src={books[currentIndex].image} 
+                    alt={books[currentIndex].title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 right-4 z-20 px-4 py-1 bg-orange-600 text-[10px] font-black uppercase rounded-full text-white shadow-xl">
+                    {books[currentIndex].category}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Détails et Vente */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-orange-500 mb-2">
+                  {[...Array(books[currentIndex].rating)].map((_, i) => <FaStar key={i} />)}
+                </div>
+                <h3 className="text-4xl md:text-5xl font-black leading-none" style={{ color: 'var(--text-primary)' }}>
+                  {books[currentIndex].title}
+                </h3>
+                <h4 className="text-lg font-bold text-purple-500 italic">{books[currentIndex].subtitle}</h4>
+                <p className="text-lg leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
+                  {books[currentIndex].description}
+                </p>
+
+                <div className="pt-8 flex flex-wrap items-center gap-8">
+                  <div className="text-3xl font-black text-white">
+                    <span style={{ color: 'var(--text-primary)' }}>{books[currentIndex].price}</span>
+                    <span className="text-orange-500 ml-1">$</span>
+                  </div>
+                  <button 
+                    onClick={handleOrder}
+                    className="flex-1 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all shadow-xl shadow-orange-900/20 active:scale-95"
+                  >
+                    <FaShoppingBag /> Commander l'éveil
+                  </button>
+                </div>
+                
+                <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                  <span className="flex items-center gap-2">● {books[currentIndex].status}</span>
+                  <span className="flex items-center gap-2">● Livraison Kinshasa & Monde</span>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation */}
+          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 lg:-left-20">
+            <button onClick={prevBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
+              <FaChevronLeft />
             </button>
           </div>
-          {showModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-              <div className="bg-dark-300 rounded-2xl p-8 w-full max-w-md mx-auto relative">
-                <button
-                  onClick={handleCloseModal}
-                  className="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl"
-                  aria-label="Fermer"
-                >
-                  ×
-                </button>
-                <h3 className="text-2xl font-bold text-white mb-4 text-center">
-                  Laisse ton témoignage
-                </h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Votre nom"
-                    className="w-full px-4 py-2 border rounded bg-dark-200 text-white"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="project"
-                    value={form.project}
-                    onChange={handleChange}
-                    placeholder="Nom du projet ou type de projet"
-                    className="w-full px-4 py-2 border rounded bg-dark-200 text-white"
-                    required
-                  />
-                  <textarea
-                    name="text"
-                    value={form.text}
-                    onChange={handleChange}
-                    placeholder="Votre témoignage"
-                    className="w-full px-4 py-2 border rounded bg-dark-200 text-white"
-                    rows={4}
-                    required
-                  />
-                  <div>
-                    <label
-                      htmlFor="rating"
-                      className="block text-gray-400 mb-1"
-                    >
-                      Note :
-                    </label>
-                    <select
-                      name="rating"
-                      id="rating"
-                      value={form.rating}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded bg-dark-200 text-white"
-                    >
-                      {[5, 4, 3, 2, 1].map((n) => (
-                        <option key={n} value={n}>
-                          {n} ★
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full py-3 bg-purple text-white font-bold rounded"
-                  >
-                    Envoyer
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-          <AnimatePresence>
-            <Motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-            >
-              <FaQuoteLeft className="text-purple/30 text-4xl mb-6" />
-              <div className="mb-6">{testimonials[currentIndex]?.rating} ★</div>
-              <blockquote className="text-lg md:text-xl text-gray-200 leading-relaxed mb-8 italic">
-                "{testimonials[currentIndex]?.text || ''}"
-              </blockquote>
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple to-pink p-0.5">
-                  <div className="w-full h-full rounded-full bg-dark-300 flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {testimonials[currentIndex]?.name?.charAt(0) || ''}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold text-lg">
-                    {testimonials[currentIndex]?.name || ''}
-                  </h4>
-                  <p className="text-gray-400">
-                    {testimonials[currentIndex]?.role || ''} •{' '}
-                    {testimonials[currentIndex]?.company || ''}
-                  </p>
-                  <p className="text-purple text-sm">
-                    {testimonials[currentIndex]?.project || ''} •{' '}
-                    {testimonials[currentIndex]?.date || ''}
-                  </p>
-                </div>
-              </div>
-            </Motion.div>
-          </AnimatePresence>
-          {/* Navigation buttons */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-dark-400/80 backdrop-blur-sm hover:bg-purple/80 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gray-600/50 hover:border-purple"
-            aria-label="Témoignage précédent"
-          >
-            <FaChevronLeft />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-dark-400/80 backdrop-blur-sm hover:bg-purple/80 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gray-600/50 hover:border-purple"
-            aria-label="Témoignage suivant"
-          >
-            <FaChevronRight />
-          </button>
-          {/* Indicators */}
-          <div className="flex justify-center gap-3 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-gradient-to-r from-purple to-pink scale-125'
-                    : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-                aria-label={`Aller au témoignage ${index + 1}`}
-              />
-            ))}
+          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 lg:-right-20">
+            <button onClick={nextBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
+              <FaChevronRight />
+            </button>
           </div>
         </div>
-        <Motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
-          variants={itemVariants}
-        >
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2"></div>
-            <div className="text-gray-400">Projets réalisés</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2"></div>
-            <div className="text-gray-400">Satisfaction</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2"></div>
-            <div className="text-gray-400">Note moyenne</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white mb-2"></div>
-            <div className="text-gray-400">Année</div>
-          </div>
-        </Motion.div>
+
+        {/* Indication visuelle des pages */}
+        <div className="flex justify-center gap-3 mt-12">
+          {books.map((_, i) => (
+            <div 
+              key={i} 
+              className={`h-1.5 rounded-full transition-all duration-500 ${currentIndex === i ? 'w-12 bg-orange-500' : 'w-4 bg-white/10'}`} 
+            />
+          ))}
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

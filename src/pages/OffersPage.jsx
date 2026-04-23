@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-
-// Imports des composants
 import NavbarSecured from '../components/NavbarSecured';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
-
-// Imports des icônes
+import GoogleAnalyticsTracker from "../components/Analytics"; 
 import { 
   FaCheck, FaStar, FaCode, FaMobile, FaCloud, FaShieldAlt, 
   FaRocket, FaCog, FaTimes, FaEnvelope, FaClock, FaUsers, 
@@ -15,11 +12,11 @@ import {
   FaServer, FaTools as FaWrench, FaPaperPlane, FaWallet, 
   FaBuilding, FaWhatsapp 
 } from 'react-icons/fa';
-
 import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
 
 export default function OffersPage() {
+  const navigate = useNavigate();
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -114,7 +111,7 @@ export default function OffersPage() {
       originalPrice: '2500$',
       savings: '17%',
       color: '#6366f1',
-      icon: <FaCog />,
+      icon: <FaCode />,
       duration: '8-12 semaines',
       features: [
         { text: 'Application sur mesure', icon: <FaCode /> },
@@ -147,7 +144,7 @@ export default function OffersPage() {
   ];
 
   const handleInputChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -164,54 +161,43 @@ export default function OffersPage() {
 
   return (
     <>
+    <GoogleAnalyticsTracker /> 
       <NavbarSecured />
       
       <main className="pt-24 min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
         <div className="max-w-7xl mx-auto px-6">
-          
-         <div className="text-center mb-24 relative">
-  {/* Badge Promotionnel Dynamique */}
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-  >
-    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-      Limited Opportunity / Up to -25%
-    </span>
-  </motion.div>
+          <div className="text-center mb-24 relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+            >
+              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+                Limited Opportunity / Up to -25%
+              </span>
+            </motion.div>
 
-  {/* Titre Offres Ultra-Massif */}
-  <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-    <span className="text-[var(--text-primary)] opacity-90">Paliers d'</span>
-    <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
-      Impact
-    </span>
-    <span className="text-orange-500">.</span>
-  </h1>
+            <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+              <span className="text-[var(--text-primary)] opacity-90">Paliers d'</span>
+              <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">Impact</span>
+              <span className="text-orange-500">.</span>
+            </h1>
 
-  {/* Description orientée "Scalability & ROI" */}
-  <div className="max-w-4xl mx-auto space-y-6">
-    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
-      Sélectionnez le moteur de croissance adapté à votre échelle. Des solutions 
-      <span className="font-bold italic text-orange-500 mx-2">End-to-End</span> 
-      conçues pour maximiser votre retour sur investissement digital.
-    </p>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
+                Sélectionnez le moteur de croissance adapté à votre échelle. Des solutions 
+                <span className="font-bold italic text-orange-500 mx-2">End-to-End</span> 
+                conçues pour maximiser votre retour sur investissement digital.
+              </p>
+              <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
+                <div className="h-[1px] w-12 bg-slate-500" />
+                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">Standard • Pro • Enterprise Custom</p>
+                <div className="h-[1px] w-12 bg-slate-500" />
+              </div>
+            </div>
+          </div>
 
-    {/* Indicateur de flexibilité */}
-    <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
-      <div className="h-[1px] w-12 bg-slate-500" />
-      <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">
-        Standard • Pro • Enterprise Custom
-      </p>
-      <div className="h-[1px] w-12 bg-slate-500" />
-    </div>
-  </div>
-</div>
-
-
-          {/* Pricing Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {offers.map((offer) => (
               <motion.div
@@ -225,7 +211,6 @@ export default function OffersPage() {
                     Plus Populaire
                   </div>
                 )}
-
                 <div className="flex justify-between items-start mb-6">
                   <div className="text-3xl p-3 rounded-2xl" style={{ backgroundColor: `${offer.color}15`, color: offer.color }}>
                     {offer.icon}
@@ -236,10 +221,8 @@ export default function OffersPage() {
                     <span className="block text-[10px] font-bold text-green-500 uppercase mt-1">Économisez {offer.savings}</span>
                   </div>
                 </div>
-
                 <h3 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{offer.title}</h3>
                 <p className="text-sm mb-6 font-medium" style={{ color: 'var(--accent-1)' }}>{offer.subtitle}</p>
-
                 <div className="space-y-4 mb-8 flex-grow">
                   {offer.features.map((feat, i) => (
                     <div key={i} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-primary)' }}>
@@ -248,7 +231,6 @@ export default function OffersPage() {
                     </div>
                   ))}
                 </div>
-
                 <div className="mb-8 p-5 rounded-2xl border border-dashed" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)' }}>
                   <p className="text-[10px] font-extrabold uppercase mb-3 tracking-widest" style={{ color: 'var(--accent-1)' }}>Bonus & Avantages :</p>
                   <div className="grid grid-cols-1 gap-2">
@@ -260,7 +242,6 @@ export default function OffersPage() {
                     ))}
                   </div>
                 </div>
-
                 <button
                   onClick={() => { setSelectedPackage(offer); setIsModalOpen(true); }}
                   className="w-full py-4 rounded-2xl font-bold text-white shadow-lg transition-transform active:scale-95"
@@ -272,7 +253,6 @@ export default function OffersPage() {
             ))}
           </div>
         </div>
-
         <FAQSection />
       </main>
 
@@ -304,63 +284,34 @@ export default function OffersPage() {
               <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Nom complet</label>
-                  <input name="name" required onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none focus:ring-2 focus:ring-[var(--accent-1)]" 
-                         style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Votre nom" />
+                  <input name="name" required onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Votre nom" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Email Pro</label>
-                  <input name="email" type="email" required onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" 
-                         style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="email@entreprise.com" />
+                  <input name="email" type="email" required onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="email@entreprise.com" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Entreprise</label>
-                  <div className="relative">
-                    <FaBuilding className="absolute left-4 top-5 text-gray-500" />
-                    <input name="company" onChange={handleInputChange} className="w-full p-4 pl-12 rounded-xl border outline-none" 
-                           style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Société" />
-                  </div>
+                  <input name="company" onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Nom de société" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>WhatsApp</label>
-                  <div className="relative">
-                    <FaWhatsapp className="absolute left-4 top-5 text-gray-500" />
-                    <input name="phone" onChange={handleInputChange} className="w-full p-4 pl-12 rounded-xl border outline-none" 
-                           style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="+243..." />
-                  </div>
+                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Téléphone</label>
+                  <input name="phone" onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="+33 6..." />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Budget</label>
-                  <div className="relative">
-                    <FaWallet className="absolute left-4 top-5 text-gray-500" />
-                    <select name="budget" onChange={handleInputChange} className="w-full p-4 pl-12 rounded-xl border outline-none appearance-none" 
-                            style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
-                      <option value="">Votre budget</option>
-                      <option value="Standard">Standard</option>
-                      <option value="Premium">Premium</option>
-                    </select>
-                  </div>
+                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Budget estimé</label>
+                  <input name="budget" onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Ex: 1500$" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Délai</label>
-                  <div className="relative">
-                    <FaClock className="absolute left-4 top-5 text-gray-500" />
-                    <select name="timeline" onChange={handleInputChange} className="w-full p-4 pl-12 rounded-xl border outline-none appearance-none" 
-                            style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>
-                      <option value="">Délai souhaité</option>
-                      <option value="Urgent">Urgent</option>
-                      <option value="Standard">Standard</option>
-                    </select>
-                  </div>
+                  <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Timeline</label>
+                  <input name="timeline" onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Ex: 1 mois" />
                 </div>
                 <div className="md:col-span-2 space-y-1">
                   <label className="text-[10px] font-bold uppercase ml-1" style={{ color: 'var(--text-secondary)' }}>Message</label>
-                  <textarea name="message" rows="3" required onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none resize-none" 
-                            style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Détails..." />
+                  <textarea name="message" rows="3" onChange={handleInputChange} className="w-full p-4 rounded-xl border outline-none resize-none" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }} placeholder="Dites-nous en plus..." />
                 </div>
-                <button type="submit" disabled={isSubmitting} 
-                        className="md:col-span-2 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 text-white shadow-xl" 
-                        style={{ backgroundColor: selectedPackage?.color }}>
-                  {isSubmitting ? 'Envoi...' : <><FaPaperPlane /> Confirmer la commande</>}
+                <button type="submit" disabled={isSubmitting} className="md:col-span-2 w-full py-4 rounded-2xl font-bold text-white shadow-xl transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2" style={{ backgroundColor: selectedPackage?.color }}>
+                  {isSubmitting ? "Envoi en cours..." : <><FaPaperPlane /> Confirmer la commande</>}
                 </button>
               </form>
             </motion.div>

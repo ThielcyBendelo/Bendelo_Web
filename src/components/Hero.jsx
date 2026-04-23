@@ -13,7 +13,9 @@ import {
   FaMicrochip, 
   FaShieldAlt, 
   FaProjectDiagram, 
-  FaCloud // On utilise ce nom court
+  FaCloud, // On utilise ce nom court.
+   FaLightbulb, // Ajoutez cette ligne
+  FaBookOpen   // Ajoutez cette ligne pour éviter la prochaine erreur
 } from 'react-icons/fa';
 
 
@@ -225,7 +227,12 @@ export default function Hero() {
       <p className="text-base md:text-lg text-slate-400 max-w-xl mx-auto leading-relaxed font-medium">
         Expertise avancée en écosystèmes <span className="text-white border-b border-blue-500/50">Web</span> & <span className="text-white border-b border-purple-500/50">Mobile</span> pour architectures distribuées.
       </p>
+
+       <p className="text-base md:text-lg text-slate-400 max-w-xl mx-auto italic">
+        "Fusionner l'excellence technique et l'éveil humain pour bâtir l'avenir."
+      </p>
     </div>
+
 
     {/* Badge Agence - Look "Glassmorphism" épuré */}
     <motion.div
@@ -284,6 +291,90 @@ export default function Hero() {
         <div className="animate-bounce w-6 h-6 border-2 border-purple rounded-full"></div>
       </div>
     </section>
+
+
+   {/* --- SECTION DOUBLE IDENTITÉ (COACH & AUTEUR) : VERSION PREMIUM --- */}
+<AnimatedSection variant="slideUp" delay={0.6}>
+  <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    
+    {/* CARTE : ÉVEIL DE CONSCIENCE */}
+    <motion.div 
+      whileHover={{ y: -10, scale: 1.02 }}
+      className="relative group p-8 rounded-[2.5rem] bg-gradient-to-br from-purple-900/40 via-[#0A0E1A] to-[#05070A] border border-purple-500/30 overflow-hidden backdrop-blur-xl shadow-[0_20px_50px_rgba(147,51,234,0.15)]"
+    >
+      {/* Effet de lueur interne */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-600/20 blur-[80px] rounded-full group-hover:bg-purple-500/40 transition-colors" />
+      
+      <div className="relative z-10">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="p-4 rounded-2xl bg-purple-500/20 text-purple-400 text-2xl shadow-inner">
+            <FaLightbulb className="animate-pulse" />
+          </div>
+          <h4 className="text-xl font-black text-white tracking-tight uppercase italic">
+            Éveilleur de <span className="text-purple-400">Conscience</span>
+          </h4>
+        </div>
+        
+        <p className="text-slate-300 text-lg leading-relaxed font-light">
+          Propulser la <span className="text-white font-bold">jeunesse africaine</span> au-delà de ses limites mentales pour bâtir un leadership nouveau et authentique.
+        </p>
+        
+        <div className="mt-6 flex items-center gap-2 text-purple-400 text-xs font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
+          S'éveiller maintenant <span className="text-lg">→</span>
+        </div>
+      </div>
+    </motion.div>
+
+    {/* CARTE : AUTEUR ENGAGÉ */}
+    <motion.div 
+      whileHover={{ y: -10, scale: 1.02 }}
+      className="relative group p-8 rounded-[2.5rem] bg-gradient-to-br from-orange-900/30 via-[#0A0E1A] to-[#05070A] border border-orange-500/30 overflow-hidden backdrop-blur-xl shadow-[0_20px_50px_rgba(234,88,12,0.15)]"
+    >
+      {/* Effet de lueur interne */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-orange-600/20 blur-[80px] rounded-full group-hover:bg-orange-500/40 transition-colors" />
+      
+      <div className="relative z-10">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="p-4 rounded-2xl bg-orange-500/20 text-orange-400 text-2xl shadow-inner">
+            <FaBookOpen />
+          </div>
+          <h4 className="text-xl font-black text-white tracking-tight uppercase italic">
+            Plume d' <span className="text-orange-500">Impact</span>
+          </h4>
+        </div>
+        
+        <p className="text-slate-300 text-lg leading-relaxed font-light">
+          Auteur d'ouvrages dédiés à la <span className="text-white font-bold">transformation intérieure</span> et à la transmission de savoirs pour libérer les destins.
+        </p>
+
+        <div className="mt-6 flex items-center gap-2 text-orange-400 text-xs font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
+          Découvrir mes livres <span className="text-lg">→</span>
+        </div>
+      </div>
+    </motion.div>
+
+  </div>
+</AnimatedSection>
+
+      {/* --- AJOUT : BOUTONS D'ACTION AMÉLIORÉS --- */}
+      <AnimatedSection variant="slideUp" delay={0.8}>
+        <div className="mt-16 flex flex-col sm:flex-row gap-6 justify-center">
+          <button 
+            onClick={() => navigate('/work')}
+            className="px-10 py-4 bg-orange-600 hover:bg-orange-700 text-white font-black rounded-full transition-all hover:scale-105 shadow-[0_0_20px_rgba(234,88,12,0.4)] uppercase tracking-widest text-xs"
+          >
+            Explorer mes projets
+          </button>
+          <button 
+            onClick={() => navigate('/work')}
+            className="px-10 py-4 pt-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 font-black rounded-full transition-all backdrop-blur-md uppercase tracking-widest text-xs"
+          >
+            Coaching & Ouvrages
+          </button>
+        </div>
+      </AnimatedSection>
+    
+
 
     {/* SECTION TECH MARQUEE (Défilement infini) */}
 <div className="py-12 bg-slate-950 border-y border-white/5 overflow-hidden">

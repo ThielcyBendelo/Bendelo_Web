@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import GoogleAnalyticsTracker from "../components/Analytics"; 
 import DashboardNavbar from '../components/dashboard/DashboardNavbar';
 import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import ClientsManager from '../components/dashboard/ClientsManager';

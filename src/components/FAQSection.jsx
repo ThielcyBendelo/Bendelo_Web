@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronDown, FaQuestionCircle } from "react-icons/fa";
+import { FaChevronDown, FaQuestionCircle, FaLightbulb, FaBook, FaTerminal } from "react-icons/fa";
 
 const faqs = [
   {
-    question: "Quels types de projets réalisez-vous ?",
-    answer: "Je conçois des architectures logicielles haute performance : sites vitrines premium, plateformes e-commerce scalables, applications mobiles natives et infrastructures cloud critiques avec focus cybersécurité.",
+    question: "Pourquoi allier Ingénierie Logicielle et Éveil de Conscience ?",
+    answer: "La technologie n'est qu'un outil puissant. Sans une conscience éveillée pour la diriger, elle perd son sens. Mon approche unit la rigueur de l'ingénieur et la sagesse du coach pour bâtir des solutions qui servent réellement l'humain et l'Afrique.",
+    icon: <FaLightbulb className="text-purple-500" />
   },
   {
-    question: "Quels sont vos délais de livraison ?",
-    answer: "L'ingénierie de qualité prend du temps : comptez environ 2 à 4 semaines pour un MVP vitrine et 8 à 16 semaines pour un système d'entreprise complet incluant tests QA et déploiement CI/CD.",
+    question: "Comment vos ouvrages impactent-ils la jeunesse ?",
+    answer: "Mes livres sont des manifestes de décolonisation mentale. Ils offrent des clés concrètes pour passer de spectateur à acteur du changement, en utilisant le digital comme levier d'indépendance et de succès.",
+    icon: <FaBook className="text-orange-500" />
   },
   {
-    question: "Proposez-vous un accompagnement après livraison ?",
-    answer: "En tant qu'associé principal, j'assure un SLA (Service Level Agreement) rigoureux : maintenance préventive, monitoring 24/7 et mises à jour de sécurité critiques pour garantir la pérennité de votre actif digital.",
+    question: "Quels types de systèmes digitaux concevez-vous ?",
+    answer: "Avec MUAMOKEL AGENCY, je développe des architectures scalables : plateformes e-commerce, applications métiers et infrastructures cloud sécurisées. Chaque ligne de code est pensée pour la performance et la souveraineté numérique.",
+    icon: <FaTerminal className="text-blue-500" />
   },
   {
-    question: "Comment garantir la sécurité de mon projet ?",
-    answer: "La sécurité est 'by design' : implémentation du Top 10 OWASP, chiffrement AES-256, protocoles d'authentification robustes (OAuth2/JWT) et audits de vulnérabilité avant chaque mise en production.",
+    question: "Proposez-vous du coaching personnalisé ?",
+    answer: "Oui. J'accompagne les leaders et entrepreneurs via des sessions d'audit de vision. L'objectif est d'aligner votre puissance intérieure avec vos ambitions technologiques ou professionnelles.",
+    icon: <FaQuestionCircle className="text-emerald-500" />
   },
 ];
 
@@ -25,82 +29,115 @@ function FAQSection() {
   const [activeIdx, setActiveIdx] = useState(null);
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5" 
-             style={{ backgroundColor: 'var(--bg)' }} 
-             id="faq">
+  <section 
+  className="py-24 px-6 relative overflow-hidden transition-all duration-700 ease-in-out" 
+  style={{ backgroundColor: 'var(--bg)' }} 
+  id="faq"
+>
+  {/* --- EFFETS DE LUEUR ADAPTATIFS --- */}
+  <div 
+    className="absolute top-[-5%] right-[-5%] w-[500px] h-[500px] blur-[120px] rounded-full -z-10 
+               opacity-30 dark:opacity-[0.08] transition-opacity duration-1000 animate-pulse" 
+    style={{ backgroundColor: 'var(--accent-1)' }} 
+  />
+  <div 
+    className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] blur-[100px] rounded-full -z-10 
+               opacity-20 dark:opacity-[0.05] transition-opacity duration-1000" 
+    style={{ backgroundColor: 'var(--accent-2)' }} 
+  />
+
+  <div className="max-w-4xl mx-auto relative z-10">
+    
+    {/* --- EN-TÊTE DYNAMIQUE --- */}
+    <div className="text-center mb-24">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--accent-1)]/20 bg-[var(--accent-1)]/5 mb-8"
+      >
+        <span className="w-2 h-2 rounded-full bg-[var(--accent-1)] animate-pulse" />
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[var(--accent-1)]">
+          Transparence & Vision
+        </span>
+      </motion.div>
       
-      {/* Effet de lueur en fond */}
-      <div className="absolute top-1/2 right-0 w-64 h-64 bg-purple-500/5 blur-[120px] rounded-full" />
+      <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase italic leading-none" 
+          style={{ color: 'var(--text-primary)' }}>
+        Foire aux <br />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)]">
+          Questions.
+        </span>
+      </h2>
+      <p className="text-xl max-w-2xl mx-auto font-light italic" 
+         style={{ color: 'var(--text-secondary)' }}>
+        "Répondre au besoin de clarté pour mieux bâtir l'avenir."
+      </p>
+    </div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        {/* En-tête avec Branding Agence */}
-        <div className="text-center mb-20">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-orange-500 font-black uppercase tracking-[0.4em] text-xs mb-4 block"
+    {/* --- LISTE ACCORDÉON PREMIUM --- */}
+    <div className="space-y-4">
+      {faqs.map((faq, idx) => (
+        <motion.div 
+          key={idx}
+          className={`rounded-[2.5rem] border transition-all duration-500 ${
+            activeIdx === idx 
+            ? "border-[var(--accent-2)]/30 shadow-2xl scale-[1.01]" 
+            : "border-[var(--border-color)] hover:border-[var(--accent-1)]/20"
+          }`}
+          style={{ 
+            backgroundColor: activeIdx === idx ? 'var(--surface)' : 'transparent',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <button 
+            onClick={() => setActiveIdx(activeIdx === idx ? null : idx)}
+            className="w-full flex items-center justify-between p-8 text-left outline-none"
           >
-            Support & Conseil
-          </motion.span>
-          <h2 className="text-4xl md:text-6xl font-black text-gray-400 dark:text-white mb-6 tracking-tighter uppercase italic">
-            Questions <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">Fréquentes</span><span className="text-orange-500">.</span>
-          </h2>
-          <p className="text-xl text-gray-400 dark:text-gray-400 max-w-2xl mx-auto font-medium">
-            Des réponses claires pour éclairer votre stratégie de digitalisation.
-          </p>
-        </div>
-
-        {/* Liste des FAQs avec Glassmorphism Transparent */}
-        <div className="space-y-6">
-          {faqs.map((faq, idx) => (
-            <motion.div 
-              key={idx}
-              className={`rounded-[2rem] border transition-all duration-500 overflow-hidden ${
-                activeIdx === idx 
-                ? "border-orange-500/50 bg-white/5 dark:bg-white/5 shadow-2xl" 
-                : "border-slate-200/50 dark:border-white/10 bg-transparent"
-              }`}
+            <div className="flex items-center gap-5">
+              <span className={`text-2xl transition-all duration-500 ${activeIdx === idx ? "scale-125 rotate-6" : "opacity-40"}`}>
+                {faq.icon}
+              </span>
+              <span className="text-lg md:text-xl font-bold tracking-tight transition-colors"
+                    style={{ color: activeIdx === idx ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
+                {faq.question}
+              </span>
+            </div>
+            <motion.span 
+              animate={{ rotate: activeIdx === idx ? 180 : 0 }}
+              className="text-sm"
+              style={{ color: activeIdx === idx ? 'var(--accent-2)' : 'var(--text-secondary)' }}
             >
-              <button 
-                onClick={() => setActiveIdx(activeIdx === idx ? null : idx)}
-                className="w-full flex items-center justify-between p-8 text-left outline-none"
+              <FaChevronDown />
+            </motion.span>
+          </button>
+          
+          <AnimatePresence>
+            {activeIdx === idx && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
               >
-                <div className="flex items-center gap-4">
-                  <FaQuestionCircle className={`text-xl transition-colors ${activeIdx === idx ? "text-orange-500" : "text-slate-400"}`} />
-                  <span className={`text-lg md:text-xl font-bold tracking-tight transition-colors ${activeIdx === idx ? "text-slate-900 dark:text-white" : "text-slate-700 dark:text-slate-300"}`}>
-                    {faq.question}
-                  </span>
+                <div className="px-8 pb-10 pt-2">
+                  <div className="h-px w-24 mb-8" style={{ backgroundColor: 'var(--accent-2)' }} />
+                  <p className="text-lg leading-relaxed font-light pl-4 border-l" 
+                     style={{ 
+                       color: 'var(--text-secondary)', 
+                       borderColor: 'var(--border-color)' 
+                     }}>
+                    {faq.answer}
+                  </p>
                 </div>
-                <motion.span 
-                  animate={{ rotate: activeIdx === idx ? 180 : 0 }}
-                  className={`text-lg ${activeIdx === idx ? "text-orange-500" : "text-slate-400"}`}
-                >
-                  <FaChevronDown />
-                </motion.span>
-              </button>
-              
-              <AnimatePresence>
-                {activeIdx === idx && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <div className="px-8 pb-8 pt-2">
-                      <div className="h-px w-full bg-gradient-to-r from-orange-500/20 via-transparent to-transparent mb-6" />
-                      <p className="text-base md:text-lg leading-relaxed text-gray-400 dark:text-gray-400 font-medium">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
   );
 }
 

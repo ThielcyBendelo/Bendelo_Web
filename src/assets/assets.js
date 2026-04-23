@@ -16,9 +16,20 @@ export const logocopy = '/images/logocopy.jpeg';
 export const background7 = '/images/background7.jpeg';
 export const irBendelo = '/images/irbendelo1.jpeg';
 export const irThielcy = '/images/irthielcy1.jpeg';
+export const impact1 = '/images/impact1.jpeg';
+export const impact2 = '/images/impact2.jpeg';
+export const impact3 = '/images/impact3.jpeg';
+export const impact4 = '/images/impact4.jpeg';
+export const impact5 = '/images/impact5.jpeg';
+export const impact6 = '/images/impact6.jpeg';
+export const book1 = '/images/book1.jpeg';
+export const book2 = '/images/book2.jpeg';
+export const book3 = '/images/book3.jpeg';
+export const book4 = '/images/book4.jpeg';
+export const book5 = '/images/book5.jpeg';
+export const book6 = '/images/book6.jpeg';
+export const about = "Mon travail est une fusion entre l'architecture logique du code et l'éveil du potentiel humain. En tant qu'ingénieur au sein de MUAMOKEL AGENCY, je conçois des systèmes digitaux robustes et scalables. Parallèlement, ma mission d'auteur et de coach est de réveiller la conscience de la jeunesse africaine, en transformant les défis technologiques en leviers de croissance personnelle et collective.";
 
-export const about =
-  "Ingénieur logiciel polyvalent avec expertise en développement Full Stack, spécialisé dans la création d'applications web et mobiles robustes et évolutives. Expérience en gestion de projet, tests logiciels et architecture moderne.";
 
 // --- SECTION SKILLS (COMPÉTENCES) ---
 export const skills = [
@@ -42,61 +53,17 @@ export const skills = [
   { name: "Docker", level: 75, category: "tools" },
   { name: "Responsive Design", level: 100, category: "tools" },
   { name: "AWS", level: 70, category: "tools" },
-  { name: "Cybersécurité", level: 80, category: "tools" }
-];
+  { name: "Cybersécurité", level: 80, category: "tools" },
 
-export const projets = [
-  {
-    titre: 'TechInnov - Site Vitrine',
-    image: 'https://unsplash.com',
-    description: 'Refonte complète du site vitrine pour TechInnov avec design moderne et SEO optimisé.',
-    technologies: ['React', 'Tailwind CSS', 'Next.js'],
-    categorie: 'web', // <--- IMPORTANT : web, mobile ou all
-    lienDemo: '#',
-    lienGithub: '#',
-  },
-  {
-    id: 2,
-    titre: 'EcomAfrica - E-commerce',
-    image: 'https://unsplash.com',
-    description: "Plateforme e-commerce sur-mesure avec paiement sécurisé et gestion des stocks.",
-    technologies: ['Node.js', 'MongoDB', 'React'],
-    categorie: 'web',
-    lienDemo: '#',
-    lienGithub: '#',
-  },
-  {
-    id: 3,
-    titre: 'StartupX - App Mobile',
-    image: 'https://unsplash.com',
-    description: 'Application mobile hybride pour StartupX avec notifications push et design responsive.',
-    technologies: ['React Native', 'Firebase', 'Expo'],
-    categorie: 'mobile',
-    lienDemo: '#',
-    lienGithub: '#',
-  },
-  {
-    id: 4,
-    titre: 'DataFlow - Dashboard',
-    image: 'https://unsplash.com',
-    description: 'Tableau de bord analytique en temps réel avec visualisations avancées.',
-    technologies: ['React', 'D3.js', 'Python'],
-    categorie: 'web',
-    lienDemo: '#',
-    lienGithub: '#',
-  },
-  {
-    id: 5,
-    titre: 'SecureBank - Fintech',
-    image: 'https://unsplash.com',
-    description: 'Application bancaire sécurisée avec authentification biométrique.',
-    technologies: ['React Native', 'Node.js', 'PostgreSQL'],
-    categorie: 'mobile',
-    lienDemo: '#',
-    lienGithub: '#',
-  }
+    // --- ÉVEIL & IMPACT (Pour le Coach & Auteur) ---
+  { name: "Éveil de Conscience", level: 98, category: "impact" },
+  { name: "Leadership Inspirant", level: 95, category: "impact" },
+  { name: "Prise de Parole", level: 92, category: "impact" },
+  { name: "Mentorat Technique", level: 90, category: "impact" },
+  { name: "Rédaction d'Ouvrages", level: 88, category: "impact" },
+  { name: "Intelligence Émotionnelle", level: 94, category: "impact" },
+  { name: "Stratégie d'Impact Afrique", level: 96, category: "impact" }
 ];
-
 
 
 export const testimonials = [
@@ -124,55 +91,63 @@ export const testimonials = [
 
 export const experiences = [
   {
+    role: 'Coach en Éveil de Conscience & Auteur',
+    company: 'Impact Vision Afrique',
+    year: '2024 - Présent',
+    type: 'Impact', // Déclenche l'icône Lumière
+    description: "Accompagnement holistique de la jeunesse africaine. Rédaction d'ouvrages sur la souveraineté mentale et le leadership. Organisation de masterclasses sur l'alignement visionnaire.",
+    tags: ['Leadership', 'Mindset', 'Éveil']
+  },
+  {
     role: 'Ingénieur Full Stack',
     company: 'Muamokel-Agency',
-    year: '2025-Présent',
+    year: '2025 - Présent',
     type: 'full-time',
-    description:
-      "Développement end-to-end d'applications web (React/Node.js/MongoDB), intégration CI/CD, et optimisation des performances (+40% de rapidité).",
+    description: "Architecture et déploiement de systèmes critiques. Expert en performance applicative et intégration continue (CI/CD). Lead sur les solutions cloud scalables.",
+    tags: ['React', 'Node.js', 'DevOps']
   },
   {
-    role: 'Développeur Backend',
-    company: 'Mwamokel-Agency',
-    year: '2023-2024',
+    role: 'Ingénieur Full Stack',
+    company: 'Il-Christ-Business',
+    year: '2024 - Présent',
     type: 'full-time',
-    description:
-      "Conception et développement d'APIs RESTful scalables avec Python/Django, gestion de bases de données PostgreSQL, et architecture microservices.",
+    description: "Directeur technique sur les solutions métiers. Optimisation des flux de données et création d'interfaces haute-fidélité pour la gestion commerciale.",
+    tags: ['Architecture', 'E-commerce']
   },
   {
-    role: 'Testeur Logiciel / QA Engineer',
+    role: 'Relations Publiques & Maintenance IT',
+    company: 'Service de Maintenance Système',
+    year: '2024 - Présent',
+    type: 'remote',
+    description: "Garant de la haute disponibilité des infrastructures. Gestion de la communication stratégique et sécurisation des actifs numériques de l'organisation.",
+    tags: ['Cybersec', 'Networking']
+  },
+  {
+    role: 'Développeur Backend Senior',
     company: 'Mwamokel-Agency',
-    year: '2023-2024',
+    year: '2023 - 2024',
     type: 'full-time',
-    description:
-      'Automatisation des tests (Selenium, Jest, Cypress), détection de bugs critiques, et amélioration de la couverture de tests à 85%.',
+    description: "Conception d'APIs RESTful complexes sous Python/Django. Migration vers des architectures microservices et gestion de bases PostgreSQL haute performance.",
+    tags: ['Python', 'PostgreSQL', 'Microservices']
+  },
+  {
+    role: 'QA Engineer / Testeur Logiciel',
+    company: 'Mwamokel-Agency',
+    year: '2023 - 2024',
+    type: 'full-time',
+    description: "Mise en place de protocoles de tests automatisés (Cypress, Jest). Réduction drastique de la dette technique et couverture de test portée à 85%.",
+    tags: ['Automation', 'QA', 'Jest']
   },
   {
     role: 'Développeur Frontend',
     company: 'Mwamokel-Agency',
-    year: '2023-2024',
+    year: '2023 - 2024',
     type: 'full-time',
-    description:
-      "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
-  },
-{
-    role: 'Ingénieur Full Stack',
-    company: 'Chargé de rélation publiques & maintenance système informatique',
-    year: 'Présent',
-    type: 'full-time',
-    description:
-      "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
-  },
-  {
-    role: 'Ingénieur Full stack',
-    company: 'Il-Christ-Business',
-    year: 'Présent',
-    type: 'full-time',
-    description:
-      "Création d'interfaces utilisateur modernes et responsives avec React, intégration d'APIs, et collaboration avec designers UX/UI.",
-  },
-
+    description: "Développement d'interfaces UX premium. Focus sur l'accessibilité et le design system de l'agence pour garantir une cohérence visuelle parfaite.",
+    tags: ['UX/UI', 'Framer Motion']
+  }
 ];
+
 
 export const projects = [
   {
@@ -194,8 +169,8 @@ export const projects = [
     description:
       'Gestion de tâches avec React et localStorage pour une productivité optimale.',
     image: projet2,
-    lienDemo: 'https://github.com/ThielcyBendelo/todo',
-    lienGithub: 'https://github.com/ThielcyBendelo/todo',
+    lienDemo: 'https://github.com/ThielcyBendelo',
+    lienGithub: 'https://github.com/ThielcyBendelo',
     technologies: ['React', 'LocalStorage', 'JavaScript'],
     fonctionnalites: [
       'Ajout et suppression de tâches',
@@ -209,8 +184,8 @@ export const projects = [
     description:
       'Plateforme de commerce électronique moderne et responsive avec gestion complète des produits.',
     image: projet3,
-    lienDemo: 'https://github.com/ThielcyBendelo/ecommerce',
-    lienGithub: 'https://github.com/ThielcyBendelo/ecommerce',
+    lienDemo: 'https://github.com/ThielcyBendelo',
+    lienGithub: 'https://github.com/ThielcyBendelo',
     technologies: ['React', 'Node.js', 'MongoDB'],
     fonctionnalites: [
       'Catalogue de produits dynamique',
@@ -224,8 +199,8 @@ export const projects = [
     description:
       'Solution de transformation numérique pour entreprises avec intelligence artificielle intégrée.',
     image: projet4,
-    lienDemo: 'https://github.com/ThielcyBendelo/digital-transform',
-    lienGithub: 'https://github.com/ThielcyBendelo/digital-transform',
+    lienDemo: 'https://github.com/ThielcyBendelo',
+    lienGithub: 'https://github.com/ThielcyBendelo',
     technologies: ['React', 'Cloud', 'AI'],
     fonctionnalites: [
       'Analyse de données avancée',
@@ -239,8 +214,8 @@ export const projects = [
     description:
       'Application de gestion de maintenance préventive avec IoT et surveillance en temps réel.',
     image: predictiveMaintenance,
-    lienDemo: 'https://github.com/ThielcyBendelo/maintenance',
-    lienGithub: 'https://github.com/ThielcyBendelo/maintenance',
+    lienDemo: 'https://github.com/ThielcyBendelo',
+    lienGithub: 'https://github.com/ThielcyBendelo',
     technologies: ['React', 'Python', 'IoT'],
     fonctionnalites: [
       'Surveillance IoT en temps réel',
@@ -254,14 +229,106 @@ export const projects = [
     description:
       "Plateforme d'apprentissage en ligne pour développeurs avec cours interactifs et certifications.",
     image: projet6,
-    lienDemo: 'https://github.com/monportfolio/formation',
-    lienGithub: 'https://github.com/monportfolio/formation',
+    lienDemo: 'https://github.com/monportfolio',
+    lienGithub: 'https://github.com/monportfolio',
     technologies: ['React', 'Express', 'MongoDB'],
     fonctionnalites: [
       'Cours interactifs et vidéos',
       'Système de progression',
       'Certifications en ligne',
       "Communauté d'apprentissage",
+    ],
+  },
+
+  // AJOUT DANS ASSETS.JS - CATÉGORIE IMPACT
+  {
+    titre: "Renaissance Africaine",
+    description: "Série d'ateliers d'éveil de conscience pour libérer le potentiel créatif des jeunes talents du continent.",
+    image: impact1, // Remplacez par vos images réelles
+    categorie: "impactation",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Coaching", "Leadership", "Mindset"],
+    fonctionnalites: [
+      'Transformation des schémas mentaux',
+      'Ateliers de vision stratégique',
+      'Conférences inspirantes',
+      'Réseautage de haute conscience'
+    ],
+  },
+  {
+    titre: "L'Éveil du Lion",
+    description: "Ouvrage phare traitant de la décolonisation mentale et de la réappropriation du destin africain.",
+    image: impact2,
+    categorie: "impact",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Écriture", "Philosophie", "Éducation"],
+    fonctionnalites: [
+      'Analyse des barrières psychologiques',
+      'Méthodes de libération intérieure',
+      'Guide pratique du succès conscient',
+      'Témoignages de transformation'
+    ],
+  },
+  {
+    titre: "Génération Impact",
+    description: "Programme de mentorat hybride alliant expertise technologique et force de caractère pour entrepreneurs.",
+    image: impact3,
+    categorie: "impactation",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Mentorat", "Business", "Éthique"],
+    fonctionnalites: [
+      'Accompagnement personnalisé',
+      'Masterclass en ligne',
+      'Suivi de projets communautaires',
+      'Développement du leadership éthique'
+    ],
+  },
+  {
+    titre: "Codes de Conscience",
+    description: "Podcast et série de contenus digitaux décryptant les lois du succès pour la jeunesse 2.0.",
+    image: impact4,
+    categorie: "impactation",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Média", "Digital Storytelling", "Impact"],
+    fonctionnalites: [
+      'Interviews d’experts africains',
+      'Épisodes sur la psychologie du succès',
+      'Diffusion multi-plateforme',
+      'Interaction communautaire'
+    ],
+  },
+  {
+    titre: "Le Code de l'Avenir",
+    description: "Livre explorant comment la technologie et la spiritualité peuvent cohabiter pour l'essor de l'Afrique.",
+    image: impact5,
+    categorie: "impact",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Littérature Tech", "Prospective"],
+    fonctionnalites: [
+      'Vision de l’Afrique en 2050',
+      'Équilibre entre IA et humanité',
+      'Stratégies d’indépendance mentale',
+      'Manifeste pour une tech africaine'
+    ],
+  },
+  {
+    titre: "Sommet de l'Éveil",
+    description: "Organisation de rassemblements annuels pour connecter les leaders de demain autour des valeurs d'unité.",
+    image: impact6,
+    categorie: "impactation",
+    lienDemo: "#",
+    lienGithub: "#",
+    technologies: ["Événementiel", "Networking", "Stratégie"],
+    fonctionnalites: [
+      'Tables rondes thématiques',
+      'Partage de visions régionales',
+      'Concours d’innovation consciente',
+      'Célébration du génie africain'
     ],
   },
 ];

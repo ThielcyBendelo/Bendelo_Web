@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { projects } from '../assets/assets.js';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaCode, FaGlobe, FaMobileAlt, FaLayerGroup } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaCode, FaGlobe, FaMobileAlt, FaLayerGroup, FaBookOpen } from 'react-icons/fa';
 
 // Définition des catégories de filtrage
 const categories = [
   { id: 'all', label: 'Tous', icon: <FaLayerGroup /> },
-  { id: 'web', label: 'Web', icon: <FaGlobe /> },
+  { id: 'web', label: 'Tech & Web', icon: <FaGlobe /> },
+  { id: 'impactation', label: 'Éveil', icon: <FaBookOpen /> }, 
+  { id: 'impact', label: 'Livres', icon: <FaBookOpen /> },
   { id: 'mobile', label: 'Mobile', icon: <FaMobileAlt /> },
 ];
 
@@ -23,34 +25,39 @@ export default function ProjetSimple() {
       <div className="max-w-7xl mx-auto">
         
         <div className="text-center mb-24 relative">
-  {/* Surtitre : Preuve de compétence */}
-  <motion.div
-    initial={{ opacity: 0, y: -10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-  >
-    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-      Engineered Case Studies
-    </span>
-  </motion.div>
+ {/* Surtitre : L'alliance de la Tech et de l'Humain */}
+<motion.div
+  initial={{ opacity: 0, y: -10 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+>
+  <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+    Digital Systems & Human Awakening
+  </span>
+</motion.div>
 
-  {/* Titre Projets Ultra-Massif */}
-  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-    <span className="text-[var(--text-primary)] opacity-90">Labora</span>
-    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-      toire
-    </span>
-    <span className="text-[var(--accent-1)]">.</span>
-  </h2>
+{/* Titre Ultra-Massif : Vision & Impact */}
+<h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+  <span className="text-white opacity-90">Impact</span>
+  <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
+    Global
+  </span>
+  <span className="text-orange-500">.</span>
+</h2>
 
-  {/* Description orientée "Technical Excellence" */}
-  <div className="max-w-4xl mx-auto space-y-6">
-    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
-      Explorez une sélection de systèmes complexes et d'architectures numériques conçus pour 
-      <span className="font-bold italic text-orange-500 mx-2">transformer</span> 
-      le paysage technologique de nos partenaires.
+{/* Description Équilibrée : Ingénieur & Coach */}
+<div className="max-w-4xl mx-auto space-y-6">
+  <p className="text-xl md:text-3xl font-light leading-snug text-slate-300">
+    Découvrez mes réalisations : des <span className="text-white font-bold">architectures logicielles</span> robustes pour les entreprises et des <span className="text-orange-500 font-bold italic">missions d'éveil</span> dédiées à la transformation de la jeunesse africaine.
+  </p>
+  
+  <div className="flex justify-center items-center gap-6 pt-4 opacity-40">
+    <div className="h-[1px] w-12 bg-slate-500" />
+    <p className="text-[10px] uppercase tracking-[0.6em] text-white font-bold">
+      Technologie • Conscience • Leadership
     </p>
+ </div>
 
     {/* Filtre Contextuel / Indicateur de volume */}
     <div className="flex justify-center items-center gap-6 pt-4 opacity-60">

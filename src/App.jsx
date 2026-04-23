@@ -1,14 +1,15 @@
 import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import GoogleAnalyticsTracker from "./components/Analytics"; 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Blog from './pages/Blog.jsx';
-import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
-import ExperiencePage from './pages/ExperiencePage';
+import ExperiencePage from './pages/ExperiencePage'; 
 import ProjectsPage from './pages/ProjectsPage';
 import SkillsPage from './pages/SkillsPage';
 import TestimonialsPage from './pages/TestimonialsPage';
@@ -55,6 +56,7 @@ const App = () => {
         <div>
           <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
           <Suspense fallback={<div>Chargement...</div>}>
+          <GoogleAnalyticsTracker /> 
             <Routes>
               {/* Route principale du site */}
               <Route path="/" element={<Home />} />

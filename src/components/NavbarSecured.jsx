@@ -89,8 +89,9 @@ export default function NavbarSecured() {
     {
       label: 'Découvrir',
       items: [
-        { href: '/about', label: 'À propos de moi', icon: <FaUser /> },
-        { href: '/testimonials', label: 'Témoignages', icon: <FaUser /> },
+        { href: '/about', label: 'Ma vision', icon: <FaUser /> },
+        { href: '/work', label: 'Coaching', icon: <FaUser /> },
+        { href: '/blog', label: 'Livres', icon: <FaBriefcase /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
         { href: '/skills', label: 'Techniques', icon: <FaCode /> },
       ],

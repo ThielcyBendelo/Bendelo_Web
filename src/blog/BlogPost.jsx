@@ -2,157 +2,160 @@ import React, { useState, useEffect } from 'react';
 import { exportCommentsToCSV } from './CommentsExportCSV';
 import { toast } from 'react-toastify';
 import { blogService } from '../services/blogService.firebase';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  FaRegEye, FaRegComment, FaRegCalendarAlt, FaUserEdit, 
+  FaTrashAlt, FaEdit, FaPaperPlane, FaFileExport, FaQuoteLeft 
+} from 'react-icons/fa';
 
 export default function BlogPost({ id, title, content, author, date, category, tags, excerpt, onEdit, onDelete }) {
   const [expanded, setExpanded] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [views, setViews] = useState(0);
-  // loading retiré car non utilisé
-  // Generate excerpt if not provided
+
   const preview = excerpt || (content.length > 180 ? content.slice(0, 180) + '...' : content);
 
-  // Charger les commentaires et vues au montage
   useEffect(() => {
-  //
-    blogService.getComments(id)
-      .then(data => setComments(data))
-      .catch(() => setComments([]));
-    blogService.incrementViews(id)
-      .then(data => setViews(data.views))
-      .catch(() => setViews(0));
-  //
+    blogService.getComments(id).then(setComments).catch(() => setComments([]));
+    blogService.incrementViews(id).then(data => setViews(data.views)).catch(() => setViews(0));
   }, [id]);
 
-  // Ajouter un commentaire via l'API
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) return;
-  //
     try {
       const newComment = await blogService.addComment(id, { text: commentText });
       setComments([newComment, ...comments]);
       setCommentText('');
-        toast.success('Commentaire ajouté !');
+      toast.success('Commentaire ajouté !');
     } catch {
-      // ignore API errors
-        toast.error("Erreur lors de l'ajout du commentaire.");
+      toast.error("Erreur lors de l'ajout.");
     }
-  //
   };
 
-  // Supprimer un commentaire via l'API
   const handleDeleteComment = async (idx) => {
-  //
     try {
       const commentId = comments[idx].id || comments[idx]._id;
       await blogService.deleteComment(id, commentId);
       setComments(comments.filter((_, i) => i !== idx));
       toast.info('Commentaire supprimé.');
     } catch {
-      // ignore API errors
-      toast.error("Erreur lors de la suppression du commentaire.");
+      toast.error("Erreur lors de la suppression.");
     }
-  //
   };
 
-  // Récupère le rôle depuis le localStorage (défini à la connexion)
   const userRole = typeof window !== 'undefined' ? localStorage.getItem('dashboardRole') || 'reader' : 'reader';
 
   return (
-    <article className="bg-dark-100 border border-purple/30 rounded-2xl shadow-lg p-6 hover:shadow-2xl hover:border-pink/40 transition-all duration-300">
-      <div className="flex flex-wrap gap-2 mb-2">
+    <motion.article 
+      layout
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="relative group bg-[#0A0E1A]/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 hover:border-orange-500/30 transition-all duration-500 shadow-2xl overflow-hidden"
+    >
+      {/* --- HEADER : CATEGORY & TAGS --- */}
+      <div className="flex flex-wrap items-center gap-3 mb-6">
         {category && (
-          <span className="px-3 py-1 rounded-full bg-purple/20 text-purple text-xs font-semibold">{category}</span>
+          <span className="px-4 py-1 rounded-full bg-purple-600/20 border border-purple-500/30 text-purple-400 text-[10px] font-black uppercase tracking-widest">
+            {category}
+          </span>
         )}
-        {tags && tags.length > 0 && tags.map((tag, idx) => (
-          <span key={idx} className="px-2 py-1 rounded bg-pink/20 text-pink text-xs font-medium">#{tag}</span>
+        {tags?.map((tag, idx) => (
+          <span key={idx} className="text-orange-500/60 text-[10px] font-bold uppercase italic">#{tag}</span>
         ))}
       </div>
-      <h4 className="text-2xl font-bold mb-2 text-transparent bg-gradient-to-r from-purple to-pink bg-clip-text drop-shadow">{title}</h4>
-      <div className="text-gray-200 mb-4 whitespace-pre-line leading-relaxed">
-        {expanded ? content : preview}
+
+      {/* --- TITLE & CONTENT --- */}
+      <h4 className="text-3xl md:text-4xl font-black mb-6 text-white tracking-tighter leading-none group-hover:text-orange-500 transition-colors duration-300">
+        {title}
+      </h4>
+
+      <div className="relative text-slate-300 text-lg leading-relaxed font-light mb-8">
+        <FaQuoteLeft className="absolute -left-6 top-0 text-white/5 text-4xl" />
+        <p className="whitespace-pre-line italic">
+          {expanded ? content : preview}
+        </p>
         {content.length > 180 && (
           <button
-            className="ml-2 text-purple underline text-xs hover:text-pink"
+            className="mt-4 text-orange-500 text-xs font-black uppercase tracking-widest hover:underline block"
             onClick={() => setExpanded(!expanded)}
-            aria-label={expanded ? 'Réduire' : 'Lire la suite'}
           >
-            {expanded ? 'Réduire' : 'Lire la suite'}
+            {expanded ? '[ Réduire ]' : '[ Continuer la lecture ]'}
           </button>
         )}
       </div>
-      <div className="flex justify-between items-center text-sm text-gray-400 mt-2 mb-4">
-        <div className="flex gap-2">
-          {onEdit && (
-            <button
-              className="px-3 py-1 bg-purple/80 text-white rounded text-xs hover:bg-purple"
-              onClick={() => onEdit(id, { title, content, author, date, category, tags })}
-              aria-label="Modifier l'article"
-            >
-              Modifier
-            </button>
-          )}
-          {onDelete && (
-            <button
-              className="px-3 py-1 bg-pink/80 text-white rounded text-xs hover:bg-pink"
-              onClick={() => onDelete(id)}
-              aria-label="Supprimer l'article"
-            >
-              Supprimer
-            </button>
-          )}
+
+      {/* --- METADATA BAR --- */}
+      <div className="flex flex-wrap justify-between items-center py-6 border-t border-white/5 gap-4">
+        <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-500">
+          <span className="flex items-center gap-2"><FaRegEye className="text-orange-500 text-sm" /> {views} Vues</span>
+          <span className="flex items-center gap-2"><FaRegComment className="text-purple-500 text-sm" /> {comments.length} Réactions</span>
+          <span className="flex items-center gap-2"><FaRegCalendarAlt /> {date}</span>
         </div>
-  <span className="font-medium text-purple/80">Par {author}</span>
-  <span className="bg-purple/10 px-3 py-1 rounded-full text-xs text-pink/80">{date}</span>
+        
+        <div className="flex items-center gap-4">
+          <span className="text-xs font-bold text-white uppercase italic">Par <span className="text-orange-500">{author}</span></span>
+          <div className="flex gap-2 ml-4">
+            {onEdit && (
+              <button onClick={() => onEdit(id, { title, content, author, date, category, tags })} className="p-3 bg-white/5 text-slate-400 hover:text-white rounded-xl transition-all"><FaEdit /></button>
+            )}
+            {onDelete && (
+              <button onClick={() => onDelete(id)} className="p-3 bg-white/5 text-slate-400 hover:text-red-500 rounded-xl transition-all"><FaTrashAlt /></button>
+            )}
+          </div>
+        </div>
       </div>
-      <div className="flex gap-4 items-center text-xs text-gray-400 mb-2">
-        <span>👁️ {views} vues</span>
-        <span>💬 {comments.length} commentaires</span>
-      </div>
-      {/* Comments section */}
-      <div className="mt-4">
-        <div className="flex justify-between items-center mb-2">
-          <h5 className="text-lg font-bold text-purple">Commentaires</h5>
+
+      {/* --- COMMENTS SECTION --- */}
+      <div className="mt-8 pt-8 border-t border-white/5">
+        <div className="flex justify-between items-center mb-6">
+          <h5 className="text-sm font-black uppercase tracking-[0.3em] text-purple-400">Espace de dialogue</h5>
           {['admin','editor'].includes(userRole) && comments.length > 0 && (
-            <button
-              className="px-3 py-1 bg-gradient-to-r from-green-400 to-blue-400 text-white rounded text-xs shadow hover:scale-105 transition-transform font-semibold"
-              onClick={() => exportCommentsToCSV(comments, title)}
-            >
-              Export CSV
+            <button onClick={() => exportCommentsToCSV(comments, title)} className="flex items-center gap-2 text-[10px] font-bold text-emerald-500 uppercase hover:underline">
+              <FaFileExport /> Exporter CSV
             </button>
           )}
         </div>
-        <form onSubmit={handleAddComment} className="flex gap-2 mb-4">
+
+        <form onSubmit={handleAddComment} className="relative mb-8">
           <input
             type="text"
             value={commentText}
             onChange={e => setCommentText(e.target.value)}
-            className="flex-1 px-3 py-2 rounded border bg-dark-100 text-white border-purple/30"
-            placeholder="Ajouter un commentaire..."
-            aria-label="Ajouter un commentaire"
+            className="w-full pl-6 pr-24 py-4 rounded-2xl bg-white/5 border border-white/10 text-white text-sm outline-none focus:border-orange-500 transition-all"
+            placeholder="Partagez votre réflexion..."
           />
-          <button type="submit" className="px-4 py-2 bg-purple text-white rounded">Envoyer</button>
+          <button type="submit" className="absolute right-2 top-2 bottom-2 px-6 bg-orange-600 rounded-xl text-white font-black uppercase text-[10px] tracking-widest hover:bg-orange-500 transition-all">
+            <FaPaperPlane />
+          </button>
         </form>
-        <ul className="space-y-2">
-          {comments.length === 0 && (
-            <li className="text-gray-500 text-sm">Aucun commentaire pour cet article.</li>
-          )}
-          {comments.map((c, idx) => (
-            <li key={idx} className="bg-dark-200 border border-purple/20 rounded p-2 flex justify-between items-center">
-              <span className="text-white text-sm">{c.text}</span>
-              <span className="text-xs text-gray-400 ml-2">{c.date}</span>
-              <button
-                className="ml-3 text-pink text-xs hover:underline"
-                onClick={() => handleDeleteComment(idx)}
-                aria-label="Supprimer le commentaire"
+
+        <ul className="space-y-4">
+          <AnimatePresence>
+            {comments.map((c, idx) => (
+              <motion.li 
+                key={idx}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="group/comment p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex justify-between items-center"
               >
-                Supprimer
-              </button>
-            </li>
-          ))}
+                <div>
+                  <p className="text-slate-300 text-sm font-medium">{c.text}</p>
+                  <span className="text-[9px] text-slate-600 uppercase font-bold mt-1 block tracking-tighter">{c.date}</span>
+                </div>
+                <button onClick={() => handleDeleteComment(idx)} className="opacity-0 group-hover/comment:opacity-100 p-2 text-red-500/50 hover:text-red-500 transition-all">
+                  <FaTrashAlt className="text-xs" />
+                </button>
+              </motion.li>
+            ))}
+          </AnimatePresence>
+          {comments.length === 0 && (
+            <p className="text-slate-600 text-xs italic text-center py-4">Soyez le premier à réveiller la conversation.</p>
+          )}
         </ul>
       </div>
-    </article>
+    </motion.article>
   );
 }

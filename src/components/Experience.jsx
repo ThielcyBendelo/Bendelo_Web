@@ -8,17 +8,26 @@ import {
   FaHome,
   FaHandshake,
   FaGraduationCap,
+  FaLightbulb,
+  FaBook,
+  FaGlobeAfrica
 } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const roleIcon = (type) => {
   switch ((type || '').toLowerCase()) {
+    case 'impact':
+    case 'éveil':
+    case 'coaching':
+      return <FaLightbulb />;
+    case 'auteur':
+    case 'publication':
+      return <FaBook />;
+    case 'mission':
+      return <FaGlobeAfrica />;
     case 'internship':
     case 'stage':
       return <FaGraduationCap />;
-    case 'contract':
-    case 'freelance':
-      return <FaHandshake />;
     case 'remote':
       return <FaHome />;
     default:
@@ -31,135 +40,151 @@ export default function Experience() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 },
+      transition: { staggerChildren: 0.3 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
-      x: 0, 
-      transition: { duration: 0.5, ease: "easeOut" } 
+      y: 0, 
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
     },
   };
 
   return (
     <section 
       id="experience" 
-      className="py-24 px-6 transition-colors duration-300"
+      className="py-24 px-6 transition-all duration-700"
       style={{ backgroundColor: 'var(--bg)' }}
     >
-      <div className="max-w-5xl mx-auto">
-  {/* Header avec typographie "Architecte Système" */}
-  <div className="text-center mb-24 relative">
-    
-    {/* Petit label flottant - Donne le ton immédiatement */}
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 mb-8"
-    >
-      <span className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-500">
-        Parcours & Leadership
-      </span>
-    </motion.div>
+      <div className="max-w-6xl mx-auto">
+        
+        {/* HEADER DYNAMIQUE & ADAPTATIF */}
+        <div className="text-center mb-32 relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[var(--accent-1)]/20 bg-[var(--accent-1)]/5 mb-8"
+          >
+            <span className="w-2 h-2 rounded-full bg-[var(--accent-2)] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--accent-1)]">
+              Parcours & Leadership
+            </span>
+          </motion.div>
 
-    {/* Titre Expérience Ultra-Massif */}
-    <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-      <span className="text-[var(--text-primary)] opacity-90">Trajec</span>
-      <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-        toire
-      </span>
-      <span className="text-[var(--accent-1)]">.</span>
-    </h2>
+          <h2 className="text-6xl md:text-9xl font-black mb-10 tracking-tighter uppercase italic leading-none" 
+              style={{ color: 'var(--text-primary)' }}>
+            Trajec<span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)]">toire</span><span className="text-[var(--accent-2)]">.</span>
+          </h2>
 
-    {/* Description stratégique */}
-    <div className="max-w-3xl mx-auto">
-      <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)] mb-6">
-        Plus de <span className="font-bold text-[var(--accent-1)]">3 ans</span> à concevoir des infrastructures complexes et à diriger des cycles de développement critiques.
-      </p>
-      
-      {/* Séparateur minimaliste avec icône de chronologie */}
-      <div className="flex justify-center items-center gap-6">
-        <div className="h-[1px] flex-1 bg-gradient-to-l from-orange-500/50 to-transparent" />
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--text-secondary)] whitespace-nowrap">
-          Roadmap Professionnelle
-        </p>
-        <div className="h-[1px] flex-1 bg-gradient-to-r from-orange-500/50 to-transparent" />
-      </div>
-    </div>
-  </div>
-</div>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-xl md:text-3xl font-light leading-snug italic" style={{ color: 'var(--text-secondary)' }}>
+              "Bâtir des <span className="text-[var(--text-primary)] font-bold">systèmes</span>, transmettre des <span className="text-[var(--accent-2)] font-black">visions</span>."
+            </p>
+            
+            <div className="flex justify-center items-center gap-8 mt-12 opacity-40">
+              <div className="h-[1px] flex-1 bg-gradient-to-l from-[var(--accent-2)] to-transparent" />
+              <p className="text-[9px] font-black uppercase tracking-[0.6em] text-[var(--text-secondary)] whitespace-nowrap">
+                Roadmap Professionnelle
+              </p>
+              <div className="h-[1px] flex-1 bg-gradient-to-r from-[var(--accent-2)] to-transparent" />
+            </div>
+          </div>
+        </div>
 
-
-        {/* Timeline Container */}
+        {/* TIMELINE ARCHITECTURE */}
         <motion.div 
-          className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5"
-          style={{ '--tw-before-bg': 'var(--border-color)' }}
+          className="relative"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
         >
-          {/* La ligne verticale de la timeline */}
-          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-[var(--border-color)] -translate-x-1/2" />
+          {/* Ligne centrale adaptative */}
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2 opacity-20" 
+               style={{ backgroundColor: 'var(--text-secondary)' }} />
 
-          {experiences.map((exp, idx) => (
-            <motion.div 
-              key={idx} 
-              variants={itemVariants}
-              className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group`}
-            >
-              {/* Le point sur la timeline */}
-              <div 
-                className="flex items-center justify-center w-10 h-10 rounded-full border-4 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 absolute left-5 md:left-1/2 -translate-x-1/2 z-10 transition-transform group-hover:scale-125"
-                style={{ 
-                  backgroundColor: 'var(--surface)', 
-                  borderColor: 'var(--accent-1)',
-                  color: 'var(--accent-1)' 
-                }}
+          <div className="space-y-24">
+            {experiences.map((exp, idx) => (
+              <motion.div 
+                key={idx} 
+                variants={itemVariants}
+                className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group`}
               >
-                {roleIcon(exp.type)}
-              </div>
+                {/* Icône de la Timeline */}
+                <div 
+                  className="flex items-center justify-center w-12 h-12 rounded-2xl border shadow-xl shrink-0 absolute left-5 md:left-1/2 -translate-x-1/2 z-10 transition-all duration-500 group-hover:rotate-[360deg] group-hover:scale-110"
+                  style={{ 
+                    backgroundColor: 'var(--surface)', 
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--accent-2)' 
+                  }}
+                >
+                  {roleIcon(exp.type || exp.category)}
+                </div>
 
-              {/* La carte de contenu */}
-              <div 
-                className="w-[calc(100%-4rem)] md:w-[45%] p-6 rounded-2xl border transition-all duration-300 hover:shadow-2xl"
-                style={{ 
-                  backgroundColor: 'var(--surface)', 
-                  borderColor: 'var(--border-color)',
-                  boxShadow: 'var(--shadow)'
-                }}
-              >
-                <div className="flex flex-col mb-4">
-                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--accent-2)' }}>
-                    {exp.year}
-                  </span>
-                  <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
-                    {exp.role}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--accent-1)' }}>
-                    <FaBuilding />
-                    <span>{exp.company}</span>
+                {/* Carte de contenu Premium */}
+                <div 
+                  className="w-[calc(100%-5rem)] md:w-[42%] p-8 rounded-[2.5rem] border transition-all duration-500 shadow-sm group-hover:shadow-2xl group-hover:border-[var(--accent-1)]/30"
+                  style={{ 
+                    backgroundColor: 'var(--surface)', 
+                    borderColor: 'var(--border-color)'
+                  }}
+                >
+                  <div className="flex flex-col mb-6">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] mb-3" style={{ color: 'var(--accent-1)' }}>
+                      {exp.year}
+                    </span>
+                    <h3 className="text-2xl font-black mb-2 tracking-tight group-hover:text-[var(--accent-2)] transition-colors" style={{ color: 'var(--text-primary)' }}>
+                      {exp.role}
+                    </h3>
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
+                      <FaBuilding className="text-[var(--accent-1)]" />
+                      <span>{exp.company}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-base leading-relaxed font-light mb-8 pl-4 border-l-2 border-[var(--border-color)] group-hover:border-[var(--accent-2)] transition-all" 
+                     style={{ color: 'var(--text-secondary)' }}>
+                    {exp.description}
+                  </p>
+
+                  {/* Badges adaptatifs */}
+                  <div className="flex flex-wrap gap-2">
+                     <span className="text-[9px] font-black uppercase tracking-tighter px-3 py-1 rounded-lg border transition-colors" 
+                           style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)', backgroundColor: 'var(--bg)' }}>
+                       {exp.type || 'Full-time'}
+                     </span>
+                     {exp.tags?.map(tag => (
+                        <span key={tag} className="text-[9px] font-black uppercase tracking-tighter px-3 py-1 rounded-lg bg-[var(--accent-1)]/10 text-[var(--accent-1)]">
+                          {tag}
+                        </span>
+                     ))}
                   </div>
                 </div>
-                
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  {exp.description}
-                </p>
-
-                {/* Badge de type de contrat */}
-                <div className="mt-4 flex gap-2">
-                   <span className="text-[10px] font-bold px-2 py-1 rounded-full border opacity-70" style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}>
-                     {exp.type || 'Full-time'}
-                   </span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
-   
+
+        {/* Section finale de réassurance */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-40 text-center py-20 rounded-[4rem] border border-dashed border-[var(--border-color)]"
+        >
+           <h4 className="text-xs font-black uppercase tracking-[0.5em] mb-6" style={{ color: 'var(--text-secondary)' }}>Certifications & Formations</h4>
+           <div className="flex flex-wrap justify-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
+              {/* Ajoutez ici vos logos de certifs ou labels (AWS, Google, etc.) */}
+              <span className="font-bold text-xl" style={{ color: 'var(--text-primary)' }}>AWS ARCHITECT</span>
+              <span className="font-bold text-xl" style={{ color: 'var(--text-primary)' }}>SCRUM MASTER</span>
+              <span className="font-bold text-xl" style={{ color: 'var(--text-primary)' }}>E-COACH CERTIFIED</span>
+           </div>
+        </motion.div>
+
+      </div>
     </section>
   );
 }
