@@ -40,7 +40,7 @@ export default function About() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 1 }}
             >
-              <div className="relative t-5 z-15 p-12 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[3.5rem] shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+              <div className="relative  z-15 p-15 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[3.5rem] shadow-[0_0_50px_rgba(0,0,0,0.5)]">
                 <motion.div style={{ y: yImage, rotate: rotateImg }} className="overflow-hidden rounded-[3rem]">
                   <LazyImage
                     src={irbendelo1}
