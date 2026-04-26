@@ -261,7 +261,7 @@ export default function Hero() {
     >
       <motion.button
         onClick={() => navigate('/contact')}
-        className="w-full sm:w-auto group relative px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-lg shadow-purple-500/25 overflow-hidden transition-all"
+        className="w-full sm:w-auto group relative px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl shadow-lg shadow-purple-500/25 overflow-hidden transition-all"
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -271,7 +271,7 @@ export default function Hero() {
 
       <motion.button
         onClick={() => navigate('/projects')}
-        className="w-full sm:w-auto group relative px-10 py-4 bg-transparent text-white rounded-xl border-2 border-purple-500/50 overflow-hidden backdrop-blur-md"
+        className="w-full sm:w-auto group relative px-10 py-5 bg-transparent text-white rounded-xl border-2 border-purple-500/50 overflow-hidden backdrop-blur-md"
         whileHover={{ scale: 1.05, borderColor: "var(--accent-1)" }}
         whileTap={{ scale: 0.98 }}
       >
@@ -293,91 +293,131 @@ export default function Hero() {
     </section>
 
 
-   {/* --- SECTION DOUBLE IDENTITÉ (COACH & AUTEUR) : VERSION PREMIUM --- */}
-<AnimatedSection variant="slideUp" delay={0.6}>
-  <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+   {/* --- EN-TÊTE DE SECTION : TITRE & DESCRIPTION --- */}
+<div className="mt-32 text-center px-4 max-w-4xl mx-auto">
+  <motion.h2 
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    className="text-3xl md:text-5xl font-black mb-6 dark:text-white text-slate-900 tracking-tighter"
+  >
+    Au-delà du <span className="text-orange-600">Code</span>, l'Humain.
+  </motion.h2>
+  <motion.p 
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 }}
+    className="text-lg md:text-xl dark:text-slate-400 text-slate-600 font-light leading-relaxed"
+  >
+    Je ne construis pas seulement des systèmes logiciels performants. Je développe des écosystèmes de pensée pour catalyser l'émergence d'une nouvelle génération de leaders africains.
+  </motion.p>
+</div>
+
+{/* --- SECTION DOUBLE IDENTITÉ : ÉVEILLEUR & AUTEUR --- */}
+<AnimatedSection variant="slideUp" delay={0.4}>
+  <div className="py-20 px-6 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto ">
     
-    {/* CARTE : ÉVEIL DE CONSCIENCE */}
+    {/* CARTE : ÉVEILLEUR (MINDSET & LEADERSHIP) */}
     <motion.div 
-      whileHover={{ y: -10, scale: 1.02 }}
-      className="relative group p-8 rounded-[2.5rem] bg-gradient-to-br from-purple-900/40 via-[#0A0E1A] to-[#05070A] border border-purple-500/30 overflow-hidden backdrop-blur-xl shadow-[0_20px_50px_rgba(147,51,234,0.15)]"
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      className="relative group p-[1px] rounded-[3rem] bg-gradient-to-b from-purple-500/30 to-transparent overflow-hidden shadow-2xl dark:shadow-none"
     >
-      {/* Effet de lueur interne */}
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-600/20 blur-[80px] rounded-full group-hover:bg-purple-500/40 transition-colors" />
-      
-      <div className="relative z-10">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="p-4 rounded-2xl bg-purple-500/20 text-purple-400 text-2xl shadow-inner">
-            <FaLightbulb className="animate-pulse" />
+      {/* Conteneur Adaptatif (Clair/Sombre) */}
+      <div className="relative z-10 h-full p-10 rounded-[3rem] 
+        bg-white/80 dark:bg-[#0A0E1A]/90 
+        backdrop-blur-2xl flex flex-col justify-between
+        border border-white/20 dark:border-transparent"
+      >
+        <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <div>
+          <div className="inline-flex p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 mb-8 group-hover:rotate-12 transition-transform duration-500">
+            <FaLightbulb className="text-3xl animate-pulse" />
           </div>
-          <h4 className="text-xl font-black text-white tracking-tight uppercase italic">
-            Éveilleur de <span className="text-purple-400">Conscience</span>
+          
+          <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight leading-none">
+            Éveilleur de <span className="text-purple-600 dark:text-purple-400 italic font-black">Conscience</span>
           </h4>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-light">
+            Catalyser le potentiel de la <span className="text-slate-900 dark:text-white font-medium border-b border-purple-500/30">jeunesse africaine</span> par une approche systémique du leadership et du mindset.
+          </p>
         </div>
         
-        <p className="text-slate-300 text-lg leading-relaxed font-light">
-          Propulser la <span className="text-white font-bold">jeunesse africaine</span> au-delà de ses limites mentales pour bâtir un leadership nouveau et authentique.
-        </p>
-        
-        <div className="mt-6 flex items-center gap-2 text-purple-400 text-xs font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
-          S'éveiller maintenant <span className="text-lg">→</span>
+        <div className="mt-15 flex items-center gap-3 text-purple-600 dark:text-purple-400 text-[10px] font-black uppercase tracking-[0.3em]">
+          <span>Strategic Mindset</span>
+          <div className="w-10 h-[1px] bg-purple-500/30"></div>
+          <span className="group-hover:translate-x-2 transition-transform">→</span>
         </div>
       </div>
     </motion.div>
 
-    {/* CARTE : AUTEUR ENGAGÉ */}
+    {/* CARTE : AUTEUR (STRATEGIC VISION) */}
     <motion.div 
-      whileHover={{ y: -10, scale: 1.02 }}
-      className="relative group p-8 rounded-[2.5rem] bg-gradient-to-br from-orange-900/30 via-[#0A0E1A] to-[#05070A] border border-orange-500/30 overflow-hidden backdrop-blur-xl shadow-[0_20px_50px_rgba(234,88,12,0.15)]"
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      className="relative group p-[1px] rounded-[3rem] bg-gradient-to-b from-orange-500/30 to-transparent overflow-hidden shadow-2xl dark:shadow-none"
     >
-      {/* Effet de lueur interne */}
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-orange-600/20 blur-[80px] rounded-full group-hover:bg-orange-500/40 transition-colors" />
-      
-      <div className="relative z-10">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="p-4 rounded-2xl bg-orange-500/20 text-orange-400 text-2xl shadow-inner">
-            <FaBookOpen />
-          </div>
-          <h4 className="text-xl font-black text-white tracking-tight uppercase italic">
-            Plume d' <span className="text-orange-500">Impact</span>
-          </h4>
-        </div>
+      <div className="relative z-10 h-full p-10 rounded-[3rem] 
+        bg-white/80 dark:bg-[#0A0E1A]/90 
+        backdrop-blur-2xl flex flex-col justify-between
+        border border-white/20 dark:border-transparent"
+      >
+        <div className="absolute inset-0 bg-gradient-to-tr from-orange-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
-        <p className="text-slate-300 text-lg leading-relaxed font-light">
-          Auteur d'ouvrages dédiés à la <span className="text-white font-bold">transformation intérieure</span> et à la transmission de savoirs pour libérer les destins.
-        </p>
+        <div>
+          <div className="inline-flex p-4 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 mb-8 group-hover:rotate-12 transition-transform duration-500">
+            <FaBookOpen className="text-3xl" />
+          </div>
+          
+          <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight leading-none">
+            Plume d'<span className="text-orange-600 dark:text-orange-500 italic font-black">Impact</span>
+          </h4>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-light">
+            Transmettre des architectures de pensée à travers des ouvrages dédiés à la <span className="text-slate-900 dark:text-white font-medium border-b border-orange-500/30">transformation intérieure</span> profonde.
+          </p>
+        </div>
 
-        <div className="mt-6 flex items-center gap-2 text-orange-400 text-xs font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-opacity">
-          Découvrir mes livres <span className="text-lg">→</span>
+        <div className="mt-10 flex items-center gap-3 text-orange-600 dark:text-orange-400 text-[10px] font-black uppercase tracking-[0.3em]">
+          <span>Strategic Vision</span>
+          <div className="w-10 h-[1px] bg-orange-500/30"></div>
+          <span className="group-hover:translate-x-2 transition-transform">→</span>
         </div>
       </div>
     </motion.div>
-
   </div>
 </AnimatedSection>
 
-      {/* --- AJOUT : BOUTONS D'ACTION AMÉLIORÉS --- */}
-      <AnimatedSection variant="slideUp" delay={0.8}>
-        <div className="mt-16 flex flex-col sm:flex-row gap-6 justify-center">
-          <button 
-            onClick={() => navigate('/work')}
-            className="px-10 py-4 bg-orange-600 hover:bg-orange-700 text-white font-black rounded-full transition-all hover:scale-105 shadow-[0_0_20px_rgba(234,88,12,0.4)] uppercase tracking-widest text-xs"
-          >
-            Explorer mes projets
-          </button>
-          <button 
-            onClick={() => navigate('/work')}
-            className="px-10 py-4 pt-5 bg-white/5 hover:bg-white/10 text-white border border-white/20 font-black rounded-full transition-all backdrop-blur-md uppercase tracking-widest text-xs"
-          >
-            Coaching & Ouvrages
-          </button>
-        </div>
-      </AnimatedSection>
-    
+{/* --- CTA REVISITÉ --- */}
+  <AnimatedSection variant="slideUp" delay={0.6}>
+    <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-6">
+      
+      {/* BOUTON PROJETS - Redirige vers /work */}
+      <button 
+        onClick={() => navigate('/projects')}
+        className="group relative px-6 py-4  overflow-hidden rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-black font-black uppercase text-[11px] tracking-widest transition-all"
+      >
+        <span className="relative z-10">Explorer mes projets</span>
+        <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+      </button>
+      
+      {/* BOUTON COACHING - Redirige vers /coaching */}
+      <button 
+        onClick={() => navigate('/work')}
+        className="px-6 py-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-slate-900 dark:text-white font-black uppercase text-[11px] tracking-widest backdrop-blur-sm hover:bg-white dark:hover:bg-white/10 transition-colors"
+      >
+        Coaching & Ouvrages
+      </button>
+
+    </div>
+  </AnimatedSection>
 
 
     {/* SECTION TECH MARQUEE (Défilement infini) */}
-<div className="py-12 bg-slate-950 border-y border-white/5 overflow-hidden">
+<div className="py-12 
+  bg-white dark:bg-[#05070A] 
+  border-y border-slate-200 dark:border-white/5 
+  overflow-hidden transition-colors duration-500"
+>
   <div className="flex whitespace-nowrap">
     <motion.div 
       animate={{ x: ["0%", "-50%"] }}
@@ -385,19 +425,34 @@ export default function Hero() {
       className="flex items-center"
     >
       {[...techs, ...techs].map((tech, i) => (
-        <div key={i} className="flex items-center gap-3 mx-10 group">
-          {/* Correction ici : On accède à tech.icon et tech.name */}
-          <span className="text-3xl transition-transform group-hover:scale-125 duration-300">
+        <div key={i} className="flex items-center gap-4 mx-12 group cursor-default">
+          
+          {/* Icone avec couleur adaptative et effet de lueur au survol */}
+          <span className="text-3xl 
+            text-slate-700 dark:text-slate-400 
+            group-hover:text-orange-500 dark:group-hover:text-orange-400 
+            transition-all duration-300 group-hover:scale-125 group-hover:rotate-12"
+          >
             {tech.icon} 
           </span>
-          <span className="text-xl font-black text-gray-400 group-hover:text-white transition-colors uppercase tracking-widest">
+
+          {/* Nom de la tech avec typographie forte */}
+          <span className="text-sm md:text-lg font-black 
+            text-slate-400 dark:text-[#1A1F2E] 
+            group-hover:text-slate-900 dark:group-hover:text-white 
+            transition-colors uppercase tracking-[0.2em]"
+          >
             {tech.name}
           </span>
+
+          {/* Séparateur discret (Point de design) */}
+          <div className="ml-8 w-1 h-1 rounded-full bg-slate-200 dark:bg-white/10 group-hover:bg-orange-500 transition-colors" />
         </div>
       ))}
     </motion.div>
   </div>
 </div>
+
 
 {/* SECTION BENTO SERVICES */}
 <section className="py-20 px-6 max-w-7xl mx-auto relative z-20 ">

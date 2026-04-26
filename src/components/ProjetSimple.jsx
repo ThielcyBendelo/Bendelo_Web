@@ -39,7 +39,7 @@ export default function ProjetSimple() {
 
 {/* Titre Ultra-Massif : Vision & Impact */}
 <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-  <span className="text-white opacity-90">Impact</span>
+  <span className="text-blue-900 dark:text-white opacity-90">Impact</span>
   <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
     Global
   </span>
@@ -48,8 +48,8 @@ export default function ProjetSimple() {
 
 {/* Description Équilibrée : Ingénieur & Coach */}
 <div className="max-w-4xl mx-auto space-y-6">
-  <p className="text-xl md:text-3xl font-light leading-snug text-slate-300">
-    Découvrez mes réalisations : des <span className="text-white font-bold">architectures logicielles</span> robustes pour les entreprises et des <span className="text-orange-500 font-bold italic">missions d'éveil</span> dédiées à la transformation de la jeunesse africaine.
+  <p className="text-xl md:text-3xl font-light leading-snug text-blue-600 dart:text-white">
+    Découvrez mes réalisations : des <span className="text-blue-900 font-bold">architectures logicielles</span> robustes pour les entreprises et des <span className="text-orange-500 font-bold italic">missions d'éveil</span> dédiées à la transformation de la jeunesse africaine.
   </p>
   
   <div className="flex justify-center items-center gap-6 pt-4 opacity-40">
