@@ -30,9 +30,11 @@ console.log('🚀 Service PayPal Webhook initialisé:', paypalWebhookService);
 
 // Using createRoot method
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 );
 
 // ===== SERVICE WORKER =====

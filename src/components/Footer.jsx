@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp, FaTerminal, FaBook, FaLightbulb } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp, FaTerminal, FaLightbulb } from 'react-icons/fa';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,57 +18,49 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t transition-all duration-700 overflow-hidden" 
-            style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)' }}>
-      
-      {/* --- GLOW ADAPTATIF --- */}
-      <div 
-        className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[600px] h-[300px] blur-[120px] rounded-full -z-10 opacity-30 dark:opacity-10" 
-        style={{ backgroundColor: 'var(--accent-2)' }} 
-      />
-
+    <footer className="relative border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {/* --- GRILLE PRINCIPALE SYSTEME (12 COLONNES) --- */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
           
-          {/* 1. BRANDING & VISION (4 colonnes) */}
-          <div className="md:col-span-4 space-y-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-[var(--accent-2)] to-[var(--accent-1)] rounded-2xl flex items-center justify-center shadow-xl">
-                <span className="text-white font-black text-xl">BT</span>
+          {/* 1. BRANDING & TEXTE DE VISION (4 colonnes) */}
+          <div className="md:col-span-4 space-y-6">
+            <div className="flex items-center gap-4">
+              {/* Logo épuré style bloc de code */}
+              <div className="w-10 h-10 border border-slate-950 dark:border-white bg-slate-950 dark:bg-white flex items-center justify-center">
+                <span className="text-white dark:text-black font-black text-sm font-mono">BT</span>
               </div>
               <div>
-                <span className="text-2xl font-black tracking-tighter block uppercase italic" style={{ color: 'var(--text-primary)' }}>
-                  Bendelo<span className="text-[var(--accent-2)]">.</span>Thielcy
+                <span className="text-base font-bold uppercase tracking-wider block text-slate-950 dark:text-white">
+                  Bendelo Thielcy<span className="text-orange-500">.</span>
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.4em] font-black" style={{ color: 'var(--text-secondary)' }}>
-                  Ingénieur & Éveilleur
+                <span className="text-[9px] uppercase tracking-[0.2em] font-mono text-slate-400 dark:text-slate-500 block">
+                  // Ingénieur & Éveilleur
                 </span>
               </div>
             </div>
             
-            <p className="text-sm leading-relaxed max-w-xs font-light italic" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-xs leading-relaxed max-w-sm font-normal tracking-wide text-slate-600 dark:text-slate-400 italic">
               "Bâtir des systèmes technologiques innovants pour digitaliser demain, tout en réveillant les consciences pour transformer l'Afrique."
             </p>
 
-            {/* Statut adaptatif */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border" 
-                 style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[9px] font-black uppercase tracking-widest text-emerald-500">
-                Connecté au changement
-              </span>
+            {/* Statut d'état système au format log d'exécution */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 font-mono text-[9px] text-slate-400 dark:text-slate-500">
+              <span className="w-1.5 h-1.5 bg-emerald-500" />
+              <span>STATUS: CONNECTED_TO_CHANGE</span>
             </div>
           </div>
 
-          {/* 2. INDEX TECH (2 colonnes) */}
+          {/* 2. INDEX TECH / ARCHITECTURES (2 colonnes) */}
           <div className="md:col-span-2">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 flex items-center gap-2" style={{ color: 'var(--accent-2)' }}>
-              <FaTerminal /> Systèmes
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider mb-6 flex items-center gap-2 text-slate-950 dark:text-white">
+              <FaTerminal className="text-xs text-slate-400" /> [systèmes]
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {techLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-sm font-medium transition-colors hover:text-[var(--accent-2)]" style={{ color: 'var(--text-secondary)' }}>
+                  <Link to={link.path} className="text-xs font-normal tracking-wide text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-white transition-colors duration-200">
                     {link.name}
                   </Link>
                 </li>
@@ -77,15 +68,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 3. INDEX IMPACT (2 colonnes) */}
+          {/* 3. INDEX IMPACT / EVEIL (2 colonnes) */}
           <div className="md:col-span-2">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 flex items-center gap-2" style={{ color: 'var(--accent-1)' }}>
-              <FaLightbulb /> Éveil
+            <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider mb-6 flex items-center gap-2 text-slate-950 dark:text-white">
+              <FaLightbulb className="text-xs text-slate-400" /> [conscience]
             </h4>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {impactLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-sm font-medium transition-colors hover:text-[var(--accent-1)]" style={{ color: 'var(--text-secondary)' }}>
+                  <Link to={link.path} className="text-xs font-normal tracking-wide text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-white transition-colors duration-200">
                     {link.name}
                   </Link>
                 </li>
@@ -93,50 +84,52 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 4. SOCIAL & CONTACT (4 colonnes) */}
+          {/* 4. NETWORKS & CONTROLES SOCIAUX (4 colonnes) */}
           <div className="md:col-span-4 flex flex-col md:items-end">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6" style={{ color: 'var(--text-primary)' }}>Relier les réseaux</h4>
-            <div className="flex gap-3">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6">// Relier les réseaux</h4>
+            
+                    {/* Grille de liens réseaux carrée et uniforme */}
+            <div className="flex gap-2">
               {[
-                { icon: <FaLinkedin />, href: "https://linkedin.com/in/ir-thielcy-bendelo-b1101233a", color: "hover:bg-blue-600" },
-                { icon: <FaGithub />, href: "https://github.com/ThielcyBendelo", color: "hover:bg-slate-800" },
-                { icon: <FaWhatsapp />, href: "https://wa.me/243829054350", color: "hover:bg-green-600" },
-                { icon: <FaEnvelope />, href: "mailto:bendelothieclcy@gmail.com", color: "hover:bg-orange-600" }
+                { icon: <FaLinkedin />, href: "https://linkedin.com" },
+                { icon: <FaGithub />, href: "https://github.com/ThielcyBendelo" },
+                { icon: <FaWhatsapp />, href: "https://wa.me/243829054350" },
+                { icon: <FaEnvelope />, href: "mailto:bendelothieclcy@gmail.com" }
               ].map((social, i) => (
-                <motion.a
+                <a
                   key={i}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ y: -5, scale: 1.1 }}
-                  className={`w-11 h-11 rounded-xl border flex items-center justify-center text-lg transition-all duration-300 shadow-sm`}
-                  style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
+                  className="w-10 h-10 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 flex items-center justify-center text-sm text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30 hover:text-slate-950 dark:hover:text-white transition-colors duration-200"
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
+
             
-            <div className="mt-10 text-right">
-              <p className="text-[9px] uppercase tracking-widest font-black" style={{ color: 'var(--accent-2)' }}>Pôle d'Impact</p>
-              <p className="text-sm font-bold italic" style={{ color: 'var(--text-primary)' }}>Kinshasa, RD Congo</p>
+            <div className="mt-8 text-left md:text-right font-mono text-[10px] text-slate-400 dark:text-slate-500 space-y-1">
+              <p>POLE: IMPACT_CORE</p>
+              <p className="text-xs text-slate-950 dark:text-white font-sans font-bold uppercase tracking-wider">Kinshasa, RD Congo</p>
             </div>
           </div>
         </div>
 
-        {/* --- BOTTOM BAR --- */}
-        <div className="mt-20 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-6" 
-             style={{ borderColor: 'var(--border-color)' }}>
-          <p className="text-[9px] font-black uppercase tracking-widest text-center md:text-left" style={{ color: 'var(--text-secondary)' }}>
-            © {currentYear} <span className="text-[var(--text-primary)]">Bendelo Thielcy</span> 
-            <span className="mx-2 opacity-20">|</span> 
-            <span className="italic text-[var(--accent-2)]">Ingénierie & Éveil de Conscience</span>
+        {/* --- METRIQUES DU REPERTOIRE / BOTTOM BAR --- */}
+        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 text-center md:text-left">
+            © {currentYear} <span className="text-slate-950 dark:text-white font-sans font-bold">BENDELO THIELCY</span> 
+            <span className="mx-3 opacity-20">|</span> 
+            <span>INGÉNIERIE & ÉVEIL DE CONSCIENCE</span>
           </p>
-          <div className="flex gap-8">
-            <span className="text-[9px] font-bold uppercase tracking-widest hover:text-[var(--accent-1)] cursor-pointer transition-colors" style={{ color: 'var(--text-secondary)' }}>Privacy</span>
-            <span className="text-[9px] font-bold uppercase tracking-widest hover:text-[var(--accent-1)] cursor-pointer transition-colors" style={{ color: 'var(--text-secondary)' }}>Terms</span>
+          
+          <div className="flex gap-6 font-mono text-[9px] text-slate-400 dark:text-slate-500">
+            <span className="hover:text-slate-950 dark:hover:text-white cursor-pointer transition-colors">[ privacy_policy ]</span>
+            <span className="hover:text-slate-950 dark:hover:text-white cursor-pointer transition-colors">[ terms_of_service ]</span>
           </div>
         </div>
+
       </div>
     </footer>
   );

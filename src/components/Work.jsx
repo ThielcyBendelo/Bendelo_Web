@@ -1,130 +1,223 @@
-import { motion } from 'framer-motion';
-import { FaGlobeAfrica, FaHandsHelping, FaLightbulb, FaMicrophone, FaArrowRight } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGlobeAfrica, FaHandsHelping, FaLightbulb, FaMicrophone, FaArrowRight, FaTimes } from 'react-icons/fa';
+import { impact1, impact2, impact3 } from '../assets/assets.js';
 
 export default function Coaching() {
+  const [selectedProgram, setSelectedProgram] = useState(null);
+
   const programs = [
     {
       title: "Éveil de la Conscience",
       desc: "Libérer le potentiel latent pour une vie alignée et authentique.",
       icon: <FaLightbulb />,
-      color: "from-purple-600"
+      image: impact1,
+      summary: "Un accompagnement centré sur la transformation intérieure, l’alignement des valeurs et la clarté de l’identité.",
+      details: [
+        "Ateliers de prise de conscience",
+        "Structuration du parcours personnel",
+        "Clarté de vision et d’intention"
+      ]
     },
     {
       title: "Leadership Africain",
-      desc: "Former la nouvelle génération de bâtisseurs pour le continent.",
+      desc: "Formater la nouvelle génération de bâtisseurs pour le continent.",
       icon: <FaGlobeAfrica />,
-      color: "from-orange-600"
+      image: impact2,
+      summary: "Un cadre de leadership inspirant pour guider des équipes, des projets et des communautés avec impact.",
+      details: [
+        "Éducation au leadership éthique",
+        "Mentorat stratégique",
+        "Construction d’une influence durable"
+      ]
     },
     {
       title: "Mindset Entrepreneur",
       desc: "Passer de l'idée à l'impact avec une structure mentale de fer.",
       icon: <FaHandsHelping />,
-      color: "from-blue-600"
+      image: impact3,
+      summary: "Un accompagnement pour transformer une idée en initiative concrète, crédible et pérenne.",
+      details: [
+        "Clarification de l’offre",
+        "Mentalité de bâtisseur",
+        "Exécution et gestion de l’impact"
+      ]
     }
   ];
 
   return (
-   <section 
-  className="py-24 px-6 relative overflow-hidden transition-colors duration-700" 
-  style={{ backgroundColor: 'var(--bg)' }}
->
-  <div className="max-w-7xl mx-auto">
-    
-    {/* EN-TÊTE : LA MISSION */}
-    <div className="text-center mb-24">
-      <motion.span 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="text-orange-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4 block"
-      >
-        Coaching & Accompagnement
-      </motion.span>
-      <motion.h2 
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        className="text-5xl md:text-7xl font-black mt-6 mb-8 tracking-tighter leading-none"
-        style={{ color: 'var(--text-primary)' }}
-      >
-        Réveiller le <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">Lion qui dort.</span>
-      </motion.h2>
-      <p className="max-w-3xl mx-auto text-xl font-light leading-relaxed italic" style={{ color: 'var(--text-secondary)' }}>
-        "Mon coaching n'est pas une simple discussion. C'est une restructuration de votre vision pour impacter votre environnement et le monde."
-      </p>
-    </div>
-
-    {/* GRILLE DES PROGRAMMES ADAPTATIVE */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-      {programs.map((p, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ y: -12 }}
-          className="relative p-12 rounded-[3rem] border transition-all duration-500 group overflow-hidden shadow-sm hover:shadow-2xl"
-          style={{ 
-            backgroundColor: 'var(--surface)', 
-            borderColor: 'var(--border-color)' 
-          }}
-        >
-          {/* Lueur d'arrière-plan adaptative */}
-          <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${p.color} to-transparent opacity-[0.08] blur-3xl group-hover:opacity-20 transition-opacity`} />
-          
-          <div className="text-4xl text-orange-500 mb-8 transform group-hover:scale-110 transition-transform duration-500">
-            {p.icon}
-          </div>
-          <h3 className="text-2xl font-black mb-4 tracking-tight" style={{ color: 'var(--text-primary)' }}>
-            {p.title}
-          </h3>
-          <p className="mb-8 leading-relaxed text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-            {p.desc}
+    <section 
+      className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
+      style={{ backgroundColor: 'var(--bg)' }}
+      id="coaching"
+    >
+      <div className="max-w-7xl mx-auto">
+        
+               {/* --- EN-TÊTE DE SECTION --- */}
+        <div className="text-center mb-20">
+          <motion.span 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
+          >
+            // Coaching & Accompagnement
+          </motion.span>
+          <motion.h2 
+            initial={{ y: 15, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs"
+          >
+            Réveiller le <span className="underline decoration-1 underline-offset-8">Lion qui dort</span>
+          </motion.h2>
+          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed italic">
+            "Mon coaching n'est pas une simple discussion. C'est une restructuration de votre vision pour impacter votre environnement et le monde."
           </p>
-          <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest transition-colors" style={{ color: 'var(--text-primary)' }}>
-            En savoir plus <FaArrowRight className="text-orange-500 group-hover:translate-x-2 transition-transform" />
-          </button>
-        </motion.div>
-      ))}
-    </div>
-
-    {/* SECTION "POURQUOI L'AFRIQUE ?" (Look Premium Adaptatif) */}
-    <div className="relative p-[1px] rounded-[4rem] bg-gradient-to-r from-orange-600/30 via-purple-600/30 to-orange-600/30 shadow-2xl">
-      <div className="rounded-[3.9rem] p-12 md:p-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center transition-colors"
-           style={{ backgroundColor: 'var(--surface)' }}>
-        <div className="space-y-8">
-          <h3 className="text-4xl md:text-5xl font-black leading-tight tracking-tighter" style={{ color: 'var(--text-primary)' }}>
-            Une vision pour le <br/> <span className="text-orange-500">Continent et au-delà.</span>
-          </h3>
-          <ul className="space-y-6">
-            {[
-              "Éducation mentale de la jeunesse",
-              "Leadership éthique et conscient",
-              "Indépendance créative et technologique"
-            ].map((item, i) => (
-              <li key={i} className="flex items-center gap-4 font-bold text-sm" style={{ color: 'var(--text-secondary)' }}>
-                <span className="w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(234,88,12,0.5)]" /> {item}
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <div className="relative">
-          {/* Animation de respiration pour la lueur */}
-          <div className="aspect-square bg-gradient-to-tr from-purple-600/10 to-orange-600/10 rounded-full absolute inset-0 blur-3xl animate-pulse" />
+        {/* --- GRILLE DES PROGRAMMES ORTHOGONALE --- */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+          {programs.map((p, i) => (
+            <motion.div
+              key={i}
+              whileTap={{ scale: 0.99 }}
+              className="relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[300px] group"
+            >
+              <div>
+                {/* Icône monochrome épurée */}
+                <div className="text-2xl text-slate-950 dark:text-white mb-6 transition-colors duration-300 group-hover:text-orange-500">
+                  {p.icon}
+                </div>
+                
+                <h3 className="text-lg font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+                  {p.title}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide mb-6">
+                  {p.desc}
+                </p>
+              </div>
+
+              {/* Bouton d'action minimaliste style terminal */}
+              <button
+                type="button"
+                onClick={() => setSelectedProgram(p)}
+                className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-slate-950 dark:text-white group-hover:text-orange-500 transition-colors duration-200"
+              >
+                [ en_savoir_plus ] <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* --- SECTION D'IMPACT CONTINENTAL (Style Bloc Technique) --- */}
+        <div className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] p-8 md:p-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
-          <div className="relative border p-10 rounded-[3rem] backdrop-blur-xl transition-all"
-               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg)' }}>
-            <FaMicrophone className="text-6xl text-orange-500 mb-8" />
-            <p className="text-2xl font-light italic leading-snug tracking-tight" style={{ color: 'var(--text-primary)' }}>
-              "Le changement de l'Afrique ne viendra pas de l'extérieur, mais de l'éveil intérieur de chaque fils du continent."
-            </p>
-            <div className="mt-8 flex items-center gap-4">
-              <div className="h-px w-8 bg-orange-500" />
-              <p className="text-orange-500 font-black uppercase tracking-widest text-[10px]">Bendelo Thielcy</p>
+          <div className="space-y-6">
+            <h3 className="text-xl md:text-3xl font-black uppercase tracking-wider text-slate-950 dark:text-white leading-tight">
+              Une vision pour le <br/> <span className="underline decoration-1 underline-offset-8">Continent et au-delà</span>
+            </h3>
+            
+            <ul className="space-y-4">
+              {[
+                "Éducation mentale de la jeunesse",
+                "Leadership éthique et conscient",
+                "Indépendance créative et technologique"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-xs font-normal tracking-wide text-slate-600 dark:text-slate-400">
+                  <span className="w-1.5 h-1.5 bg-orange-500" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Bloc Manifeste / Témoignage */}
+          <div className="relative border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 p-8 flex flex-col justify-between min-h-[240px]">
+            <div>
+              <FaMicrophone className="text-xl text-slate-400 mb-6" />
+              <p className="text-base md:text-xl font-normal text-slate-800 dark:text-slate-200 italic leading-relaxed tracking-wide">
+                "Le changement de l'Afrique ne viendra pas de l'extérieur, mais de l'éveil intérieur de chaque fils du continent."
+              </p>
+            </div>
+            
+            <div className="mt-8 flex items-center gap-3 font-mono text-[10px]">
+              <div className="h-px w-6 bg-slate-200 dark:bg-white/10" />
+              <p className="text-orange-500 font-bold uppercase tracking-wider">Bendelo Thielcy</p>
             </div>
           </div>
+
         </div>
+
       </div>
-    </div>
 
-  </div>
-</section>
+      <AnimatePresence>
+        {selectedProgram && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 py-6"
+            onClick={() => setSelectedProgram(null)}
+          >
+            <motion.div
+              initial={{ y: 20, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-3xl overflow-hidden border border-slate-200 dark:border-white/10 bg-white dark:bg-[#09090b] shadow-2xl"
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-slate-200 dark:border-white/10 p-6">
+                <div>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                    Aperçu du programme
+                  </p>
+                  <h3 className="text-xl font-black uppercase tracking-wider text-slate-950 dark:text-white">
+                    {selectedProgram.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProgram(null)}
+                  className="rounded-full border border-slate-200 dark:border-white/10 p-2 text-slate-500 hover:text-orange-500 transition-colors"
+                >
+                  <FaTimes />
+                </button>
+              </div>
 
+              <div className="grid gap-6 p-6 md:grid-cols-[1.1fr_0.9fr] md:p-8">
+                <img
+                  src={selectedProgram.image}
+                  alt={selectedProgram.title}
+                  className="h-64 w-full object-cover border border-slate-200 dark:border-white/10"
+                />
+
+                <div className="flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                      {selectedProgram.summary}
+                    </p>
+                    <ul className="space-y-2">
+                      {selectedProgram.details.map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-6 border-t border-slate-200 dark:border-white/10 pt-4 text-xs font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                    {selectedProgram.desc}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
   );
 }

@@ -1,153 +1,241 @@
 import React, { useState } from 'react';
-import { FaBook, FaShoppingBag, FaStar, FaChevronLeft, FaChevronRight, FaTimes, FaGlobeAfrica } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  FaTerminal, FaBrain, FaLinkedin, FaWhatsapp, FaEnvelope, 
+  FaSearch, FaClock, FaArrowRight, FaCode, FaBookOpen, FaShareAlt 
+} from 'react-icons/fa';
 
-const initialBooks = [
+// Structure de données initiale de vos articles (Tech & Éveil)
+const initialArticles = [
   {
-    id: 1,
-    title: "Le Réveil du Lion Africain",
-    subtitle: "Guide pratique pour une souveraineté mentale",
-    author: "Bendelo Thielcy",
-    price: 25,
-    rating: 5,
-    category: "Éveil",
-    description: "Un manifeste puissant explorant les clés de l'indépendance intellectuelle et technologique pour la jeunesse du continent.",
-    image: "/public/images/book1.jpg", // Remplacez par vos images
-    status: "Disponible"
+    id: "art-001",
+    title: "Bâtir des architectures logicielles souveraines en Afrique : Les défis de la scalabilité",
+    excerpt: "Analyse profonde des contraintes d'infrastructure cloud, de latence et de redondance pour les systèmes critiques opérant sur le continent.",
+    category: "tech",
+    readTime: "6 min read",
+    date: "27 Juillet 2026",
+    tags: ["Cloud Architecture", "AWS", "Souveraineté Numérique"],
+    slug: "architectures-souveraines-afrique"
   },
   {
-    id: 2,
-    title: "Code & Conscience",
-    subtitle: "L'ingénierie au service de l'impact humain",
-    author: "Bendelo Thielcy",
-    price: 30,
-    rating: 5,
-    category: "Technologie",
-    description: "Comment allier la rigueur du logiciel avec la profondeur de l'âme pour bâtir des solutions durables.",
-    image: "/public/images/book2.jpg",
-    status: "Bientôt disponible"
+    id: "art-002",
+    title: "Le Prompt Engineering comme levier d'accélération pour la jeunesse africaine",
+    excerpt: "Comment l'optimisation contextuelle des LLMs (GPT-4, Claude) redéfinit l'apprentissage du code et brise les barrières d'accès à l'ingénierie.",
+    category: "ai",
+    readTime: "4 min read",
+    date: "22 Juillet 2026",
+    tags: ["Prompt Engineering", "IA", "Productivité"],
+    slug: "prompt-engineering-jeunesse-africaine"
+  },
+  {
+    id: "art-003",
+    title: "Décolonisation mentale et leadership conscient : Restructurer son mindset d'entrepreneur",
+    excerpt: "Manifeste pour une transformation intérieure profonde. Passer du statut de spectateur passif à celui d'architecte du changement.",
+    category: "impact",
+    readTime: "8 min read",
+    date: "14 Juillet 2026",
+    tags: ["Mindset", "Leadership Conscient", "Éveil"],
+    slug: "decolonisation-mentale-leadership-conscient"
   }
 ];
 
-export default function Library() {
-  const [books] = useState(initialBooks);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [showOrderModal, setShowOrderModal] = useState(false);
+const categories = [
+  { id: 'all', label: 'Tous les écrits', icon: <FaCode /> },
+  { id: 'tech', label: 'Ingénierie & Dev', icon: <FaTerminal /> },
+  { id: 'ai', label: 'Intelligence Artificielle', icon: <FaBrain /> },
+  { id: 'impact', label: 'Éveil & Leadership', icon: <FaBookOpen /> }
+];
 
-  const nextBook = () => setCurrentIndex((prev) => (prev === books.length - 1 ? 0 : prev + 1));
-  const prevBook = () => setCurrentIndex((prev) => (prev === 0 ? books.length - 1 : prev - 1));
+export default function Blog() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
 
-  const handleOrder = () => {
-    const message = `Bonjour Ir Bendelo, je souhaite commander le livre : ${books[currentIndex].title}`;
-    window.open(`https://wa.me{encodeURIComponent(message)}`, '_blank');
+  // Filtrage combiné : Recherche textuelle + Onglets de catégories
+  const filteredArticles = initialArticles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Fonction de partage social automatisée (Génération d'URLs de partage propres)
+  const handleShare = (platform, article) => {
+    const articleUrl = encodeURIComponent(`${window.location.origin}/blog/${article.slug}`);
+    const articleTitle = encodeURIComponent(article.title);
+    
+    let shareUrl = '';
+    switch (platform) {
+      case 'linkedin':
+        shareUrl = `https://linkedin.com{articleUrl}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://whatsapp.com{articleTitle}%20${articleUrl}`;
+        break;
+      case 'email':
+        shareUrl = `mailto:?subject=${articleTitle}&body=Découvrez cet article : %0D%0A${articleUrl}`;
+        break;
+      default:
+        break;
+    }
+    if (shareUrl) window.open(shareUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <section id="library" className="py-24 transition-all duration-700" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className="container mx-auto px-6">
+    <div className="min-h-screen bg-slate-950 text-white pt-24 px-6 relative overflow-y-auto">
+      {/* Grille structurelle d'arrière-plan */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white/10 z-0">
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10 space-y-12 pb-20">
         
-        {/* EN-TÊTE DE LA BIBLIOTHÈQUE */}
-        <div className="text-center mb-20">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-6">
-            <FaGlobeAfrica className="text-orange-500 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">Impact Littéraire Africain</span>
-          </motion.div>
-          <h2 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter uppercase italic" style={{ color: 'var(--text-primary)' }}>
-            Biblio<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">thèque</span>.
-          </h2>
-          <p className="text-xl max-w-2xl mx-auto font-light italic" style={{ color: 'var(--text-secondary)' }}>
-            "Les mots sont les graines de l'éveil. Cultivons ensemble le jardin du futur."
+        {/* --- 1. EN-TÊTE DU CENTRAL LOG --- */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] block">
+            // Thought Leadership & Core Manifestos
+          </span>
+          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-widest text-xs">
+            Publications & <span className="underline decoration-1 underline-offset-8 decoration-orange-500">Visions</span>
+          </h1>
+          <p className="text-sm text-slate-400 font-normal tracking-wide leading-relaxed">
+            Partage d’expertises d'ingénierie logicielle, retours d'expérience sur l'intégration IA et architectures de pensée pour catalyser l'Afrique.
           </p>
         </div>
 
-        {/* AFFICHAGE DU LIVRE (CARROUSEL 3D) */}
-        <div className="relative max-w-5xl mx-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, scale: 0.9, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.9, x: -20 }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 backdrop-blur-xl"
-              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}
-            >
-              {/* Couverture du Livre */}
-              <div className="relative group perspective-1000">
-                <div className="absolute inset-0 bg-orange-500/20 blur-[100px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
-                <motion.div 
-                  whileHover={{ rotateY: -20, rotateX: 5 }}
-                  className="relative aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden border border-white/20"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
-                  <img 
-                    src={books[currentIndex].image} 
-                    alt={books[currentIndex].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 right-4 z-20 px-4 py-1 bg-orange-600 text-[10px] font-black uppercase rounded-full text-white shadow-xl">
-                    {books[currentIndex].category}
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Détails et Vente */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-2 text-orange-500 mb-2">
-                  {[...Array(books[currentIndex].rating)].map((_, i) => <FaStar key={i} />)}
-                </div>
-                <h3 className="text-4xl md:text-5xl font-black leading-none" style={{ color: 'var(--text-primary)' }}>
-                  {books[currentIndex].title}
-                </h3>
-                <h4 className="text-lg font-bold text-purple-500 italic">{books[currentIndex].subtitle}</h4>
-                <p className="text-lg leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
-                  {books[currentIndex].description}
-                </p>
-
-                <div className="pt-8 flex flex-wrap items-center gap-8">
-                  <div className="text-3xl font-black text-white">
-                    <span style={{ color: 'var(--text-primary)' }}>{books[currentIndex].price}</span>
-                    <span className="text-orange-500 ml-1">$</span>
-                  </div>
-                  <button 
-                    onClick={handleOrder}
-                    className="flex-1 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all shadow-xl shadow-orange-900/20 active:scale-95"
-                  >
-                    <FaShoppingBag /> Commander l'éveil
-                  </button>
-                </div>
-                
-                <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-                  <span className="flex items-center gap-2">● {books[currentIndex].status}</span>
-                  <span className="flex items-center gap-2">● Livraison Kinshasa & Monde</span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Navigation */}
-          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 lg:-left-20">
-            <button onClick={prevBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
-              <FaChevronLeft />
-            </button>
+        {/* --- 2. BARRE DE COMMANDE: RECHERCHE & FILTRES --- */}
+        <div className="space-y-6 max-w-4xl mx-auto">
+          {/* Champ de recherche type invite de commande */}
+          <div className="relative border border-white/10 bg-[#09090b] px-4 py-3 flex items-center gap-3">
+            <FaSearch className="text-slate-500 text-xs shrink-0" />
+            <span className="font-mono text-[11px] text-orange-500 select-none">&gt;_ grep</span>
+            <input 
+              type="text"
+              placeholder="Rechercher une publication ou une stack..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-transparent outline-none text-xs font-mono placeholder-slate-600 text-white"
+            />
           </div>
-          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 lg:-right-20">
-            <button onClick={nextBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
-              <FaChevronRight />
-            </button>
+
+          {/* Onglets de catégories orthogonaux */}
+          <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+            {categories.map((cat) => {
+              const isSelected = activeFilter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveFilter(cat.id)}
+                  className={`flex items-center gap-2 px-4 py-2 font-bold uppercase text-[9px] tracking-widest border transition-all duration-200 ${
+                    isSelected 
+                      ? 'bg-white text-black border-transparent' 
+                      : 'bg-slate-50 dark:bg-[#09090b] border-white/5 text-slate-400 hover:text-white hover:border-white/20'
+                  }`}
+                >
+                  <span className="text-xs">{cat.icon}</span>
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Indication visuelle des pages */}
-        <div className="flex justify-center gap-3 mt-12">
-          {books.map((_, i) => (
-            <div 
-              key={i} 
-              className={`h-1.5 rounded-full transition-all duration-500 ${currentIndex === i ? 'w-12 bg-orange-500' : 'w-4 bg-white/10'}`} 
-            />
-          ))}
+        {/* --- 3. FLUX PRINCIPAL DES ARTICLES --- */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <AnimatePresence mode="popLayout">
+            {filteredArticles.length > 0 ? (
+              filteredArticles.map((article) => (
+                <motion.article
+                  layout
+                  key={article.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.25 }}
+                  className="p-6 border border-white/10 bg-[#09090b] hover:border-slate-400 dark:hover:border-white/20 transition-colors duration-300 flex flex-col justify-between gap-6 group"
+                >
+                  {/* Métadonnées supérieures */}
+                  <div className="flex flex-wrap justify-between items-center gap-3 font-mono text-[9px] text-slate-500">
+                    <div className="flex items-center gap-4">
+                      <span>[{article.id}]</span>
+                      <span>● {article.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <FaClock /> <span>{article.readTime}</span>
+                    </div>
+                  </div>
+
+                  {/* Titre et extrait */}
+                  <div className="space-y-3">
+                    <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-white group-hover:text-orange-500 transition-colors duration-200 leading-snug">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed font-normal tracking-wide">
+                      {article.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Section basse : Tags et Panneau de Partage Social */}
+                  <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    {/* Tags Git-Style */}
+                    <div className="flex flex-wrap gap-1.5 font-mono text-[8px] text-slate-400">
+                      {article.tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 border border-white/5 bg-white/5 uppercase">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Boutons de Partage pour vos Réseaux */}
+                    <div className="flex items-center gap-4 self-end sm:self-auto">
+                      <div className="flex items-center gap-2 border border-white/5 bg-white/5 px-2 py-1 text-slate-500 font-mono text-[8px]">
+                        <FaShareAlt /> <span>SHARE:</span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('linkedin', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager sur LinkedIn">
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('whatsapp', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager sur WhatsApp"
+                        >
+                          <FaWhatsapp />
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('email', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager par Email"
+                        >
+                          <FaEnvelope />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </motion.article>
+              ))
+            ) : (
+              /* État vide si aucune correspondance */
+              <div className="p-12 border border-dashed border-white/10 text-center font-mono text-xs text-slate-500">
+                [sys_log]: Aucun article ne correspond aux paramètres d'indexation grep.
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* --- PIED DE LOG SYSTEM --- */}
+        <div className="text-center font-mono text-[9px] text-slate-600">
+          <p>central_feed_status: updated • sync_frequency: manual</p>
         </div>
 
       </div>
-    </section>
+    </div>
   );
 }

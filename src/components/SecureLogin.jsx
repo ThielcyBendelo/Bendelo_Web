@@ -24,10 +24,9 @@ const SecureLogin = () => {
   } = useFormSecurity(formSchema, async (data) => {
     try {
       setApiError('');
-      // Utiliser le service mock pour le login
       const resp = await authService.login(data.email, data.password);
       if (resp?.user?.role === 'admin') {
-        navigate('/dashboard');
+        navigate('/client-dashboard');
       } else {
         navigate('/profile');
       }
@@ -43,170 +42,143 @@ const SecureLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-200 to-dark-300 px-4">
-      <div className="w-full max-w-md bg-dark-300/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-gray-700/50">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple to-pink rounded-lg mb-4">
-            <span className="text-white text-xl font-bold">🔐</span>
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Connexion Sécurisée</h1>
-          <p className="text-gray-400">Accédez à votre tableau de bord</p>
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-3 py-6 sm:px-4 relative overflow-hidden">
+      {/* Lignes de repères géométriques en arrière-plan */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white/10">
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+      </div>
+
+      <div className="w-full max-w-sm sm:max-w-md border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] p-4 sm:p-6 lg:p-7 relative z-10">
+        
+        {/* --- EN-TÊTE DU PANNEAU --- */}
+        <div className="text-center mb-5 sm:mb-6">
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-2 block">
+            // Client Access Portal
+          </span>
+          <h1 className="text-lg sm:text-xl font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-1.5">
+            Connexion Sécurisée
+          </h1>
+          <p className="text-[11px] sm:text-xs font-mono text-slate-400 dark:text-slate-500">[auth_required_statement]</p>
         </div>
 
-        {/* API Error */}
+        {/* --- LOG DES ERREURS API --- */}
         {apiError && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-            <p className="text-red-300 text-sm">🚨 {apiError}</p>
+          <div className="mb-6 p-4 border border-red-500/20 text-red-500 bg-red-500/5 font-mono text-xs">
+            <p>[sys_error]: {apiError}</p>
           </div>
         )}
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} noValidate className="space-y-5">
-          {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              Email
+        {/* --- FORMULAIRE DE SAISIE ORTHOGONAL --- */}
+        <form onSubmit={handleSubmit} noValidate className="space-y-3 sm:space-y-4">
+          
+          {/* Champ Email */}
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+              Adresse Email
             </label>
-            <div className="relative">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder=""
-                value={formData.email || ''}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                disabled={isLoading}
-                className={`w-full px-4 py-3 bg-dark-100/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
-                  touched.email && errors.email
-                    ? 'border-red-500 focus:ring-red-500/50'
-                    : 'border-gray-600/50 focus:ring-purple/50 focus:border-purple/50'
-                } disabled:opacity-50`}
-              />
-              <span className="absolute right-3 top-3 text-gray-500">✉️</span>
-            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email || ''}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              disabled={isLoading}
+              className={`w-full px-3 py-2.5 border bg-white dark:bg-white/5 text-sm text-slate-900 dark:text-white rounded-none outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors font-mono disabled:opacity-50 ${
+                touched.email && errors.email ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-white/10'
+              }`}
+              placeholder="user@domain.com"
+            />
             {touched.email && errors.email && (
-              <p className="text-red-400 text-xs mt-1">⚠️ {errors.email}</p>
+              <p className="text-red-500 font-mono text-[10px] mt-1">[invalid_input]: {errors.email}</p>
             )}
           </div>
 
-          {/* Password Field */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+          {/* Champ Mot de passe */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label htmlFor="password" className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
                 Mot de passe
               </label>
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-xs text-purple hover:text-pink transition"
+                className="text-[10px] font-mono text-slate-400 hover:text-orange-500 transition-colors"
               >
-                {showPassword ? '👁️ Masquer' : '👁️ Afficher'}
+                {showPassword ? '[ hide ]' : '[ show ]'}
               </button>
             </div>
-            <div className="relative">
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder=""
-                value={formData.password || ''}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                disabled={isLoading}
-                className={`w-full px-4 py-3 bg-dark-100/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
-                  touched.password && errors.password
-                    ? 'border-red-500 focus:ring-red-500/50'
-                    : 'border-gray-600/50 focus:ring-purple/50 focus:border-purple/50'
-                } disabled:opacity-50`}
-              />
-              <span className="absolute right-3 top-3 text-gray-500">🔒</span>
-            </div>
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.password || ''}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              disabled={isLoading}
+              className={`w-full px-3 py-2.5 border bg-white dark:bg-white/5 text-sm text-slate-900 dark:text-white rounded-none outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors font-mono disabled:opacity-50 ${
+                touched.password && errors.password ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-white/10'
+              }`}
+              placeholder="••••••••"
+            />
             {touched.password && errors.password && (
-              <p className="text-red-400 text-xs mt-1">⚠️ {errors.password}</p>
+              <p className="text-red-500 font-mono text-[10px] mt-1">[invalid_input]: {errors.password}</p>
             )}
           </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center gap-2 text-gray-400 hover:text-gray-300 cursor-pointer">
+          {/* Maintien de session & Perte de code */}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[11px] font-sans font-medium text-slate-500 dark:text-slate-400">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
-                className="w-4 h-4 rounded border-gray-600 text-purple focus:ring-purple"
+                className="w-3.5 h-3.5 border-slate-300 dark:border-white/10 rounded-none text-slate-950 dark:text-white focus:ring-0 focus:ring-offset-0 bg-transparent"
               />
               <span>Se souvenir de moi</span>
             </label>
             <button
               type="button"
               onClick={() => navigate('/forgot-password')}
-              className="text-purple hover:text-pink transition"
+              className="hover:text-orange-500 dark:hover:text-white transition-colors"
             >
               Mot de passe oublié ?
             </button>
           </div>
 
-          {/* Submit Button */}
+          {/* Bouton d'action principal uniforme */}
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-lg transform transition-all hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 sm:px-10 py-3 sm:py-4 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-xs tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors disabled:opacity-50"
           >
             {isLoading ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="animate-spin">⏳</span> Connexion...
+              <span className="flex items-center justify-center gap-2 font-mono">
+                [processing...]
               </span>
             ) : (
-              '✓ Se connecter'
+              'Valider l\'accès'
             )}
           </button>
         </form>
 
-        {/* Security Info */}
-        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-          <p className="text-blue-300 text-xs leading-relaxed">
-            🔐 <strong>Sécurité:</strong> Cette connexion est protégée par:
-            <br />
-            • Validation des données côté client
-            <br />
-            • Tokens CSRF automatiques
-            <br />
-            • Rate limiting anti-brute force
-            <br />
-            • Chiffrage SSL/TLS en transmission
-          </p>
-        </div>
-
-        {/* Test Credentials */}
-        <div className="mt-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-          <p className="text-amber-300 text-xs leading-relaxed">
-            🧪 <strong>Credentials de test (développement):</strong>
-            <br />
-            <strong>Email:</strong> admin@example.com
-            <br />
-            <strong>Mot de passe:</strong> Admin@12345
-            <br />
-            <em className="text-amber-400">Note: À remplacer par votre backend en production</em>
-          </p>
-        </div>
-
-        {/* Register Link */}
-        <div className="mt-6 text-center">
-          <p className="text-gray-400 text-sm">
+        {/* --- ENREGISTREMENT / LIEN SECONDAIRE --- */}
+        <div className="mt-5 sm:mt-6 text-center border-t border-slate-200 dark:border-white/5 pt-3 sm:pt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Pas encore de compte?{' '}
             <button
               type="button"
               onClick={() => navigate('/register')}
-              className="text-purple hover:text-pink transition font-semibold"
+              className="text-slate-950 dark:text-white hover:text-orange-500 dark:hover:text-orange-500 font-bold transition-colors uppercase text-[10px] tracking-widest ml-1"
             >
               S'inscrire
             </button>
           </p>
         </div>
+
       </div>
     </div>
   );
 };
 
 export default SecureLogin;
-  

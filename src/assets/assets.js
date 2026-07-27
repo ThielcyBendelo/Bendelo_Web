@@ -91,6 +91,22 @@ export const testimonials = [
 
 export const experiences = [
   {
+    role: 'Ingénieur Logiciel',
+    company: 'Wave Connections SARLU',
+    year: 'Avril 2026',
+    type: 'mission',
+    description: 'Développement de l’application ERP hybride Web/Mobile pour la gestion d’entreprise et la finance. Centralisation et automatisation des données métiers, des flux comptables et de la facturation.',
+    tags: ['ERP', 'Web/Mobile', 'Finance']
+  },
+  {
+    role: 'Ingénieur Logiciel & Architecte Solution',
+    company: 'InsurTech Cross-Border',
+    year: 'Avril 2026',
+    type: 'impact',
+    description: 'Idéation, architecture et développement d’une plateforme d’écosystème numérique d’assurance dédiée à la diaspora de la RDC. La solution permet de souscrire et payer directement depuis l’étranger des assurances santé, auto, voyage et scolaire pour les proches en RDC.',
+    tags: ['InsurTech', 'B2C', 'Cross-Border']
+  },
+  {
     role: 'Coach en Éveil de Conscience & Auteur',
     company: 'Impact Vision Afrique',
     year: '2024 - Présent',

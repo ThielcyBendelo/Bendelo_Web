@@ -80,108 +80,129 @@ export default function Library() {
     const message = `Bonjour Ir Bendelo, je souhaite commander le livre : ${books[currentIndex].title}`;
     window.open(`https://wa.me{encodeURIComponent(message)}`, '_blank');
   };
-
-  return (
-    <section id="library" className="py-24 transition-all duration-700" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className="container mx-auto px-6">
+  
+ return (
+    <section 
+      id="library" 
+      className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
+      style={{ backgroundColor: 'var(--bg)' }}
+    >
+      <div className="max-w-7xl mx-auto">
         
-        {/* EN-TÊTE DE LA BIBLIOTHÈQUE */}
+        {/* --- EN-TÊTE DE LA BIBLIOTHÈQUE --- */}
         <div className="text-center mb-20">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-6">
-            <FaGlobeAfrica className="text-orange-500 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">Impact Littéraire Africain</span>
-          </motion.div>
-          <h2 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter uppercase italic" style={{ color: 'var(--text-primary)' }}>
-            Biblio<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-orange-500">thèque</span>.
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+            // Impact Littéraire Africain
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
+            Biblio<span className="underline decoration-1 underline-offset-8">thèque</span>
           </h2>
-          <p className="text-xl max-w-2xl mx-auto font-light italic" style={{ color: 'var(--text-secondary)' }}>
+          <p className="max-w-xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed italic">
             "Les mots sont les graines de l'éveil. Cultivons ensemble le jardin du futur."
           </p>
         </div>
 
-        {/* AFFICHAGE DU LIVRE (CARROUSEL 3D) */}
-        <div className="relative max-w-5xl mx-auto">
+        {/* --- CARROUSEL ORTHOGONAL STYLE FICHE TECHNIQUE --- */}
+        <div className="relative max-w-5xl mx-auto z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, scale: 0.9, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.9, x: -20 }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white/5 border border-white/10 rounded-[3rem] p-8 md:p-16 backdrop-blur-xl"
-              style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -15 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] p-8 md:p-12"
             >
-              {/* Couverture du Livre */}
-              <div className="relative group perspective-1000">
-                <div className="absolute inset-0 bg-orange-500/20 blur-[100px] rounded-full opacity-30 group-hover:opacity-60 transition-opacity" />
-                <motion.div 
-                  whileHover={{ rotateY: -20, rotateX: 5 }}
-                  className="relative aspect-[3/4] rounded-2xl shadow-2xl overflow-hidden border border-white/20"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
+              {/* Couverture du Livre (Enveloppe 4 colonnes) */}
+              <div className="lg:col-span-5 relative w-full flex justify-center">
+                <div className="relative aspect-[3/4] w-full max-w-[280px] border border-slate-200 dark:border-white/10 bg-neutral-900 group overflow-hidden">
                   <img 
                     src={books[currentIndex].image} 
                     alt={books[currentIndex].title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
+                    loading="lazy"
                   />
-                  <div className="absolute top-4 right-4 z-20 px-4 py-1 bg-orange-600 text-[10px] font-black uppercase rounded-full text-white shadow-xl">
-                    {books[currentIndex].category}
-                  </div>
-                </motion.div>
+                  {/* Badge de catégorie industriel */}
+                  <span className="absolute top-3 right-3 font-mono text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5">
+                    // {books[currentIndex].category}
+                  </span>
+                </div>
               </div>
 
-              {/* Détails et Vente */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-2 text-orange-500 mb-2">
-                  {[...Array(books[currentIndex].rating)].map((_, i) => <FaStar key={i} />)}
-                </div>
-                <h3 className="text-4xl md:text-5xl font-black leading-none" style={{ color: 'var(--text-primary)' }}>
-                  {books[currentIndex].title}
-                </h3>
-                <h4 className="text-lg font-bold text-purple-500 italic">{books[currentIndex].subtitle}</h4>
-                <p className="text-lg leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
-                  {books[currentIndex].description}
-                </p>
-
-                <div className="pt-8 flex flex-wrap items-center gap-8">
-                  <div className="text-3xl font-black text-white">
-                    <span style={{ color: 'var(--text-primary)' }}>{books[currentIndex].price}</span>
-                    <span className="text-orange-500 ml-1">$</span>
+              {/* Détails et Vente (Enveloppe 7 colonnes) */}
+              <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-6">
+                <div>
+                  {/* Notation technique et Titres */}
+                  <div className="flex items-center gap-1 text-orange-500 text-xs mb-3">
+                    {[...Array(books[currentIndex].rating)].map((_, i) => <FaStar key={i} />)}
                   </div>
+                  
+                  <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-1">
+                    {books[currentIndex].title}
+                  </h3>
+                  <h4 className="text-xs font-mono font-bold uppercase tracking-wide text-slate-400 dark:text-slate-500 mb-4">
+                    // {books[currentIndex].subtitle}
+                  </h4>
+                  
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide">
+                    {books[currentIndex].description}
+                  </p>
+                </div>
+
+                {/* Bloc Tarifs & Bouton de Commande Directe */}
+                <div className="pt-6 border-t border-slate-200 dark:border-white/5 flex flex-wrap items-center justify-between gap-6">
+                  <div>
+                    <span className="font-mono text-[8px] text-slate-400 uppercase tracking-widest block">Unit Rate</span>
+                    <p className="text-xl font-bold font-mono text-slate-950 dark:text-white">
+                      {books[currentIndex].price} <span className="text-xs font-normal text-slate-400">USD</span>
+                    </p>
+                  </div>
+                  
                   <button 
                     onClick={handleOrder}
-                    className="flex-1 py-5 bg-orange-600 hover:bg-orange-700 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all shadow-xl shadow-orange-900/20 active:scale-95"
+                    className="px-6 py-4 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-xs tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors flex items-center justify-center gap-3"
                   >
-                    <FaShoppingBag /> Commander l'éveil
+                    <FaShoppingBag className="text-xs" /> Commander l'ouvrage
                   </button>
                 </div>
                 
-                <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-                  <span className="flex items-center gap-2">● {books[currentIndex].status}</span>
-                  <span className="flex items-center gap-2">● Livraison Kinshasa & Monde</span>
+                {/* Métadonnées de log en bas de fiche */}
+                <div className="pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-6 font-mono text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                  <span>● STOCK: {books[currentIndex].status}</span>
+                  <span>● LOGISTICS: LIND/WORLDWIDE</span>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation */}
-          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 lg:-left-20">
-            <button onClick={prevBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
-              <FaChevronLeft />
+          {/* CONTROLES DE NAVIGATION PARALLELES (Flèches minimalistes) */}
+          <div className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 lg:-left-16 z-30">
+            <button 
+              type="button"
+              onClick={prevBook} 
+              className="p-4 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30 hover:text-orange-500 transition-colors"
+            >
+              <FaChevronLeft className="text-xs" />
             </button>
           </div>
-          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 lg:-right-20">
-            <button onClick={nextBook} className="p-5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-orange-600 transition-all">
-              <FaChevronRight />
+          
+          <div className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 lg:-right-16 z-30">
+            <button 
+              type="button"
+              onClick={nextBook} 
+              className="p-4 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30 hover:text-orange-500 transition-colors"
+            >
+              <FaChevronRight className="text-xs" />
             </button>
           </div>
         </div>
 
-        {/* Indication visuelle des pages */}
-        <div className="flex justify-center gap-3 mt-12">
+        {/* INDICATEUR DE CARROUSEL COMPACT (Indexation orthogonale) */}
+        <div className="flex justify-center gap-1.5 mt-8">
           {books.map((_, i) => (
             <div 
               key={i} 
-              className={`h-1.5 rounded-full transition-all duration-500 ${currentIndex === i ? 'w-12 bg-orange-500' : 'w-4 bg-white/10'}`} 
+              className={`h-1 transition-all duration-300 ${currentIndex === i ? 'w-8 bg-slate-950 dark:bg-white' : 'w-2 bg-slate-200 dark:bg-white/10'}`} 
             />
           ))}
         </div>
@@ -190,3 +211,4 @@ export default function Library() {
     </section>
   );
 }
+

@@ -3,7 +3,7 @@ import { projects } from '../assets/assets.js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaCode, FaGlobe, FaMobileAlt, FaLayerGroup, FaBookOpen } from 'react-icons/fa';
 
-// Définition des catégories de filtrage
+// Définition des catégories de filtrage épurées
 const categories = [
   { id: 'all', label: 'Tous', icon: <FaLayerGroup /> },
   { id: 'web', label: 'Tech & Web', icon: <FaGlobe /> },
@@ -15,125 +15,124 @@ const categories = [
 export default function ProjetSimple() {
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Filtrage des projets (assurez-vous que vos objets dans assets.js ont une propriété 'categorie')
+  // Filtrage des projets
   const filteredProjects = activeFilter === 'all' 
     ? projects 
     : projects.filter(p => p.categorie?.toLowerCase() === activeFilter);
 
   return (
-    <section id="projects" className="py-24 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
+    <section id="projects" className="py-24 px-6 border-t border-slate-200 dark:border-white/10 bg-slate-950 text-white">
       <div className="max-w-7xl mx-auto">
         
-        <div className="text-center mb-24 relative">
- {/* Surtitre : L'alliance de la Tech et de l'Humain */}
-<motion.div
-  initial={{ opacity: 0, y: -10 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
->
-  <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-    Digital Systems & Human Awakening
-  </span>
-</motion.div>
+        {/* --- EN-TÊTE DE SECTION --- */}
+        <div className="text-center mb-20 relative">
+          <span className="text-slate-400 dark:text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+            // Digital Systems & Human Awakening
+          </span>
+          
+          <h2 className="text-3xl md:text-5xl font-black text-slate-400 dark:text-white mb-6 tracking-widest uppercase text-xs">
+            Impact <span className="underline decoration-1 underline-offset-8">Global</span>
+          </h2>
 
-{/* Titre Ultra-Massif : Vision & Impact */}
-<h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-  <span className="text-blue-900 dark:text-white opacity-90">Impact</span>
-  <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-transparent bg-clip-text">
-    Global
-  </span>
-  <span className="text-orange-500">.</span>
-</h2>
-
-{/* Description Équilibrée : Ingénieur & Coach */}
-<div className="max-w-4xl mx-auto space-y-6">
-  <p className="text-xl md:text-3xl font-light leading-snug text-blue-600 dart:text-white">
-    Découvrez mes réalisations : des <span className="text-blue-900 font-bold">architectures logicielles</span> robustes pour les entreprises et des <span className="text-orange-500 font-bold italic">missions d'éveil</span> dédiées à la transformation de la jeunesse africaine.
-  </p>
-  
-  <div className="flex justify-center items-center gap-6 pt-4 opacity-40">
-    <div className="h-[1px] w-12 bg-slate-500" />
-    <p className="text-[10px] uppercase tracking-[0.6em] text-white font-bold">
-      Technologie • Conscience • Leadership
-    </p>
- </div>
-
-    {/* Filtre Contextuel / Indicateur de volume */}
-    <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
-      <div className="h-[1px] w-12 bg-slate-500" />
-      <p className="text-[10px] uppercase tracking-[0.5em] text-[var(--text-secondary)] font-bold">
-        Web • Mobile • Cloud Architecture
-      </p>
-      <div className="h-[1px] w-12 bg-slate-500" />
-    </div>
-  </div>
-</div>
-
-
-          {/* Boutons de Filtrage */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveFilter(cat.id)}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-sm transition-all border ${
-                  activeFilter === cat.id ? 'bg-[var(--accent-1)] text-white border-transparent shadow-lg shadow-purple-500/20' : ''
-                }`}
-                style={{ 
-                  backgroundColor: activeFilter === cat.id ? '' : 'var(--surface)',
-                  borderColor: 'var(--border-color)',
-                  color: activeFilter === cat.id ? 'white' : 'var(--text-primary)' 
-                }}
-              >
-                <span className={activeFilter === cat.id ? 'text-white' : 'text-[var(--accent-1)]'}>{cat.icon}</span>
-                {cat.label}
-              </button>
-            ))}
+          <div className="max-w-2xl mx-auto space-y-4">
+            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+              Découvrez mes réalisations : des architectures logicielles robustes pour les entreprises et des missions d'éveil dédiées à la transformation de la jeunesse africaine.
+            </p>
+            
+            <div className="flex justify-center items-center gap-4 pt-2 font-mono text-[9px] text-slate-400 dark:text-slate-500">
+              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+              <span>TECHNOLOGIE • CONSCIENCE • LEADERSHIP</span>
+              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+            </div>
           </div>
         </div>
 
-        {/* Grille de Projets Animée */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* --- FILTRES BARRE D'OUTILS --- */}
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
+          {categories.map((cat) => {
+            const isSelected = activeFilter === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setActiveFilter(cat.id)}
+                className={`flex items-center gap-2 px-5 py-2.5 font-bold uppercase text-[10px] tracking-widest border transition-all duration-200 ${
+                  isSelected 
+                    ? 'bg-slate-950 dark:bg-white text-white dark:text-black border-transparent' 
+                    : 'bg-slate-50 dark:bg-[#09090b] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30'
+                }`}
+              >
+                <span className={isSelected ? 'text-white dark:text-black' : 'text-slate-400 dark:text-slate-500'}>
+                  {cat.icon}
+                </span>
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* --- GRILLE DE PROJETS BRUTE --- */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode='popLayout'>
-            {filteredProjects.map((projet, index) => (
+            {filteredProjects.map((projet) => (
               <motion.div
                 layout
                 key={projet.titre}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="group rounded-3xl border overflow-hidden transition-all"
-                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.25 }}
+                whileTap={{ scale: 0.99 }}
+                className="group relative border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-all duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col h-full"
               >
-                {/* Image & Overlay */}
-                <div className="relative h-52 overflow-hidden">
-                  <img src={projet.image} alt={projet.titre} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <a href={projet.lienDemo} className="p-3 bg-white rounded-full text-black hover:bg-[var(--accent-1)] hover:text-white transition-colors"><FaExternalLinkAlt /></a>
-                    <a href={projet.lienGithub} className="p-3 bg-white rounded-full text-black hover:bg-[var(--accent-1)] hover:text-white transition-colors"><FaGithub /></a>
+                {/* Zone Média / Image avec Grayscale */}
+                <div className="relative h-52 overflow-hidden border-b border-slate-200 dark:border-white/10 grayscale group-hover:grayscale-0 transition-all duration-500 bg-neutral-950">
+                  <img 
+                    src={projet.image} 
+                    alt={projet.titre} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                    loading="lazy"
+                  />
+                  
+                  {/* Actions au survol Mat */}
+                  <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
+                    <a href={projet.lienDemo} target="_blank" rel="noreferrer" className="p-3 bg-white text-black hover:bg-slate-200 transition-colors">
+                      <FaExternalLinkAlt className="text-sm" />
+                    </a>
+                    <a href={projet.lienGithub} target="_blank" rel="noreferrer" className="p-3 border border-white text-white hover:bg-white hover:text-black transition-colors">
+                      <FaGithub className="text-sm" />
+                    </a>
                   </div>
                 </div>
 
-                {/* Contenu */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>{projet.titre}</h3>
-                  <p className="text-sm mb-4 line-clamp-2" style={{ color: 'var(--text-secondary)' }}>{projet.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {projet.technologies?.map((tech, i) => (
-                      <span key={i} className="text-[10px] px-2 py-1 rounded border font-bold uppercase" 
-                            style={{ borderColor: 'var(--border-color)', color: 'var(--accent-1)' }}>
-                        {tech}
-                      </span>
-                    ))}
+                {/* Contenu textuel */}
+                <div className="p-6 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-2">
+                      {projet.titre}
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide line-clamp-2 mb-4">
+                      {projet.description}
+                    </p>
+                    
+                    {/* Tags au format commit Git */}
+                    <div className="flex flex-wrap gap-1.5 font-mono text-[9px] mb-6">
+                      {projet.technologies?.map((tech, i) => (
+                        <span key={i} className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5 uppercase">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="flex gap-3 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
-                    <a href={projet.lienDemo} target="_blank" rel="noopener noreferrer"
-                       className="flex-1 py-3 rounded-xl font-bold text-center text-xs shadow-lg transition-transform hover:scale-105"
-                       style={{ backgroundColor: 'var(--accent-1)', color: 'white' }}>
+                  {/* Bouton d'action intégré */}
+                  <div className="pt-4 border-t border-slate-200 dark:border-white/5">
+                    <a 
+                      href={projet.lienDemo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block w-full py-3 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-center text-xs tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+                    >
                       Démo Live
                     </a>
                   </div>
@@ -142,6 +141,7 @@ export default function ProjetSimple() {
             ))}
           </AnimatePresence>
         </motion.div>
+      </div>
     </section>
   );
 }

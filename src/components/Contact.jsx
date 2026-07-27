@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { contact } from '../assets/assets.js';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
-import { init, send } from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 import {
   FaEnvelope, FaLinkedin, FaGithub, FaInstagram,
-  FaFacebook, FaWhatsapp, FaPaperPlane, FaInfoCircle
+  FaFacebook, FaWhatsapp, FaInfoCircle
 } from 'react-icons/fa';
 import notificationService from '../services/notificationService';
 import analyticsService from '../services/analyticsService';
 import messagingService from '../dashboard/services/messagingService';
 import { motion } from 'framer-motion';
-
 
 const contactIcons = {
   Email: FaEnvelope, LinkedIn: FaLinkedin, GitHub: FaGithub,
@@ -22,13 +21,25 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState({ type: '', message: '' });
 
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
-  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+  const getEmailJsValue = (envValue) => {
+    if (typeof envValue === 'string' && envValue.trim() && !envValue.includes('YOUR_')) {
+      return envValue.trim();
+    }
+    return '';
+  };
+
+  const EMAILJS_SERVICE_ID = getEmailJsValue(import.meta.env.VITE_EMAILJS_SERVICE_ID);
+  const EMAILJS_TEMPLATE_ID = getEmailJsValue(import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
+  const EMAILJS_PUBLIC_KEY = getEmailJsValue(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
   useEffect(() => {
-    try { if (EMAILJS_PUBLIC_KEY) init(EMAILJS_PUBLIC_KEY); } 
-    catch (err) { console.warn('EmailJS init failed', err); }
+    try {
+      if (EMAILJS_PUBLIC_KEY) {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+      }
+    } catch (err) {
+      console.warn('EmailJS init failed', err);
+    }
   }, [EMAILJS_PUBLIC_KEY]);
 
   const handleSubmit = async (e) => {
@@ -38,145 +49,174 @@ export default function Contact() {
     const loadingToast = notificationService.loading('Envoi de votre message...');
 
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      const mailtoLink = `mailto:bendelothielcy@gmail.com?subject=Message de ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
-      window.location.href = mailtoLink;
       notificationService.dismiss(loadingToast);
-      notificationService.success('Client email ouvert !');
+      setStatus({
+        type: 'error',
+        message: 'EmailJS n’est pas configuré. Ajoutez vos vraies clés dans le fichier .env du projet.',
+      });
+      notificationService.error('Configuration EmailJS manquante');
+      console.error('EmailJS env values missing', {
+        serviceId: EMAILJS_SERVICE_ID,
+        templateId: EMAILJS_TEMPLATE_ID,
+        publicKey: EMAILJS_PUBLIC_KEY,
+      });
       return;
     }
 
     try {
-      await send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         from_name: formData.name,
+        from_email: formData.email,
         reply_to: formData.email,
         message: formData.message,
         to_email: 'bendelothielcy@gmail.com',
+        subject: `Nouveau message de ${formData.name}`,
       });
-      
+
       messagingService.addMessage({ ...formData, timestamp: new Date().toISOString() });
       notificationService.dismiss(loadingToast);
       notificationService.formSuccess('Succès !', 'Je vous répondrai très vite.');
       setFormData({ name: '', email: '', message: '' });
       setStatus({ type: 'success', message: 'Envoyé !' });
     } catch (err) {
+      console.error('EmailJS failed:', err);
       notificationService.dismiss(loadingToast);
-      setStatus({ type: 'error', message: 'Erreur lors de l\'envoi.' });
+      setStatus({
+        type: 'error',
+        message: 'Échec de l’envoi. Vérifiez les identifiants EmailJS et le template.',
+      });
+      notificationService.error('Échec de l’envoi du message');
     }
   };
 
   return (
-    <section ref={elementRef} id="contact" className="py-20 px-6 transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+    <section ref={elementRef} id="contact" className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
+      <div className={`max-w-6xl mx-auto transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
         
-       <div className="text-center mb-24 relative">
-  {/* Petit label flottant - Engagement Professionnel */}
-  <motion.div
-    initial={{ opacity: 0, y: -10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-  >
-    <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
-    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-      Open for collaboration
-    </span>
-  </motion.div>
+        {/* --- EN-TÊTE DE SECTION ÉPURÉ --- */}
+        <div className="text-center mb-20 relative">
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+            // Open for collaboration
+          </span>
 
-  {/* Titre Contact Ultra-Massif */}
-  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-    <span className="text-[var(--text-primary)] opacity-90">Initier le </span>
-    <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-      Contact
-    </span>
-    <span className="text-[var(--accent-1)]">.</span>
-  </h2>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
+            Initier le <span className="underline decoration-1 underline-offset-8">Contact</span>
+          </h2>
 
-  {/* Description orientée "Business Value" */}
-  <div className="max-w-3xl mx-auto">
-    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)] mb-8">
-      Prêt à scaler votre infrastructure ou à lancer votre prochain écosystème digital ? 
-      <span className="block mt-2 font-bold italic text-orange-500">Analysons vos besoins ensemble.</span>
-    </p>
-    
-    {/* Séparateur avec indicateur de fuseau horaire ou localisation */}
-    <div className="flex justify-center items-center gap-6">
-      <div className="h-[1px] flex-1 bg-gradient-to-l from-orange-500/50 to-transparent" />
-      <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--text-secondary)] whitespace-nowrap">
-        Basé à Kinshasa • Disponible Worldwide
-      </p>
-      <div className="h-[1px] flex-1 bg-gradient-to-r from-orange-500/50 to-transparent" />
-    </div>
-  </div>
-</div>
+          <div className="max-w-2xl mx-auto">
+            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed mb-6">
+              Prêt à scaler votre infrastructure ou à lancer votre prochain écosystème digital ? Analysons vos besoins ensemble.
+            </p>
+            
+            <div className="flex justify-center items-center gap-4 max-w-md mx-auto">
+              <div className="h-[1px] flex-1 bg-slate-200 dark:bg-white/10" />
+              <p className="text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                Kinshasa [GMT+1] • Worldwide
+              </p>
+              <div className="h-[1px] flex-1 bg-slate-200 dark:bg-white/10" />
+            </div>
+          </div>
+        </div>
 
-
-        <div className="grid lg:grid-cols-5 gap-12 items-start">
+        {/* --- GRILLE PRINCIPALE (3/5 - 2/5) --- */}
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
           
-          {/* Infos de Contact (2 cols) */}
-          <div className="lg:col-span-2 space-y-8 order-2 lg:order-1">
-            <div className="p-8 rounded-3xl border" style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}>
-              <h3 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Coordonnées</h3>
-              <div className="space-y-6">
+          {/* COORDONNÉES ET INFOS (2 colonnes) */}
+          <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
+            <div className="p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b]">
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-950 dark:text-white mb-6 font-mono">// [ coordinates ]</h3>
+              
+              <div className="space-y-4">
                 {contact.map((item, idx) => {
                   const Icon = contactIcons[item.label] || FaEnvelope;
                   return (
-                    <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" 
-                       className="flex items-center gap-4 group transition-transform hover:translate-x-2">
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-[var(--accent-1)] to-[var(--accent-2)] text-white shadow-lg shadow-purple-500/20">
-                        <Icon className="text-xl" />
+                    <a 
+                      key={idx} 
+                      href={item.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center justify-between p-3 border border-slate-200/50 dark:border-white/5 bg-white dark:bg-white/5 hover:border-slate-400 dark:hover:border-white/30 transition-colors duration-200 group"
+                    >
+                      <div className="flex items-center gap-4 min-w-0">
+                        <div className="text-slate-500 dark:text-slate-400 text-lg transition-colors group-hover:text-orange-500">
+                          <Icon />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{item.label}</p>
+                          <p className="text-xs font-medium text-slate-800 dark:text-slate-300 truncate max-w-[180px]">{item.link.replace('mailto:', '')}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--accent-1)' }}>{item.label}</p>
-                        <p className="text-sm font-medium truncate max-w-[200px]" style={{ color: 'var(--text-primary)' }}>{item.link.replace('mailto:', '')}</p>
-                      </div>
+                      <span className="text-slate-300 dark:text-white/5 group-hover:text-orange-500 group-hover:translate-x-1 transition-all text-xs">→</span>
                     </a>
                   );
                 })}
               </div>
             </div>
             
-            {/* Petit badge de réassurance */}
-            <div className="p-6 rounded-2xl border border-dashed flex items-center gap-4" style={{ borderColor: 'var(--border-color)' }}>
-              <FaInfoCircle className="text-2xl" style={{ color: 'var(--accent-1)' }} />
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Réponse garantie sous 24 à 48 heures ouvrées.</p>
+            {/* Note de réassurance style console */}
+            <div className="p-5 border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#09090b]/50 flex items-start gap-4">
+              <div className="text-slate-400 mt-0.5 text-sm">
+                <FaInfoCircle />
+              </div>
+              <p className="text-xs font-mono tracking-wide leading-relaxed text-slate-500 dark:text-slate-400">
+                [sys_info]: Réponse garantie sous 24 à 48 heures ouvrées pour toute demande d'architecture logicielle ou d'ingénierie d'affaires.
+              </p>
             </div>
           </div>
 
-          {/* Formulaire (3 cols) */}
-          <form onSubmit={handleSubmit} className="lg:col-span-3 p-8 md:p-10 rounded-3xl border order-1 lg:order-2 transition-all"
-                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}>
+          {/* FORMULAIRE (3 colonnes) */}
+          <form onSubmit={handleSubmit} className="lg:col-span-3 p-8 md:p-10 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] order-1 lg:order-2 space-y-6">
             
-            <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold ml-1" style={{ color: 'var(--text-primary)' }}>Nom complet</label>
-                <input type="text" name="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required
-                       className="w-full px-5 py-4 rounded-2xl border outline-none transition-all focus:ring-4 focus:ring-purple-500/10"
-                       style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-                       placeholder="Ex: Jean Dupont" />
+                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">Nom complet</label>
+                <input 
+                  type="text" 
+                  name="name" 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                  required
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-slate-900 dark:text-white rounded-none outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors font-mono"
+                  placeholder="Jean Dupont" 
+                />
               </div>
+              
               <div className="space-y-2">
-                <label className="text-sm font-bold ml-1" style={{ color: 'var(--text-primary)' }}>Votre Email</label>
-                <input type="email" name="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required
-                       className="w-full px-5 py-4 rounded-2xl border outline-none transition-all focus:ring-4 focus:ring-purple-500/10"
-                       style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-                       placeholder="email@exemple.com" />
+                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">Adresse Email</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  value={formData.email} 
+                  onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                  required
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-slate-900 dark:text-white rounded-none outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors font-mono"
+                  placeholder="jean.dupont@domain.com" 
+                />
               </div>
             </div>
 
-            <div className="space-y-2 mb-8">
-              <label className="text-sm font-bold ml-1" style={{ color: 'var(--text-primary)' }}>Votre Message</label>
-              <textarea name="message" rows="5" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required
-                        className="w-full px-5 py-4 rounded-2xl border outline-none transition-all focus:ring-4 focus:ring-purple-500/10 resize-none"
-                        style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}
-                        placeholder="Dites-moi tout sur votre projet..." />
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">Votre Message</label>
+              <textarea 
+                name="message" 
+                rows="6" 
+                value={formData.message} 
+                onChange={(e) => setFormData({...formData, message: e.target.value})} 
+                required
+                className="w-full px-4 py-3 border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-sm text-slate-900 dark:text-white rounded-none outline-none focus:border-slate-400 dark:focus:border-white/30 transition-colors font-mono resize-none"
+                placeholder="Décrivez brièvement les objectifs de votre projet ou vos besoins d'infrastructure..." 
+              />
             </div>
 
-            <button type="submit" className="w-full py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-purple-500/20"
-                    style={{ backgroundColor: 'var(--accent-1)', color: 'white' }}>
-              <FaPaperPlane />
-              {status.type === 'loading' ? 'Envoi en cours...' : 'Envoyer le message'}
+            {/* Bouton d'action principal uniforme */}
+            <button
+              type="submit"
+              disabled={status.type === 'loading'}
+              className="w-full sm:w-auto px-10 py-4 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-xs tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors disabled:opacity-50"
+            >
+              {status.type === 'loading' ? 'Envoi en cours...' : 'Envoyer la demande'}
             </button>
           </form>
-
         </div>
       </div>
     </section>

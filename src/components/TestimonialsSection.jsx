@@ -1,94 +1,243 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaQuoteLeft, FaStar, FaCheckCircle } from 'react-icons/fa';
-import { testimonials } from '../assets/assets.js';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  FaTerminal, FaBrain, FaLinkedin, FaWhatsapp, FaEnvelope, 
+  FaSearch, FaClock, FaArrowRight, FaCode, FaBookOpen, FaShareAlt 
+} from 'react-icons/fa';
 
-export default function TestimonialsSection() {
+// Structure de données initiale de vos articles (Tech & Éveil)
+const initialArticles = [
+  {
+    id: "art-001",
+    title: "Bâtir des architectures logicielles souveraines en Afrique : Les défis de la scalabilité",
+    excerpt: "Analyse profonde des contraintes d'infrastructure cloud, de latence et de redondance pour les systèmes critiques opérant sur le continent.",
+    category: "tech",
+    readTime: "6 min read",
+    date: "27 Juillet 2026",
+    tags: ["Cloud Architecture", "AWS", "Souveraineté Numérique"],
+    slug: "architectures-souveraines-afrique"
+  },
+  {
+    id: "art-002",
+    title: "Le Prompt Engineering comme levier d'accélération pour la jeunesse africaine",
+    excerpt: "Comment l'optimisation contextuelle des LLMs (GPT-4, Claude) redéfinit l'apprentissage du code et brise les barrières d'accès à l'ingénierie.",
+    category: "ai",
+    readTime: "4 min read",
+    date: "22 Juillet 2026",
+    tags: ["Prompt Engineering", "IA", "Productivité"],
+    slug: "prompt-engineering-jeunesse-africaine"
+  },
+  {
+    id: "art-003",
+    title: "Décolonisation mentale et leadership conscient : Restructurer son mindset d'entrepreneur",
+    excerpt: "Manifeste pour une transformation intérieure profonde. Passer du statut de spectateur passif à celui d'architecte du changement.",
+    category: "impact",
+    readTime: "8 min read",
+    date: "14 Juillet 2026",
+    tags: ["Mindset", "Leadership Conscient", "Éveil"],
+    slug: "decolonisation-mentale-leadership-conscient"
+  }
+];
+
+const categories = [
+  { id: 'all', label: 'Tous les écrits', icon: <FaCode /> },
+  { id: 'tech', label: 'Ingénierie & Dev', icon: <FaTerminal /> },
+  { id: 'ai', label: 'Intelligence Artificielle', icon: <FaBrain /> },
+  { id: 'impact', label: 'Éveil & Leadership', icon: <FaBookOpen /> }
+];
+
+export default function Blog() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  // Filtrage combiné : Recherche textuelle + Onglets de catégories
+  const filteredArticles = initialArticles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Fonction de partage social automatisée (Génération d'URLs de partage propres)
+  const handleShare = (platform, article) => {
+    const articleUrl = encodeURIComponent(`${window.location.origin}/blog/${article.slug}`);
+    const articleTitle = encodeURIComponent(article.title);
+    
+    let shareUrl = '';
+    switch (platform) {
+      case 'linkedin':
+        shareUrl = `https://linkedin.com{articleUrl}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://whatsapp.com{articleTitle}%20${articleUrl}`;
+        break;
+      case 'email':
+        shareUrl = `mailto:?subject=${articleTitle}&body=Découvrez cet article : %0D%0A${articleUrl}`;
+        break;
+      default:
+        break;
+    }
+    if (shareUrl) window.open(shareUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <section className="py-32 px-6 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5" 
-             style={{ backgroundColor: 'var(--bg)' }} 
-             id="testimonials">
-      
-      {/* Glow décoratif en arrière-plan */}
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-orange-500/5 blur-[120px] rounded-full -z-10" />
+    <div className="min-h-screen bg-slate-950 text-white pt-24 px-6 relative overflow-y-auto">
+      {/* Grille structurelle d'arrière-plan */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white/10 z-0">
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+        <div className="border-r border-white/10 h-full" />
+      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 space-y-12 pb-20">
         
-        {/* HEADER : Titre & Sous-titre Style Agence */}
-        <div className="text-center mb-24 relative">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-          >
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-              Trusted by Industry Leaders
-            </span>
-          </motion.div>
-
-          <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-            <span className="text-[var(--text-primary)] opacity-90">Retours </span>
-            <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-              Clients
-            </span>
-            <span className="text-[var(--accent-1)]">.</span>
-          </h2>
-
-          <p className="max-w-3xl mx-auto text-xl text-slate-600 dark:text-slate-400 font-medium">
-            L'excellence technique au service de la réussite de nos partenaires et collaborateurs.
+        {/* --- 1. EN-TÊTE DU CENTRAL LOG --- */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] block">
+            // Thought Leadership & Core Manifestos
+          </span>
+          <h1 className="text-3xl md:text-5xl font-black text-white uppercase tracking-widest text-xs">
+            Publications & <span className="underline decoration-1 underline-offset-8 decoration-orange-500">Visions</span>
+          </h1>
+          <p className="text-sm text-slate-400 font-normal tracking-wide leading-relaxed">
+            Partage d’expertises d'ingénierie logicielle, retours d'expérience sur l'intégration IA et architectures de pensée pour catalyser l'Afrique.
           </p>
         </div>
 
-        {/* Grille de témoignages avec Transparence Totale */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testi, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 0.8 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -12 }}
-              className="relative p-10 rounded-[2.5rem] bg-transparent backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-500 group overflow-hidden"
-            >
-              {/* Overlay de lumière au survol */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 blur-[50px] rounded-full group-hover:bg-orange-500/10 transition-colors" />
+        {/* --- 2. BARRE DE COMMANDE: RECHERCHE & FILTRES --- */}
+        <div className="space-y-6 max-w-4xl mx-auto">
+          {/* Champ de recherche type invite de commande */}
+          <div className="relative border border-white/10 bg-[#09090b] px-4 py-3 flex items-center gap-3">
+            <FaSearch className="text-slate-500 text-xs shrink-0" />
+            <span className="font-mono text-[11px] text-orange-500 select-none">&gt;_ grep</span>
+            <input 
+              type="text"
+              placeholder="Rechercher une publication ou une stack..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-transparent outline-none text-xs font-mono placeholder-slate-600 text-white"
+            />
+          </div>
 
-              {/* Icône Quote Stylisée */}
-              <div className="mb-8 flex justify-between items-start">
-                <div className="flex gap-1 text-orange-500">
-                  {[...Array(5)].map((_, i) => <FaStar key={i} className="text-xs" />)}
-                </div>
-                <FaQuoteLeft className="text-3xl text-orange-500/20 group-hover:text-orange-500/40 transition-colors" />
-              </div>
-
-              {/* Message avec lisibilité accrue */}
-              <p className="text-base md:text-lg italic leading-relaxed text-slate-700 dark:text-slate-200 mb-10 relative z-10">
-                "{testi.content}"
-              </p>
-
-              {/* Profil Client : Look Premium */}
-              <div className="flex items-center gap-4 border-t border-slate-200/50 dark:border-white/5 pt-8">
-                <div className="relative">
-                  <img 
-                    src={testi.avatar} 
-                    alt={testi.name} 
-                    className="w-14 h-14 rounded-2xl object-cover border border-orange-500/20" 
-                  />
-                  <FaCheckCircle className="absolute -bottom-1 -right-1 text-blue-500 bg-white dark:bg-slate-900 rounded-full text-xs" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white tracking-tight">{testi.name}</h4>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-orange-500 mt-1">
-                    {testi.role}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          {/* Onglets de catégories orthogonaux */}
+          <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+            {categories.map((cat) => {
+              const isSelected = activeFilter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setActiveFilter(cat.id)}
+                  className={`flex items-center gap-2 px-4 py-2 font-bold uppercase text-[9px] tracking-widest border transition-all duration-200 ${
+                    isSelected 
+                      ? 'bg-white text-black border-transparent' 
+                      : 'bg-slate-50 dark:bg-[#09090b] border-white/5 text-slate-400 hover:text-white hover:border-white/20'
+                  }`}
+                >
+                  <span className="text-xs">{cat.icon}</span>
+                  <span>{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* --- 3. FLUX PRINCIPAL DES ARTICLES --- */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <AnimatePresence mode="popLayout">
+            {filteredArticles.length > 0 ? (
+              filteredArticles.map((article) => (
+                <motion.article
+                  layout
+                  key={article.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.25 }}
+                  className="p-6 border border-white/10 bg-[#09090b] hover:border-slate-400 dark:hover:border-white/20 transition-colors duration-300 flex flex-col justify-between gap-6 group"
+                >
+                  {/* Métadonnées supérieures */}
+                  <div className="flex flex-wrap justify-between items-center gap-3 font-mono text-[9px] text-slate-500">
+                    <div className="flex items-center gap-4">
+                      <span>[{article.id}]</span>
+                      <span>● {article.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <FaClock /> <span>{article.readTime}</span>
+                    </div>
+                  </div>
+
+                  {/* Titre et extrait */}
+                  <div className="space-y-3">
+                    <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-white group-hover:text-orange-500 transition-colors duration-200 leading-snug">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed font-normal tracking-wide">
+                      {article.excerpt}
+                    </p>
+                  </div>
+
+                  {/* Section basse : Tags et Panneau de Partage Social */}
+                  <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    {/* Tags Git-Style */}
+                    <div className="flex flex-wrap gap-1.5 font-mono text-[8px] text-slate-400">
+                      {article.tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 border border-white/5 bg-white/5 uppercase">
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Boutons de Partage pour vos Réseaux */}
+                    <div className="flex items-center gap-4 self-end sm:self-auto">
+                      <div className="flex items-center gap-2 border border-white/5 bg-white/5 px-2 py-1 text-slate-500 font-mono text-[8px]">
+                        <FaShareAlt /> <span>SHARE:</span>
+                      </div>
+                      <div className="flex gap-1.5">
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('linkedin', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager sur LinkedIn">
+                            <FaLinkedin />
+                            </button>
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('whatsapp', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager sur WhatsApp"
+                        >
+                          <FaWhatsapp />
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={() => handleShare('email', article)}
+                          className="w-7 h-7 border border-white/10 bg-white/5 flex items-center justify-center text-xs text-slate-400 hover:text-white hover:border-white transition-colors"
+                          title="Partager par Email"
+                        >
+                          <FaEnvelope />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </motion.article>
+              ))
+            ) : (
+              /* État vide si aucune correspondance */
+              <div className="p-12 border border-dashed border-white/10 text-center font-mono text-xs text-slate-500">
+                [sys_log]: Aucun article ne correspond aux paramètres d'indexation grep.
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* --- PIED DE LOG SYSTEM --- */}
+        <div className="text-center font-mono text-[9px] text-slate-600">
+          <p>central_feed_status: updated • sync_frequency: manual</p>
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 }

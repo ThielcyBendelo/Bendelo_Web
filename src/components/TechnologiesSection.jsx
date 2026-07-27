@@ -1,125 +1,169 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaReact, FaNodeJs, FaDocker } from 'react-icons/fa';
-import { SiMongodb, SiExpress, SiTailwindcss } from 'react-icons/si';
+import { 
+  FaReact, FaNodeJs, FaDocker, FaCode, FaServer, FaTools, FaBrain, 
+  FaNetworkWired, FaDatabase, FaFileExcel, FaShieldAlt, FaLaptopCode, 
+  FaWindows, FaCloud, FaHtml5, FaChartBar, FaTerminal, FaRoute
+} from 'react-icons/fa';
+import { 
+  SiJavascript, SiTailwindcss, SiTypescript, SiMongodb, 
+  SiPython, SiMysql, SiGithub, SiOpenai 
+} from 'react-icons/si';
 
 const technologies = [
+  // --- PÔLE 1 : FRONT-END & FRAMEWORKS ---
   {
-    name: 'React Ecosystem',
-    icon: <FaReact />,
-    color: '#61DAFB',
-    description: 'Architecture de composants scalables, gestion d\'état complexe et optimisation du rendu Virtual DOM.',
+    name: 'JavaScript / TypeScript',
+    icon: <SiTypescript />,
+    description: 'Typage strict, programmation asynchrone avancée et sécurisation globale des flux logiques.',
     level: 'Expert / Lead',
   },
   {
-    name: 'Node.js Runtime',
-    icon: <FaNodeJs />,
-    color: '#339933',
-    description: 'Développement de microservices asynchrones et serveurs haute disponibilité pilotés par les événements.',
+    name: 'Next.js (React Stack)',
+    icon: <FaReact />,
+    description: 'Rendu côté serveur (SSR), App Router hybride et optimisation chirurgicale du Virtual DOM.',
     level: 'Expert / Architect',
   },
   {
-    name: 'MongoDB Atlas',
-    icon: <SiMongodb />,
-    color: '#47A248',
-    description: 'Modélisation de données NoSQL complexes, agrégations avancées et gestion de clusters distribués.',
+    name: 'Data Streamlit UI',
+    icon: <FaLaptopCode />,
+    description: 'Conception d\'interfaces web interactives dédiées aux prototypes de données et pipelines ML.',
     level: 'Advanced / Senior',
   },
+
+  // --- PÔLE 2 : BACK-END, DATA & LOGICIELS COMPTABLES ---
   {
-    name: 'Enterprise Express',
-    icon: <SiExpress />,
-    color: '#FFFFFF', // Fix pour le mode sombre, peut être ajusté dynamiquement
-    description: 'Conception d\'APIs RESTful sécurisées avec middlewares personnalisés et gestion rigoureuse des flux.',
-    level: 'Expert',
+    name: 'Node.js / Express.js',
+    icon: <FaNodeJs />,
+    description: 'Développement de microservices asynchrones distribués et d\'APIs REST d\'entreprise sécurisées.',
+    level: 'Expert / Architect',
   },
   {
-    name: 'Docker Engine',
+    name: 'Python Runtime',
+    icon: <SiPython />,
+    description: 'Ingénierie de données, algorithmique avancée, scripts automatisés et Machine Learning.',
+    level: 'Expert / Data',
+  },
+  {
+    name: 'Enterprise Databases',
+    icon: <FaDatabase />,
+    description: 'Maîtrise de Microsoft SQL Server (SSMS), requêtes complexes, MySQL relationnel et MongoDB NoSQL.',
+    level: 'Senior DBA',
+  },
+  {
+    name: 'FinTech Analytics & BI',
+    icon: <FaChartBar />,
+    description: 'Interfaçage ADO, parsing avancés Excel et flux décisionnels Power BI pour reporting financier.',
+    level: 'Senior Data Analyst',
+  },
+
+  // --- PÔLE 3 : RÉSEAU, SÉCURITÉ & DEVOPS ---
+  {
+    name: 'Secured Mesh Networks',
+    icon: <FaNetworkWired />,
+    description: 'Architecture réseau privée, protocoles TCP/UDP, subnetting CIDR, DNS et Tunnels Tailscale.',
+    level: 'Senior Specialist',
+  },
+  {
+    name: 'Systems & Cyber Audit',
+    icon: <FaShieldAlt />,
+    description: 'Tests de pénétration sous Kali Linux et virtualisation d\'environnements isolés via VirtualBox.',
+    level: 'Security Lead',
+  },
+  {
+    name: 'Docker & Multi-Cloud',
     icon: <FaDocker />,
-    color: '#2496ED',
-    description: 'Conteneurisation d\'applications, orchestration de services et isolation d\'environnements de production.',
-    level: 'Senior / DevOps',
+    description: 'Conteneurisation d\'applications, orchestration et déploiement d\'infrastructures sous AWS et Azure.',
+    level: 'Senior DevOps',
   },
   {
-    name: 'Modern Tailwind',
-    icon: <SiTailwindcss />,
-    color: '#06B6D4',
-    description: 'Systèmes de design atomiques et interfaces fluides avec une approche mobile-first et performance CSS.',
-    level: 'Expert',
+    name: 'CI/CD Pipelines',
+    icon: <FaCloud />,
+    description: 'Automatisation des workflows de build avec GitHub Actions, Vercel, Render et Hostinger.',
+    level: 'DevOps / Architect',
   },
+
+  // --- PÔLE 4 : INTELLIGENCE ARTIFICIELLE & PRODUCTIVITÉ ---
+  {
+    name: 'Prompt Engineering',
+    icon: <FaBrain />,
+    description: 'Optimisation contextuelle systématique de prompts pour les grands modèles de langage (GPT-4, Claude, Gemini).',
+    level: 'AI Engineer',
+  },
+  {
+    name: 'AI Agents & Autonomy',
+    icon: <SiOpenai />,
+    description: 'Intégration d\'APIs cognitives (OpenAI, Anthropic) et exploitation d\'assistants comme GitHub Copilot.',
+    level: 'AI Lead / Implementer',
+  }
 ];
 
 function TechSection() {
   return (
-    <section className="py-20 px-6 relative overflow-hidden border-t border-slate-200/50 dark:border-white/5" style={{ backgroundColor: 'var(--bg)' }}>
-      
-      {/* Glow décoratif en arrière-plan */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 blur-[120px] rounded-full -z-10" />
-
+    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
+        
+        {/* --- EN-TÊTE DE SECTION ÉPURÉ & PROFESSIONNEL --- */}
+        <div className="text-center mb-20">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-orange-500 font-black uppercase tracking-[0.4em] text-xs mb-4 block"
+            viewport={{ once: true }}
+            className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
           >
             Stack Technologique
           </motion.span>
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-white text-gray-400 dark:text-white mb-6 tracking-tighter uppercase italic"
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs"
           >
-            Maîtrise <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-purple-600">Full-Stack</span><span className="text-orange-500">.</span>
+            Maîtrise <span className="underline decoration-1 underline-offset-8">Full-Stack</span>
           </motion.h2>
-          <p className="max-w-3xl mx-auto text-xl text-slate-600 dark:text-gray-400 font-medium leading-relaxed">
-            Une sélection d'outils de pointe pour bâtir des infrastructures logicielles robustes, sécurisées et prêtes pour l'échelle.
+          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+            Une infrastructure d'outils avancés mariant ingénierie logicielle robuste, expertise réseau DevOps et intégration d'écosystèmes d'Intelligence Artificielle.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* --- GRILLE TECHNIQUE ORTHOGONALE STRICTE --- */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {technologies.map((tech, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="relative group p-10 rounded-[2.5rem] bg-transparent backdrop-blur-xl border border-slate-200/50 dark:border-white/10 shadow-2xl transition-all duration-500 overflow-hidden"
+              transition={{ delay: idx * 0.03, duration: 0.4 }}
+              viewport={{ once: true }}
+              whileTap={{ scale: 0.99 }}
+              className="group relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[260px]"
             >
-              {/* Effet de lueur au survol spécifique à la couleur de la techno */}
-              <div 
-                className="absolute -top-10 -right-10 w-32 h-32 opacity-0 group-hover:opacity-20 blur-[50px] rounded-full transition-opacity duration-500"
-                style={{ backgroundColor: tech.color }}
-              />
-
-              <div className="flex items-center gap-6 mb-8 relative z-10">
-                <div 
-                  className="text-5xl transition-transform duration-500 group-hover:scale-125 group-hover:rotate-6" 
-                  style={{ color: tech.color }}
-                >
-                  {tech.icon}
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-400 dark:text-white tracking-tight">
-                    {tech.name}
-                  </h3>
-                  <div className="mt-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-lg border border-orange-500/30 text-orange-500 bg-orange-500/5">
-                      {tech.level}
-                    </span>
+              <div>
+                {/* En-tête de carte : Icône monochrome & Niveau */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="text-3xl text-slate-950 dark:text-white transition-colors duration-300 group-hover:text-orange-500">
+                    {tech.icon}
                   </div>
+                  
+                  {/* Badge de niveau type log système */}
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5">
+                    // {tech.level}
+                  </span>
                 </div>
-              </div>
-              
-              <p className="text-gray-400 dark:text-orange-400 text-base leading-relaxed font-medium relative z-10 group-hover:text-orange-400 dark:group-hover:text-white transition-colors">
-                {tech.description}
-              </p>
 
-              {/* Barre de soulignement décorative au survol */}
-              <div 
-                className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-700"
-                style={{ backgroundColor: tech.color }}
-              />
+                <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+                  {tech.name}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide">
+                  {tech.description}
+                </p>
+              </div>
+
+              {/* Statut d'état bas de carte */}
+              <div className="mt-6 flex justify-end text-slate-300 dark:text-white/5 group-hover:text-orange-500 transition-colors duration-300 text-[10px] font-mono font-bold">
+                <span>[ready_node]</span>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -4,89 +4,72 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaMap } from "react-icons/fa";
 
 function GoogleMapsSection() {
   return (
-    <section className="py-20 px-6 transition-colors duration-300 relative border-t border-slate-200/50 dark:border-white/5" 
-             style={{ backgroundColor: 'var(--bg)' }} 
-             id="localisation">
+    <section 
+      className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
+      style={{ backgroundColor: 'var(--bg)' }} 
+      id="localisation"
+    >
+      <div className="max-w-7xl mx-auto relative z-10">
    
-        {/* Header avec Icône */}
-        <div className="text-center mb-12">
-         <div className="text-center mb-20 relative">
-  {/* Badge de localisation dynamique */}
-  <motion.div
-    initial={{ opacity: 0, y: -10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-  >
-    <FaMap className="text-orange-500 animate-bounce" />
-    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-      Global Presence / Local Hub
-    </span>
-  </motion.div>
-  
-  {/* Titre Localisation Ultra-Massif */}
-  <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-    <span className="text-[var(--text-primary)] opacity-90">Ancrage </span>
-    <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">
-      Stratégique
-    </span>
-    <span className="text-orange-500">.</span>
-  </h2>
+        {/* --- EN-TÊTE DE SECTION --- */}
+        <div className="text-center mb-20">
+          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+            // Global Presence / Local Hub
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
+            Ancrage <span className="underline decoration-1 underline-offset-8">Stratégique</span>
+          </h2>
 
-  {/* Description orientée "Business Hub" */}
-  <div className="max-w-3xl mx-auto space-y-6">
-    <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
-      Opérant depuis le cœur de <span className="font-bold italic text-orange-500">Kinshasa</span>, 
-      je déploie des écosystèmes technologiques pour des partenaires 
-      <span className="font-black dark:text-white text-slate-900 ml-2 border-b-2 border-orange-500/30">
-        panafricains et globaux.
-      </span>
-    </p>
+          <div className="max-w-2xl mx-auto space-y-4">
+            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+              Opérant depuis le cœur de Kinshasa, je déploie des écosystèmes technologiques pour des partenaires panafricains et globaux.
+            </p>
 
-    {/* Indicateur de connectivité */}
-    <div className="flex justify-center items-center gap-4 pt-4 opacity-60">
-      <div className="h-[1px] w-8 bg-slate-500" />
-      <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">
-        Connectivité Fibre • Serveurs Localisés • Support 24/7
-      </p>
-      <div className="h-[1px] w-8 bg-slate-500" />
-    </div>
-  </div>
-</div>
+            <div className="flex justify-center items-center gap-4 pt-2 font-mono text-[9px] text-slate-400 dark:text-slate-500">
+              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+              <span>CONNECTIVITÉ FIBRE • SERVEURS LOCALISÉS • SUPPORT 24/7</span>
+              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+            </div>
+          </div>
+        </div>
 
-
-        {/* Conteneur Carte + Infos */}
+        {/* --- CONTENEUR CARTE + LOGS TECHNIQUES --- */}
         <div className="grid md:grid-cols-3 gap-8 items-start">
           
-          {/* Colonne Infos de Contact */}
+          {/* Colonne Fiches de Données (1 colonne) */}
           <div className="space-y-4 md:col-span-1 order-2 md:order-1">
             {[
               { icon: <FaMapMarkerAlt />, label: "Adresse", value: "Av. Kimwenza A/A25, Kinshasa, RDC" },
               { icon: <FaPhoneAlt />, label: "Téléphone", value: "+243 82 90 54 350" },
               { icon: <FaEnvelope />, label: "Email", value: "bendelothielcy@gmail.com" }
             ].map((info, idx) => (
-              <div key={idx} className="p-4 rounded-xl border transition-all hover:translate-x-2"
-                   style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}>
-                <div className="flex items-center gap-3 mb-1" style={{ color: 'var(--accent-1)' }}>
-                  {info.icon}
-                  <span className="text-xs font-bold uppercase tracking-wider">{info.label}</span>
+              <div 
+                key={idx} 
+                className="p-5 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-200 hover:border-slate-400 dark:hover:border-white/30"
+              >
+                <div className="flex items-center gap-3 mb-2 text-slate-950 dark:text-white">
+                  <span className="text-slate-400 dark:text-slate-500 text-sm">
+                    {info.icon}
+                  </span>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider">// [ {info.label.toLowerCase()} ]</span>
                 </div>
-                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                <div className="text-xs font-normal text-slate-600 dark:text-slate-300 tracking-wide font-sans pl-6">
                   {info.value}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Colonne Google Maps */}
+          {/* Colonne Google Maps (2 colonnes) */}
           <div className="md:col-span-2 order-1 md:order-2">
-            <div className="rounded-3xl overflow-hidden shadow-2xl border-4 shadow-purple-500/10" 
-                 style={{ borderColor: 'var(--surface)' }}>
+            <div className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] p-2">
               <iframe
                 title="Google Maps localisation"
                 src="https://www.google.com/maps?q=Avenue+Kimwenza+A%2FA25,+Kinshasa,+DR+Congo&output=embed"
                 width="100%"
-                height="400"
-                style={{ border: 0, filter: 'var(--bg) === "#0f0f0f" ? "invert(90%) hue-rotate(180deg) brightness(95%) contrast(90%)" : "none"' }}
+                height="380"
+                style={{ border: 0 }}
+                className="grayscale dark:invert-[90%] dark:hue-rotate-180 dark:brightness-[95%] dark:contrast-[90%] transition-all duration-300"
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -96,12 +79,11 @@ function GoogleMapsSection() {
 
         </div>
 
-        {/* Note de disponibilité */}
-        <div className="mt-12 text-center">
-          <p className="text-sm font-medium italic" style={{ color: 'var(--text-secondary)' }}>
-            Bureau ouvert du Lundi au Samedi • 08h00 - 18h00
-          </p>
+        {/* Note de disponibilité style bas de terminal */}
+        <div className="mt-12 text-center font-mono text-[9px] text-slate-400 dark:text-slate-500">
+          <p>[availability_window]: Bureau ouvert du Lundi au Samedi • 08h00 - 18h00 [GMT+1]</p>
         </div>
+
       </div>
     </section>
   );

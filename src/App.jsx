@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import GoogleAnalyticsTracker from "./components/Analytics"; 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,8 +27,9 @@ import Hero from './components/Hero';
 import Footer from './components/Footer';
 import FAQSection from './components/FAQSection';
 import ProcessSection from './components/ProcessSection';
+import ClientDashboard from './pages/ClientDashboard';
 
-// Dashboard imports
+// Dashboard admin imports
 import {
   Login,
   AdminHome,
@@ -45,50 +46,66 @@ import {
 import FinanceDashboard from './dashboard/FinanceDashboard';
 import AdminLayout from './dashboard/components/AdminLayout';
 
+// Layout pour injecter automatiquement l'en-tête et le pied de page sur les pages vitrines publiques
+const PublicLayout = () => {
+  return (
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-between selection:bg-orange-500 selection:text-white">
+      <NavbarSecured />
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
 const App = () => {
   const [splashDone, setSplashDone] = React.useState(false);
+
   return (
     <ThemeProvider>
       {!splashDone && (
         <ProfessionalSplashScreen onComplete={() => setSplashDone(true)} />
       )}
       {splashDone && (
-        <div>
+        <>
           <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
-          <Suspense fallback={<div>Chargement...</div>}>
-          <GoogleAnalyticsTracker /> 
+          <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center font-mono text-xs text-slate-500">[loading_modules...]</div>}>
+            <GoogleAnalyticsTracker /> 
             <Routes>
-              {/* Route principale du site */}
-              <Route path="/" element={<Home />} />
-              {/* Route Services */}
-              <Route path="/services" element={<ServicesPage />} />
-              {/* Route Contact */}
-              <Route path="/contact" element={<ContactPage />} />
-              {/* Route About */}
-              <Route path="/about" element={<AboutPage />} />
-              {/* Route Experience */}
-              <Route path="/experience" element={<ExperiencePage />} />
-              {/* Route Projects */}
-              <Route path="/projects" element={<ProjectsPage />} />
-              {/* Route Skills */}
-              <Route path="/skills" element={<SkillsPage />} />
-              {/* Route Work */}
-              <Route path="/work" element={<WorkPage />} />
-              {/* Route Testimonials */}
-              <Route path="/testimonials" element={<TestimonialsPage />} />
-              {/* Route Payment */}
+              
+              {/* --- ENVELOPPE DES ROUTES PUBLIQUES (Avec Navbar & Footer) --- */}
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<ServicesPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/experience" element={<ExperiencePage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+                <Route path="/skills" element={<SkillsPage />} />
+                <Route path="/work" element={<WorkPage />} />
+                <Route path="/testimonials" element={<TestimonialsPage />} />
+                <Route path="/offers" element={<OffersPage />} />
+                <Route path="/blog" element={<Blog />} />
+              </Route>
+
+              {/* --- PORTAILS D'ACCÈS ISOLÉS (Sans Navbar/Footer standard) --- */}
               <Route path="/paiement" element={<PaymentPage />} />
-              {/* Route d'enregistrement des clients */}
               <Route path="/clients" element={<ClientRegistrationPage />} />
-              {/* Route de connexion utilisateur (formulaire sécurisé) */}
               <Route path="/login" element={<SecureLogin />} />
-              {/* Route d'inscription utilisateur */}
               <Route path="/register" element={<SecureRegister />} />
-              {/* Route Offres */}
-              <Route path="/offers" element={<OffersPage />} />
-              {/* Blog route */}
-              <Route path="/blog" element={<Blog />} />
-              {/* Routes du dashboard avec layout admin */}
+
+              {/* --- ROUTE SÉCURISÉE DE L'ESPACE CLIENT REVISITÉ --- */}
+              <Route 
+                path="/client-dashboard" 
+                element={
+                  <PrivateRoute>
+                    <ClientDashboard />
+                  </PrivateRoute>
+                } 
+              />
+
+              {/* --- ROUTES DE L'ADMINISTRATION AVEC LAYOUT ADMIN COMPLEXE --- */}
               <Route
                 path="/dashboard"
                 element={
@@ -108,13 +125,15 @@ const App = () => {
                 <Route path="profile" element={<Profile />} />
                 <Route path="finance" element={<FinanceDashboard />} />
               </Route>
-              {/* Route catch-all pour les chemins inconnus */}
-              <Route path="*" element={<Home />} />
+
+              {/* Route catch-all de sécurité pour rediriger les chemins inconnus */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
-        </div>
+        </>
       )}
     </ThemeProvider>
   );
 }
+
 export default App;

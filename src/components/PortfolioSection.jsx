@@ -6,7 +6,6 @@ import {
   FaShoppingCart, FaStar, FaCode, FaLayerGroup 
 } from 'react-icons/fa';
 
-// Les données restent identiques, j'ai juste ajouté une icône par défaut si besoin
 const portfolio = [
   {
     id: 1,
@@ -110,142 +109,137 @@ function PortfolioSection() {
     : portfolio.filter(project => project.category === selectedCategory);
 
   return (
-    <section className="py-20 px-6 transition-colors duration-300 relative border-t border-slate-200/50 dark:border-white/5" style={{ backgroundColor: 'var(--bg)' }} id="portfolio">
+    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }} id="portfolio">
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Header avec typographie "Principal Engineer" */}
-<AnimatedSection variant="fadeIn" delay={0.2}>
-  <div className="text-center mb-16">
-    {/* Badge de contexte - Style Agence */}
-    <motion.div
-      className="inline-flex items-center gap-3 px-6 py-2 rounded-full mb-8 border backdrop-blur-md"
-      style={{ 
-        backgroundColor: 'var(--surface)', 
-        borderColor: 'var(--border-color)', 
-        opacity: 0.9 
-      }}
-      whileHover={{ scale: 1.05, borderColor: 'var(--accent-1)' }}
-    >
-      <FaStar className="animate-pulse text-[var(--accent-1)]" />
-      <span className="text-xs font-black uppercase tracking-[0.3em]" style={{ color: 'var(--text-secondary)' }}>
-        {isEnglish ? 'Selected Works' : 'Mes Réalisations'}
-      </span>
-    </motion.div>
+        {/* --- EN-TÊTE DE SECTION --- */}
+        <AnimatedSection variant="fadeIn" delay={0.2}>
+          <div className="text-center mb-16">
+            <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+              {isEnglish ? 'Selected Works' : 'Mes Réalisations'}
+            </span>
 
-    {/* Titre Portfolio Ultra-Premium */}
-    <h2 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-      <span className="text-[var(--text-primary)] opacity-90">
-        Portfo
-      </span>
-      <span className="bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] text-transparent bg-clip-text">
-        lio
-      </span>
-      <span className="text-[var(--accent-1)]">.</span>
-    </h2>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-8 tracking-widest uppercase text-xs">
+              Portfo<span className="underline decoration-1 underline-offset-8">lio</span>
+            </h2>
 
-    {/* Sélecteur de Langue - Style Minimaliste & Pro */}
-    <div className="flex flex-col items-center gap-6">
-      <motion.div 
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        className="h-1 w-24 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] rounded-full mb-2"
-      />
-      
-      <button
-        onClick={() => setIsEnglish(!isEnglish)}
-        className="group relative text-[10px] font-black uppercase tracking-[0.2em] px-8 py-3 rounded-xl border transition-all duration-300 overflow-hidden"
-        style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
-      >
-        <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-          {isEnglish ? '🇫🇷 Passer au Français' : '🇺🇸 Switch to English'}
-        </span>
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-      </button>
-    </div>
-  </div>
-</AnimatedSection>
+            <div className="flex justify-center mt-4">
+              <button
+                type="button"
+                onClick={() => setIsEnglish(!isEnglish)}
+                className="text-[9px] font-mono font-bold uppercase tracking-wider px-3 py-1.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5 hover:border-slate-400 dark:hover:border-white/30 transition-colors duration-200"
+              >
+                {isEnglish ? '[ FR ] switch' : '[ EN ] switch'}
+              </button>
+            </div>
+          </div>
+        </AnimatedSection>
 
-
-        {/* Filtres avec React-Icons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((cat) => (
-            <motion.button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-medium transition-all border ${
-                selectedCategory === cat.id ? 'bg-[var(--accent-1)] text-white border-transparent' : ''
-              }`}
-              style={{ 
-                backgroundColor: selectedCategory === cat.id ? '' : 'var(--surface)',
-                borderColor: 'var(--border-color)',
-                color: selectedCategory === cat.id ? 'white' : 'var(--text-primary)'
-              }}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className={selectedCategory === cat.id ? 'text-white' : 'text-[var(--accent-1)]'}>
-                {cat.icon}
-              </span>
-              {isEnglish ? cat.labelEn : cat.label}
-            </motion.button>
-          ))}
+        {/* --- FILTRES --- */}
+        <div className="flex flex-wrap justify-center gap-2 mb-16">
+          {categories.map((cat) => {
+            const isSelected = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-2 px-5 py-2.5 font-bold uppercase text-[10px] tracking-widest border transition-all duration-200 ${
+                  isSelected 
+                    ? 'bg-slate-950 dark:bg-white text-white dark:text-black border-transparent' 
+                    : 'bg-slate-50 dark:bg-[#09090b] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30'
+                }`}
+              >
+                <span className={isSelected ? 'text-white dark:text-black' : 'text-slate-400 dark:text-slate-500'}>
+                  {cat.icon}
+                </span>
+                {isEnglish ? cat.labelEn : cat.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Grille de projets */}
+        {/* --- GRILLE ET CARTES --- */}
         <motion.div layout className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
-                key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="group rounded-2xl border overflow-hidden transition-all hover:shadow-2xl"
-                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)' }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.3 }}
+                whileTap={{ scale: 0.99 }}
+                className="group relative border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-all duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col h-full"
               >
-                {/* Image & Overlay Action */}
-                <div className="relative h-52 overflow-hidden">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-6">
-                    <a href={project.link} className="flex flex-col items-center text-white hover:text-[var(--accent-1)] transition-colors">
-                      <FaEye className="text-3xl mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Démo</span>
-                    </a>
-                    <a href={project.github} className="flex flex-col items-center text-white hover:text-[var(--accent-1)] transition-colors">
-                      <FaGithub className="text-3xl mb-1" />
-                      <span className="text-[10px] font-bold uppercase">Code</span>
-                    </a>
+                {/* Média / Image */}
+                <div className="relative aspect-video w-full overflow-hidden border-b border-slate-200 dark:border-white/10 grayscale group-hover:grayscale-0 transition-all duration-500 bg-slate-200 dark:bg-neutral-900">
+                  {project.image ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-400">
+                      <FaCode className="text-3xl" />
+                    </div>
+                  )}
+
+                  {/* Actions au survol */}
+                  <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
+                    {project.link && (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="p-3 bg-white text-black hover:bg-slate-200 transition-colors"
+                        title="Voir le site"
+                      >
+                        <FaEye className="text-base" />
+                      </a>
+                    )}
+                    {project.github && (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="p-3 border border-white text-white hover:bg-white hover:text-black transition-colors"
+                        title="Code Source"
+                      >
+                        <FaGithub className="text-base" />
+                      </a>
+                    )}
                   </div>
                 </div>
 
-                {/* Contenu de la carte */}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <FaCode className="text-[var(--accent-1)] text-sm" />
-                    <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>
-                      {project.category}
+                <div className="p-6 flex-1 flex flex-col">
+                  {project.featured && (
+                    <span className="text-[8px] font-mono font-black uppercase tracking-widest text-orange-500 block mb-2">
+                      {"// [ core_project ]"}
                     </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
+                  )}
+
+                  <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
                     {isEnglish ? project.titleEn : project.title}
                   </h3>
 
-                  <p className="text-sm leading-relaxed mb-4 line-clamp-2" 
-   style={{ color: 'var(--text-secondary)' }}>
-  {isEnglish ? project.descriptionEn : project.description}
-</p>
-                  
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {project.technologies.map((tech, i) => (
-                      <span key={i} className="text-[10px] px-2 py-1 rounded border font-bold" 
-                            style={{ borderColor: 'var(--border-color)', color: 'var(--accent-1)', backgroundColor: 'rgba(var(--accent-1-rgb), 0.1)' }}>
+                  <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide mb-6">
+                    {isEnglish ? project.descriptionEn : project.description}
+                  </p>
+
+                  {/* Liste des technologies */}
+                  <div className="mt-auto pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-1.5 font-mono text-[9px] text-slate-500 dark:text-slate-400">
+                    {project.technologies.map((tech, idx) => (
+                      <span key={idx} className="px-2 py-0.5 bg-slate-200/50 dark:bg-white/5 border border-slate-300/30 dark:border-white/5">
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
+
               </motion.div>
             ))}
           </AnimatePresence>
