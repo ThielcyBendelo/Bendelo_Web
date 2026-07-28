@@ -61,14 +61,14 @@ export default function Experience() {
         
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-24">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Parcours & Leadership
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Trajec<span className="underline decoration-1 underline-offset-8">toire</span>
           </h2>
           <div className="max-w-2xl mx-auto">
-            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed italic">
+            <p className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
               "Bâtir des systèmes technologiques robustes, transmettre des architectures de pensée performantes."
             </p>
           </div>
@@ -103,30 +103,30 @@ export default function Experience() {
                 <div className="w-[calc(100%-4rem)] md:w-[44%] p-6 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between">
                   <div>
                     <div className="flex flex-col mb-4">
-                      <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                      <span className="font-bold text-[10px] font-bold uppercase tracking-wider text-slate-950 dark:text-slate-850 mb-2">
                         // {exp.year}
                       </span>
                       <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-2">
                         {exp.role}
                       </h3>
                       <div className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">
-                        <FaBuilding className="text-slate-400" />
+                        <FaBuilding className="text-slate-950" />
                         <span>{exp.company}</span>
                       </div>
                     </div>
                     
-                    <p className="text-xs leading-relaxed font-normal tracking-wide text-slate-600 dark:text-slate-400 mb-6 pl-4 border-l border-slate-200 dark:border-white/10">
+                    <p className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
                       {exp.description}
                     </p>
                   </div>
 
                   {/* Badges de technologies / type au format commit Git */}
-                  <div className="flex flex-wrap gap-1.5 font-mono text-[9px]">
-                    <span className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5 uppercase">
+                  <div className="flex flex-wrap gap-1.5 font-mono text-[10px]">
+                    <span className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-950 dark:text-slate-850 bg-white dark:bg-white/5 uppercase">
                       {exp.type || 'Full-time'}
                     </span>
                     {exp.tags?.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 border border-slate-200 dark:border-white/5 text-slate-400 bg-white dark:bg-white/5 uppercase">
+                      <span key={tag} className="px-2 py-0.5 border border-slate-200 dark:border-white/5 text-slate-950 bg-white dark:bg-white/5 uppercase">
                         {tag}
                       </span>
                     ))}
@@ -140,8 +140,8 @@ export default function Experience() {
 
         {/* --- REGISTRE DE VÉRIFICATION FINAL --- */}
         <div className="mt-28 p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] text-center">
-          <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4">// [ academic_&_professional_standards ]</h4>
-          <div className="flex flex-wrap justify-center gap-8 font-sans text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+          <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-950 dark:text-slate-850 mb-4">// [ academic_&_professional_standards ]</h4>
+          <div className="flex flex-wrap justify-center gap-8 font-sans text-xs font-bold uppercase tracking-widest text-slate-950 dark:text-slate-850">
             <span>AWS ARCHITECT</span>
             <span>SCRUM MASTER</span>
             <span>E-COACH CERTIFIED</span>

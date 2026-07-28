@@ -88,14 +88,14 @@ export default function NavbarSecured() {
         { href: '/blog', label: 'Livres', icon: <FaBriefcase /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
         { href: '/skills', label: 'Techniques', icon: <FaCode /> },
-        { href: '/testimonials', label: 'Techniques', icon: <FaCode /> },
+        { href: '/testimonials', label: 'Blog', icon: <FaCode /> },
       ],
     },
   ];
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 text-orange transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isSticky 
           ? 'bg-slate-950/90 backdrop-blur-md border-b border-white/10 shadow-lg py-2' 
           : 'bg-transparent border-b border-transparent py-4'
@@ -121,8 +121,8 @@ export default function NavbarSecured() {
               >
                 Bendelo Thielcy<span className="text-orange-500">.</span>
               </span>
-              <span className="text-[8px] uppercase tracking-[0.2em] font-mono text-slate-500 block mt-1">
-                // Principal Software Engineer
+              <span className="text-[8px] uppercase tracking-[0.2em] font-normal text-orange-500 block mt-1">
+                // FullS-tack Software Engineer
               </span>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function NavbarSecured() {
           <div className="hidden md:flex items-center gap-8">
             {navGroups.map((group) => (
               <div key={group.label} className="relative group">
-                <button className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors">
+                <button className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-250 hover:text-orange-500 transition-colors">
                   {group.label} <FaChevronDown className="text-[8px] transition-transform duration-300 group-hover:rotate-180" />
                 </button>
                 

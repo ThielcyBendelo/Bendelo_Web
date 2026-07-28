@@ -22,7 +22,6 @@ import {
 
 import LazyImage from './LazyImage';
 import { useEffect, useState } from 'react';
-import notificationService from '../services/notificationService';
 import { irThielcy } from '../assets/assets.js';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
@@ -51,13 +50,7 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, [backgrounds.length]);
 
-  // Notification de bienvenue après un délai
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      notificationService.welcome();
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+ 
 
 
     // Données pour les nouvelles sections
@@ -110,14 +103,14 @@ export default function Hero() {
 
   return (
     <>
- <section
+<section
   ref={elementRef}
   id="home"
-  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-16 overflow-hidden bg-slate-950"
+  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-16 overflow-hidden bg-[rgb(224, 233, 233)]"
 >
   {/* --- ARRIÈRE-PLAN : SLIDER ET OVERLAY MAT --- */}
   <div
-    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-65"
+    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-45"
     style={{
       backgroundImage: `url(${backgrounds[bgIndex]})`,
       backgroundSize: 'cover',
@@ -127,14 +120,14 @@ export default function Hero() {
     }}
   />
 
-  {/* Overlay de contraste technique (Fin des dégradés flashy) */}
-  <div className="absolute inset-0 bg-slate-950/80 z-10" />
+  {/* Overlay de contraste technique adapté pour le fond clair gris-azur */}
+  <div className="absolute inset-0 bg-[rgb(224, 233, 233)]/90 z-10" />
 
-  {/* Lignes de grille structurelles discrètes (Style blueprint d'ingénieur) */}
-  <div className="absolute inset-0 z-15 opacity-5 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white">
-    <div className="border-r border-white h-full" />
-    <div className="border-r border-white h-full" />
-    <div className="border-r border-white h-full" />
+  {/* Lignes de grille structurelles discrètes (Style blueprint d'ingénieur adapté en sombre) */}
+  <div className="absolute inset-0 z-15 opacity-10 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-[#0A1128]">
+    <div className="border-r border-[#0A1128] h-full" />
+    <div className="border-r border-[#0A1128] h-full" />
+    <div className="border-r border-[#0A1128] h-full" />
   </div>
 
   <div className="relative z-20 max-w-5xl mx-auto px-4 py-16">
@@ -144,20 +137,20 @@ export default function Hero() {
       <div className="mb-12 flex justify-center">
         <motion.div
           whileTap={{ scale: 0.99 }}
-          className="relative p-2 border border-white/10 bg-slate-900/50"
+          className="relative p-2 border border-[#0A1128]/20 bg-white/80"
         >
-          {/* Cadre asymétrique technique noir et blanc */}
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white" />
+          {/* Cadre asymétrique technique adapté en bleu de nuit */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#0A1128]" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#0A1128]" />
           
           <LazyImage
             src={irThielcy}
             alt="Ir Bendelo Thielcy"
-            className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-white/10"
+            className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-[#0A1128]/10"
             style={{ objectPosition: 'center 35%' }}
             priority={true}
             placeholder={
-              <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-900 animate-pulse" />
+              <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-200 animate-pulse" />
             }
           />
         </motion.div>
@@ -169,44 +162,45 @@ export default function Hero() {
       <div className="mb-12 text-center flex flex-col items-center">
         
         {/* Label de poste minimaliste */}
-        <span className="text-slate-500 dark:text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">
-          // Principal Software Engineer
+        <span className="text-slate-250 font-normal uppercase tracking-[0.3em] text-[10px] mb-4 block">
+          // Full-Stack Software Engineer
         </span>
 
-        {/* Nom de marque brut sans dégradé vertical complexe */}
+        {/* Nom de marque basculé en Bleu de nuit profond pour contraste maximal */}
         <h1
-          className="text-4xl md:text-7xl font-black mb-6 text-white uppercase tracking-wider leading-none"
+          className="text-4xl md:text-7xl font-normal mb-6 text-slate-250 uppercase tracking-wider leading-none"
           style={{ fontFamily: "'Antonio', sans-serif" }}
         >
           Bendelo Thielcy<span className="text-orange-500">.</span>
         </h1>
 
-        {/* Corps de texte : Hiérarchie haut de gamme et épurée */}
+        {/* Corps de texte : Basculé en nuances de Slate/Bleu de nuit pour lisibilité sur fond clair */}
         <div className="max-w-3xl space-y-4">
-          <p className="text-lg md:text-2xl text-slate-200 font-normal tracking-wide leading-relaxed">
+          <p className="text-lg md:text-2xl text-slate-250 font-normal tracking-wide leading-relaxed">
             Associé & Entrepreneur Digital spécialisé dans la <span className="underline decoration-1 underline-offset-4">conception de systèmes</span> haute performance.
           </p>
           
-          <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal tracking-wide">
-            Expertise avancée en écosystèmes Web & Mobile pour architectures distribuées et applications critiques.
-          </p>
+          <p className="text-lg md:text-3xl text-[#FF6B35] max-w-3xl mx-auto leading-relaxed font-normal tracking-wide">
+  Expertise avancée en écosystèmes Web & Mobile pour architectures distribuées et applications critiques.
+</p>
+
           
-          <p className="text-xs md:text-sm text-slate-500 max-w-xl mx-auto italic font-mono pt-2">
+          <p className="text-lg md:text-1xls text-slate-250 max-w-xl mx-auto italic font-normal pt-2">
             "Fusionner l'excellence technique et l'éveil humain pour bâtir l'avenir."
           </p>
         </div>
 
-        {/* Badge Agence - Format Log d'exécution système */}
+        {/* Badge Agence - Format Log d'exécution système adapté au fond clair */}
         <div className="mt-12">
-          <div className="inline-flex items-center gap-3 px-4 py-2 border border-white/10 bg-slate-900/40 font-mono text-[10px] text-slate-400 tracking-wider">
+          <div className="inline-flex items-center gap-3 px-4 py-2 border border-[#0A1128]/20 bg-white/60 font-black text-[10px] text-slate-950 tracking-wider">
             <span className="w-1.5 h-1.5 bg-orange-500" />
-            <span>ROLE: INNOVATION LEAD @ <span className="text-white font-bold">MUAMOKEL AGENCY</span></span>
+            <span>ROLE: INNOVATION LEAD @ <span className="text-slate-950 font-black">MUAMOKEL AGENCY</span></span>
           </div>
         </div>
       </div>
     </AnimatedSection>
 
-    {/* --- UTILS / BOUTONS D'ACTION (Préservés selon votre modèle) --- */}
+    {/* --- UTILS / BOUTONS D'ACTION (Strictement identiques) --- */}
     <AnimatedSection variant="slideUp" delay={0.8}>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <button
@@ -217,10 +211,10 @@ export default function Hero() {
         </button>
 
         <button
-          onClick={() => navigate('/projects')}
+          onClick={() => navigate('/services')}
           className="w-full sm:w-auto px-10 py-4 border border-white text-white font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all duration-300"
         >
-          Mes Projets
+          Explorer mes poles
         </button>
       </div>
     </AnimatedSection>
@@ -228,19 +222,50 @@ export default function Hero() {
 
   {/* --- SCROLL INDICATOR INDUSTRIEL --- */}
   <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-slate-600">Scroll</span>
-    <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent animate-pulse" />
+    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-slate-500">Scroll</span>
+    <div className="w-[1px] h-12 bg-gradient-to-b from-[#0A1128] to-transparent animate-pulse" />
   </div>
 </section>
 
+ {/* SECTION TECH MARQUEE (Défilement infini) */}
+<section className="py-12 bg-white border-t border-orange-500/40 overflow-hidden">
+  <div className="flex whitespace-nowrap">
+    <motion.div 
+      animate={{ x: ["0%", "-50%"] }}
+      transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+      className="flex items-center"
+    >
+      {[...techs, ...techs].map((tech, i) => (
+        <div key={i} className="flex items-center gap-4 mx-10 group cursor-default">
+          
+          {/* Icône monochrome épurée - Reste discrète et s'illumine en orange au survol */}
+          <span className="text-xl text-slate-500 group-hover:text-orange-500 transition-colors duration-300">
+            {tech.icon} 
+          </span>
+
+          {/* Nom de la technologie - Typographie claire passée en Slate/Bleu de nuit */}
+          <span className="text-xs md:text-sm font-bold text-slate-600 group-hover:text-[#0A1128] transition-colors duration-300 uppercase tracking-widest font-mono">
+            {tech.name}
+          </span>
+
+          {/* Séparateur de design industriel (Style Terminal / Pipeline) adapté au fond clair */}
+          <span className="ml-6 font-mono text-xs text-slate-300 group-hover:text-orange-500 transition-colors duration-300">
+            |
+          </span>
+        </div>
+      ))}
+    </motion.div>
+  </div>
+</section>
 
 {/* --- EN-TÊTE DE SECTION : TITRE & DESCRIPTION (Visibilité et Contraste Max) --- */}
-<div className="mt-32 text-center px-4 max-w-4xl mx-auto relative z-10">
+<section className="bg-[rgb(224,233,233)] py-20 px-6 max-w-7xl mx-auto relative z-20  border-t border-orange-500/40">
+<div className="mt-32 text-center px-6 max-w-4xl mx-auto relative z-10">
   <motion.h2 
     initial={{ opacity: 0, y: 15 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    className="text-3xl md:text-5xl font-black mb-6 text-slate-400 dark:text-white uppercase tracking-wider leading-tight"
+    className="text-3xl md:text-5xl font-black mb-6 text-[#0A1128] uppercase tracking-wider leading-tight"
   >
     Au-delà du <span className="underline decoration-1 underline-offset-8 decoration-orange-500">Code</span>, l'Humain.
   </motion.h2>
@@ -249,7 +274,7 @@ export default function Hero() {
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.1 }}
     viewport={{ once: true }}
-    className="text-base md:text-lg text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed max-w-2xl mx-auto"
+    className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto"
   >
     Je ne construis pas seulement des systèmes logiciels performants. Je développe des écosystèmes de pensée pour catalyser l'émergence d'une nouvelle génération de leaders africains.
   </motion.p>
@@ -262,35 +287,35 @@ export default function Hero() {
     {/* CARTE 1 : ÉVEILLEUR (Avec bouton intégré et logs) */}
     <motion.div 
       whileTap={{ scale: 0.99 }}
-      className="group relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[480px]"
+      className="group relative p-8 border border-slate-300 bg-white transition-colors duration-300 hover:border-orange-500 flex flex-col justify-between min-h-[480px]"
     >
       <div className="space-y-6">
-        <div className="text-slate-950 dark:text-white text-2xl transition-transform duration-300 group-hover:-translate-y-1">
+        <div className="text-[#0A1128] text-2xl transition-transform duration-300 group-hover:-translate-y-1">
           <FaLightbulb />
         </div>
         
         <div>
-          <h4 className="text-xl font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+          <h4 className="text-xl font-bold uppercase tracking-wider text-[#0A1128] mb-3">
             Éveilleur de Conscience
           </h4>
-          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide mb-4">
+          <p className="text-slate-700 text-sm leading-relaxed font-black tracking-wide mb-4">
             Catalyser le potentiel de la jeunesse africaine par une approche systémique du leadership et du mindset stratégique. Déconstruire les barrières mentales pour activer une productivité à fort impact.
           </p>
         </div>
 
-        {/* Complément de description style terminal */}
-        <div className="pt-4 border-t border-slate-200 dark:border-white/5 font-mono text-[10px] text-slate-400 dark:text-slate-500 space-y-1">
+        {/* Complément de description style terminal adapté au fond clair */}
+        <div className="pt-4 border-t border-slate-200 font-orange text-[15px] text-slate-700 space-y-1">
           <p>&gt;_ FOCUS: Décolonisation mentale &amp; Soft skills</p>
           <p>&gt;_ METRIC: Alignement de la vision stratégique</p>
         </div>
       </div>
       
       {/* Bouton d'action intégré à la carte */}
-      <div className="mt-8 pt-4 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="mt-8 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400">// CORE_PROGRAM</span>
         <button 
           onClick={() => navigate('/work')}
-          className="w-full sm:w-auto px-6 py-3 border border-slate-950 dark:border-white text-slate-950 dark:text-white font-bold uppercase text-[10px] tracking-widest hover:bg-slate-950 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+          className="w-full sm:w-auto px-6 py-3 border border-slate-950 text-slate-950 font-bold uppercase text-[10px] tracking-widest hover:bg-slate-950 hover:text-white transition-all"
         >
           Coaching &amp; Vision
         </button>
@@ -300,35 +325,35 @@ export default function Hero() {
     {/* CARTE 2 : AUTEUR (Avec bouton intégré et logs) */}
     <motion.div 
       whileTap={{ scale: 0.99 }}
-      className="group relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[480px]"
+      className="group relative p-8 border border-slate-300 bg-white transition-colors duration-300 hover:border-orange-500 flex flex-col justify-between min-h-[480px]"
     >
       <div className="space-y-6">
-        <div className="text-slate-950 dark:text-white text-2xl transition-transform duration-300 group-hover:-translate-y-1">
+        <div className="text-[#0A1128] text-2xl transition-transform duration-300 group-hover:-translate-y-1">
           <FaBookOpen />
         </div>
         
         <div>
-          <h4 className="text-xl font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+          <h4 className="text-xl font-bold uppercase tracking-wider text-[#0A1128] mb-3">
             Plume d'Impact
           </h4>
-          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide mb-4">
+          <p className="text-slate-950 text-sm leading-relaxed font-black tracking-wide mb-4">
             Transmettre des architectures de pensée à travers des ouvrages dédiés à la transformation intérieure profonde. Coder des manifestes littéraires pour ancrer la souveraineté intellectuelle et le succès.
           </p>
         </div>
 
-        {/* Complément de description style terminal */}
-        <div className="pt-4 border-t border-slate-200 dark:border-white/5 font-mono text-[10px] text-slate-400 dark:text-slate-500 space-y-1">
+        {/* Complément de description style terminal adapté au fond clair */}
+        <div className="pt-4 border-t border-slate-200 font-orange text-[15px] text-slate-700 space-y-1">
           <p>&gt;_ EDITION: Ouvrages de transformation</p>
           <p>&gt;_ TARGET: Leadership &amp; Souveraineté africaine</p>
         </div>
       </div>
 
       {/* Bouton d'action intégré à la carte */}
-      <div className="mt-8 pt-4 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="mt-8 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400">// LIT_LEDGER</span>
         <button 
           onClick={() => navigate('/projects')}
-          className="w-full sm:w-auto px-6 py-3 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-[10px] tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+          className="w-full sm:w-auto px-6 py-3 bg-slate-950 text-white font-bold uppercase text-[10px] tracking-widest hover:bg-slate-800 transition-colors"
         >
           Explorer mes projets
         </button>
@@ -337,54 +362,21 @@ export default function Hero() {
     
   </div>
 </AnimatedSection>
-
-
-
-  {/* SECTION TECH MARQUEE (Défilement infini) */}
-<section className="py-12 bg-slate-50 dark:bg-[#09090b] border-y border-slate-200 dark:border-white/10 overflow-hidden">
-  <div className="flex whitespace-nowrap">
-    <motion.div 
-      animate={{ x: ["0%", "-50%"] }}
-      transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-      className="flex items-center"
-    >
-      {[...techs, ...techs].map((tech, i) => (
-        <div key={i} className="flex items-center gap-4 mx-10 group cursor-default">
-          
-          {/* Icône monochrome épurée */}
-          <span className="text-xl text-slate-500 dark:text-slate-400 group-hover:text-orange-500 transition-colors duration-300">
-            {tech.icon} 
-          </span>
-
-          {/* Nom de la technologie - Typographie claire et professionnelle */}
-          <span className="text-xs md:text-sm font-bold text-slate-600 dark:text-slate-300 group-hover:text-slate-950 dark:group-hover:text-white transition-colors duration-300 uppercase tracking-widest font-mono">
-            {tech.name}
-          </span>
-
-          {/* Séparateur de design industriel (Style Terminal / Pipeline) */}
-          <span className="ml-6 font-mono text-xs text-slate-300 dark:text-white/10 group-hover:text-orange-500 transition-colors duration-300">
-            |
-          </span>
-        </div>
-      ))}
-    </motion.div>
-  </div>
 </section>
 
-
 {/* SECTION BENTO SERVICES */}
-<section className="py-24 px-6 max-w-7xl mx-auto relative z-20">
+<section className="py-24 px-6 max-w-7xl mx-auto relative z-20 bg-[rgb(224,233,233)]  border-t border-orange-500/40">
   
   {/* --- EN-TÊTE DE SECTION --- */}
   <div className="text-center mb-20">
     <AnimatedSection variant="slideUp">
-      <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
-        Nos Services
+      <span className="text-slate-600 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+        Mes Services
       </span>
-      <h2 className="text-3xl md:text-5xl font-black text-slate-400 dark:text-white mb-6 tracking-widest uppercase text-xs">
-        Expertise <span className="underline decoration-1 underline-offset-8">Ingénierie</span>
+      <h2 className="text-3xl md:text-5xl font-black text-[#0A1128] mb-6 tracking-widest uppercase text-xs">
+        Expertise <span className="underline decoration-1 underline-offset-8 decoration-orange-500">Ingénierie</span>
       </h2>
-      <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+      <p className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
         Solutions logicielles critiques et architectures distribuées conçues pour l'excellence opérationnelle.
       </p>
     </AnimatedSection>
@@ -396,28 +388,28 @@ export default function Hero() {
       <motion.div 
         key={i}
         whileTap={{ scale: 0.99 }}
-        className={`${s.size || ''} relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[300px] group`}
+        className={`${s.size || ''} relative p-8 border border-slate-300 bg-white transition-colors duration-300 hover:border-orange-500 flex flex-col justify-between min-h-[300px] group`}
       >
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div>
             {/* Icône brute sans background coloré */}
-            <div className="text-slate-950 dark:text-white text-3xl mb-6 transition-colors duration-300 group-hover:text-orange-500">
+            <div className="text-[#0A1128] text-3xl mb-6 transition-colors duration-300 group-hover:text-orange-500">
               {s.icon}
             </div>
             
             {/* Titre épuré en Capitales */}
-            <h3 className="text-lg font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+            <h3 className="text-lg font-black uppercase tracking-wider text-[#0A1128] mb-3">
               {s.title}
             </h3>
             
             {/* Description claire et contrastée */}
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide">
+            <p className="text-slate-700 text-sm leading-relaxed font-black tracking-wide mb-4">
               {s.desc}
             </p>
           </div>
 
           {/* Indicateur de statut / design industriel discret en bas de carte */}
-          <div className="mt-8 flex justify-between items-center text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <div className="mt-6 flex justify-end text-slate-400 group-hover:text-orange-500 transition-colors duration-300 text-[15px] font-orange font-bold">
             <span>// service_0{i + 1}</span>
             <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-orange-500 text-xs">→</span>
           </div>
@@ -426,6 +418,7 @@ export default function Hero() {
     ))}
   </div>
 </section>
+
       </>
   );
 }

@@ -59,7 +59,7 @@ export default function Coaching() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
+            className="text-slate-950 dark:text-slate-850 font-black uppercase tracking-[0.3em] text-[10px] mb-3 block"
           >
             // Coaching & Accompagnement
           </motion.span>
@@ -71,7 +71,7 @@ export default function Coaching() {
           >
             Réveiller le <span className="underline decoration-1 underline-offset-8">Lion qui dort</span>
           </motion.h2>
-          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed italic">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             "Mon coaching n'est pas une simple discussion. C'est une restructuration de votre vision pour impacter votre environnement et le monde."
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function Coaching() {
                   {p.title}
                 </h3>
                 
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide mb-6">
+                <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-6">
                   {p.desc}
                 </p>
               </div>
@@ -105,7 +105,7 @@ export default function Coaching() {
                 onClick={() => setSelectedProgram(p)}
                 className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-widest text-slate-950 dark:text-white group-hover:text-orange-500 transition-colors duration-200"
               >
-                [ en_savoir_plus ] <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
+                [ en_savoir_plus ] <FaArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
               </button>
             </motion.div>
           ))}
@@ -125,7 +125,7 @@ export default function Coaching() {
                 "Leadership éthique et conscient",
                 "Indépendance créative et technologique"
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-xs font-normal tracking-wide text-slate-600 dark:text-slate-400">
+                <li key={i} className="flex items-center gap-3 text-lg font-black tracking-wide text-slate-950 dark:text-slate-850">
                   <span className="w-1.5 h-1.5 bg-orange-500" />
                   {item}
                 </li>
@@ -137,7 +137,7 @@ export default function Coaching() {
           <div className="relative border border-slate-200 dark:border-white/10 bg-white dark:bg-black/20 p-8 flex flex-col justify-between min-h-[240px]">
             <div>
               <FaMicrophone className="text-xl text-slate-400 mb-6" />
-              <p className="text-base md:text-xl font-normal text-slate-800 dark:text-slate-200 italic leading-relaxed tracking-wide">
+              <p className="text-lg md:text-xl font-normal text-slate-950 dark:text-slate-850 italic leading-relaxed tracking-wide">
                 "Le changement de l'Afrique ne viendra pas de l'extérieur, mais de l'éveil intérieur de chaque fils du continent."
               </p>
             </div>

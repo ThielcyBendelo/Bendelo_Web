@@ -91,13 +91,13 @@ export default function Library() {
         
         {/* --- EN-TÊTE DE LA BIBLIOTHÈQUE --- */}
         <div className="text-center mb-20">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Impact Littéraire Africain
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Biblio<span className="underline decoration-1 underline-offset-8">thèque</span>
           </h2>
-          <p className="max-w-xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed italic">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             "Les mots sont les graines de l'éveil. Cultivons ensemble le jardin du futur."
           </p>
         </div>
@@ -144,7 +144,7 @@ export default function Library() {
                     // {books[currentIndex].subtitle}
                   </h4>
                   
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide">
+                  <p className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
                     {books[currentIndex].description}
                   </p>
                 </div>
@@ -152,9 +152,9 @@ export default function Library() {
                 {/* Bloc Tarifs & Bouton de Commande Directe */}
                 <div className="pt-6 border-t border-slate-200 dark:border-white/5 flex flex-wrap items-center justify-between gap-6">
                   <div>
-                    <span className="font-mono text-[8px] text-slate-400 uppercase tracking-widest block">Unit Rate</span>
+                    <span className="font-mono text-[8px] text-slate-950 uppercase tracking-widest block">Unit Rate</span>
                     <p className="text-xl font-bold font-mono text-slate-950 dark:text-white">
-                      {books[currentIndex].price} <span className="text-xs font-normal text-slate-400">USD</span>
+                      {books[currentIndex].price} <span className="text-xs font-normal text-slate-950">USD</span>
                     </p>
                   </div>
                   
@@ -167,7 +167,7 @@ export default function Library() {
                 </div>
                 
                 {/* Métadonnées de log en bas de fiche */}
-                <div className="pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-6 font-mono text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                <div className="pt-4 border-t border-slate-950 dark:border-white/5 flex flex-wrap gap-6 font-mono text-[9px] text-slate-950 dark:text-slate-850 uppercase tracking-wider">
                   <span>● STOCK: {books[currentIndex].status}</span>
                   <span>● LOGISTICS: LIND/WORLDWIDE</span>
                 </div>

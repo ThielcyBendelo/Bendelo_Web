@@ -26,16 +26,16 @@ export default function ProjetSimple() {
         
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-20 relative">
-          <span className="text-slate-400 dark:text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-250 dark:text-slate-200 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Digital Systems & Human Awakening
           </span>
           
-          <h2 className="text-3xl md:text-5xl font-black text-slate-400 dark:text-white mb-6 tracking-widest uppercase text-xs">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-200 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Impact <span className="underline decoration-1 underline-offset-8">Global</span>
           </h2>
 
           <div className="max-w-2xl mx-auto space-y-4">
-            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+            <p className="text-base md:text-lg text-slate-250 dark:text-slate-200 font-normal tracking-wide leading-relaxed max-w-2xl mx-auto">
               Découvrez mes réalisations : des architectures logicielles robustes pour les entreprises et des missions d'éveil dédiées à la transformation de la jeunesse africaine.
             </p>
             
@@ -111,12 +111,12 @@ export default function ProjetSimple() {
                     <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-2">
                       {projet.titre}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide line-clamp-2 mb-4">
+                    <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-6">
                       {projet.description}
                     </p>
                     
                     {/* Tags au format commit Git */}
-                    <div className="flex flex-wrap gap-1.5 font-mono text-[9px] mb-6">
+                    <div className="flex flex-wrap gap-1.5 font-black text-[10px] mb-6">
                       {projet.technologies?.map((tech, i) => (
                         <span key={i} className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5 uppercase">
                           {tech}

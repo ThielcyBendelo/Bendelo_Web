@@ -30,7 +30,7 @@ function FAQSection() {
 
   return (
     <section 
-      className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
+      className="py-24 bg-[rgb(224,233,233)] py-20 px-6 max-w-7xl mx-auto relative z-20  border-t border-orange-500/40 dark:border-white/10" 
       style={{ backgroundColor: 'var(--bg)' }} 
       id="faq"
     >
@@ -38,13 +38,13 @@ function FAQSection() {
         
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-20">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-black uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Transparence & Vision
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Foire aux <span className="underline decoration-1 underline-offset-8">Questions</span>
           </h2>
-          <p className="max-w-xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Répondre au besoin de clarté pour mieux bâtir l'avenir.
           </p>
         </div>
@@ -100,7 +100,7 @@ function FAQSection() {
                     >
                       {/* Alignement parfait de la réponse sur le texte du titre */}
                       <div className="pl-16 pr-8 pb-6 pt-1">
-                        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-normal tracking-wide pl-4 border-l border-slate-200 dark:border-white/10">
+                        <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-4">
                           {faq.answer}
                         </p>
                       </div>

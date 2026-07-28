@@ -105,13 +105,13 @@ export default function Skills() {
         
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-20">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Technical Stack Ledger
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Arsenal <span className="underline decoration-1 underline-offset-8">Cognitif</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Une fusion de maîtrise technologique avancée et d'intégration d'intelligence artificielle pour bâtir des infrastructures logicielles hautement performantes.
           </p>
         </div>
@@ -169,13 +169,13 @@ export default function Skills() {
                         </span>
                       </div>
                       
-                      <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 leading-normal tracking-wide">
+                      <p className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
                         &gt;_ {skill.spec}
                       </p>
                     </div>
                   </div>
                   
-                  <div className="mt-4 flex justify-end font-mono text-[8px] text-slate-300 dark:text-white/5 group-hover:text-orange-500 transition-colors">
+                  <div className="mt-4 flex justify-end font-bold text-[10px] text-slate-950 dark:text-slate-850 group-hover:text-orange-500 transition-colors">
                     <span>[{skill.category.toUpperCase()}_NODE]</span>
                   </div>
                 </motion.div>
@@ -185,7 +185,7 @@ export default function Skills() {
         </motion.div>
 
         {/* --- STATUT DE VEILLE TECHNIQUE --- */}
-        <div className="mt-16 text-center font-mono text-[9px] text-slate-400 dark:text-slate-500">
+        <div className="mt-16 text-center font-bold text-[9px] text-slate-950 dark:text-slate-850">
           <p>[sys_log]: pipeline_status_ok • veille_technologique_active_24/7</p>
         </div>
         

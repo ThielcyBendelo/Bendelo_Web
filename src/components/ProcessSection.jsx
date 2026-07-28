@@ -31,7 +31,7 @@ const steps = [
 
 function ProcessSection() {
   return (
-    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
+    <section className="py-24 px-6 max-w-7xl mx-auto relative z-20 border-t border-orange-500/40 dark:border-slate/20 " 
              style={{ backgroundColor: 'var(--bg)' }} 
              id="process">
       
@@ -43,14 +43,14 @@ function ProcessSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
+            className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
           >
             Méthodologie Agile
           </motion.span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Mon Processus <span className="underline decoration-1 underline-offset-8">Opérationnel</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Une approche d'ingénierie structurée pour transformer vos idées complexes en solutions digitales performantes.
           </p>
         </div>
@@ -73,7 +73,7 @@ function ProcessSection() {
                   <div className="text-slate-950 dark:text-white text-2xl transition-transform duration-300 group-hover:-translate-y-1">
                     {step.icon}
                   </div>
-                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                  <span className="text-[15px] font-black text-slate-950 dark:text-slate-850 uppercase tracking-widest">
                     {step.tag}
                   </span>
                 </div>
@@ -82,7 +82,7 @@ function ProcessSection() {
                   {step.title}
                 </h3>
                 
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-normal tracking-wide">
+                <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-4">
                   {step.description}
                 </p>
               </div>

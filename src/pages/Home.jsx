@@ -1,6 +1,5 @@
 import NavbarSecured from '../components/NavbarSecured';
 import Hero from '../components/Hero';
-import Footer from '../components/Footer';
 import GoogleAnalyticsTracker from "../components/Analytics"; 
 import FAQSection from '../components/FAQSection';
 import ProcessSection from '../components/ProcessSection';
@@ -24,8 +23,6 @@ export default function Home() {
         {/* <TeamSection/> */}
         {/* <Testimonials/> */}
         <FAQSection />
-    
-      <Footer />
     </>
   );
 }

@@ -164,97 +164,124 @@ export default function OffersPage() {
     <GoogleAnalyticsTracker /> 
       <NavbarSecured />
       
-      <main className="pt-24 min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-24 relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
-            >
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
-                Limited Opportunity / Up to -25%
-              </span>
-            </motion.div>
+<main className="pt-24 min-h-screen transition-colors duration-300" style={{ backgroundColor: 'var(--bg)' }}>
+  <div className="max-w-7xl mx-auto px-6">
+    
+    {/* --- EN-TÊTE DE SECTION --- */}
+    <div className="text-center mb-24 relative">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-orange-500/20 bg-orange-500/5 mb-8"
+      >
+        <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500">
+          Limited Opportunity / Up to -25%
+        </span>
+      </motion.div>
 
-            <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-              <span className="text-[var(--text-primary)] opacity-90">Paliers d'</span>
-              <span className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text">Impact</span>
-              <span className="text-orange-500">.</span>
-            </h1>
+      {/* Titre avec typographie forte Bleu de nuit & Orange */}
+      <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic leading-none">
+        <span className="text-[#0A1128] opacity-90">Paliers d'</span>
+        <span className="text-[#FF6B35]">Impact</span>
+        <span className="text-[#FF6B35]">.</span>
+      </h1>
 
-            <div className="max-w-4xl mx-auto space-y-6">
-              <p className="text-xl md:text-2xl font-light leading-relaxed text-[var(--text-primary)]">
-                Sélectionnez le moteur de croissance adapté à votre échelle. Des solutions 
-                <span className="font-bold italic text-orange-500 mx-2">End-to-End</span> 
-                conçues pour maximiser votre retour sur investissement digital.
-              </p>
-              <div className="flex justify-center items-center gap-6 pt-4 opacity-60">
-                <div className="h-[1px] w-12 bg-slate-500" />
-                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-[var(--text-secondary)]">Standard • Pro • Enterprise Custom</p>
-                <div className="h-[1px] w-12 bg-slate-500" />
-              </div>
+      <div className="max-w-4xl mx-auto space-y-6">
+        <p className="text-xl md:text-2xl font-light leading-relaxed text-[#0A1128]">
+          Sélectionnez le moteur de croissance adapté à votre échelle. Des solutions 
+          <span className="font-bold italic text-[#FF6B35] mx-2">End-to-End</span> 
+          conçues pour maximiser votre retour sur investissement digital.
+        </p>
+        
+        {/* Séparateurs horizontaux style "Blueprint" */}
+        <div className="flex justify-center items-center gap-6 pt-4 opacity-70">
+          <div className="h-[1px] w-12 bg-[#0A1128]/20" />
+          <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-600">Standard • Pro • Enterprise Custom</p>
+          <div className="h-[1px] w-12 bg-[#0A1128]/20" />
+        </div>
+      </div>
+    </div>
+
+    {/* --- GRILLE DES OFFRES (STYLE CATALOGUE) --- */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      {offers.map((offer) => (
+        <motion.div
+          key={offer.id}
+          whileHover={{ y: -10 }}
+          className={`relative p-8 border transition-all duration-300 flex flex-col h-full rounded-3xl ${
+            offer.popular 
+            ? 'bg-white border-[#FF6B35] shadow-xl ring-2 ring-[#FF6B35]/20 scale-105 z-10' 
+            : 'bg-white border-slate-300 shadow-sm hover:border-[#0A1128]'
+          }`}
+        >
+          {offer.popular && (
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#FF6B35] text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+              Plus Populaire
+            </div>
+          )}
+
+          {/* En-tête de la carte */}
+          <div className="flex justify-between items-start mb-8">
+            <div className="text-3xl p-4 rounded-2xl bg-slate-50 border border-slate-100 text-[#0A1128] group-hover:text-[#FF6B35] transition-colors">
+              {offer.icon}
+            </div>
+            <div className="text-right">
+              <span className="text-xs line-through text-slate-400 block">{offer.originalPrice}</span>
+              <span className="text-3xl font-black text-[#0A1128]">{offer.price}</span>
+              <span className="block text-[10px] font-bold text-green-600 uppercase mt-1">Économisez {offer.savings}</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-            {offers.map((offer) => (
-              <motion.div
-                key={offer.id}
-                whileHover={{ y: -10 }}
-                className={`relative p-8 rounded-3xl border flex flex-col h-full ${offer.popular ? 'ring-2 ring-[var(--accent-1)] scale-105 z-10' : ''}`}
-                style={{ backgroundColor: 'var(--surface)', borderColor: 'var(--border-color)', boxShadow: 'var(--shadow)' }}
-              >
-                {offer.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--accent-1)] text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
-                    Plus Populaire
-                  </div>
-                )}
-                <div className="flex justify-between items-start mb-6">
-                  <div className="text-3xl p-3 rounded-2xl" style={{ backgroundColor: `${offer.color}15`, color: offer.color }}>
-                    {offer.icon}
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs line-through opacity-50 block" style={{ color: 'var(--text-secondary)' }}>{offer.originalPrice}</span>
-                    <span className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{offer.price}</span>
-                    <span className="block text-[10px] font-bold text-green-500 uppercase mt-1">Économisez {offer.savings}</span>
-                  </div>
-                </div>
-                <h3 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{offer.title}</h3>
-                <p className="text-sm mb-6 font-medium" style={{ color: 'var(--accent-1)' }}>{offer.subtitle}</p>
-                <div className="space-y-4 mb-8 flex-grow">
-                  {offer.features.map((feat, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm" style={{ color: 'var(--text-primary)' }}>
-                      <span style={{ color: offer.color }}>{feat.icon}</span>
-                      <span>{feat.text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mb-8 p-5 rounded-2xl border border-dashed" style={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border-color)' }}>
-                  <p className="text-[10px] font-extrabold uppercase mb-3 tracking-widest" style={{ color: 'var(--accent-1)' }}>Bonus & Avantages :</p>
-                  <div className="grid grid-cols-1 gap-2">
-                    {offer.benefits.map((benefit, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
-                        <FaCheck className="shrink-0 text-[var(--accent-1)]" /> 
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={() => { setSelectedPackage(offer); setIsModalOpen(true); }}
-                  className="w-full py-4 rounded-2xl font-bold text-white shadow-lg transition-transform active:scale-95"
-                  style={{ backgroundColor: offer.color }}
-                >
-                  Choisir ce pack
-                </button>
-              </motion.div>
+          <div className="mb-6">
+            <h3 className="text-2xl font-black text-[#0A1128] mb-1 uppercase tracking-tight">{offer.title}</h3>
+            <p className="text-sm font-bold text-[#FF6B35] uppercase tracking-widest">{offer.subtitle}</p>
+          </div>
+
+          {/* Liste des fonctionnalités */}
+          <div className="space-y-4 mb-8 flex-grow">
+            {offer.features.map((feat, i) => (
+              <div key={i} className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                <span className="text-[#FF6B35]">{feat.icon}</span>
+                <span>{feat.text}</span>
+              </div>
             ))}
           </div>
-        </div>
-        <FAQSection />
-      </main>
+          
+          {/* Section Bonus interne style "Log Technique" */}
+          <div className="mb-8 p-5 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50">
+            <p className="text-[10px] font-black uppercase mb-3 tracking-widest text-[#0A1128]">
+              <span className="text-[#FF6B35]">//</span> Bonus & Avantages :
+            </p>
+            <div className="grid grid-cols-1 gap-2.5">
+              {offer.benefits.map((benefit, i) => (
+                <div key={i} className="flex items-center gap-2 text-xs font-semibold text-slate-600 uppercase tracking-tighter">
+                  <FaCheck className="shrink-0 text-[#FF6B35] text-[10px]" /> 
+                  <span>{benefit}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bouton d'action */}
+          <button
+            onClick={() => { setSelectedPackage(offer); setIsModalOpen(true); }}
+            className={`w-full py-4 rounded-xl font-black uppercase text-[11px] tracking-[0.2em] transition-all active:scale-95 shadow-lg ${
+              offer.popular 
+              ? 'bg-[#FF6B35] text-white hover:bg-[#E0531C] shadow-[#FF6B35]/20' 
+              : 'bg-[#0A1128] text-white hover:bg-slate-800 shadow-slate-900/20'
+            }`}
+          >
+            Choisir ce pack
+          </button>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+  <FAQSection />
+</main>
+
+
 
       <Footer />
 

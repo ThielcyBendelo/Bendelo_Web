@@ -36,6 +36,7 @@
     "stripe": "^19.3.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^8.0.2",
     "@eslint/js": "^9.36.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

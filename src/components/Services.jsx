@@ -261,16 +261,16 @@ export default function Services() {
   });
 
   return (
-    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
+    <section className="py-24 px-6 border-t border-slate-650 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Solutions 360°
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Catalogue des <span className="underline decoration-1 underline-offset-8">Prestations</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-base text-slate-600 dark:text-slate-400 leading-relaxed tracking-wide">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Des prestations pensées pour transformer un besoin concret en résultat visible, rapide et durable.
           </p>
         </div>
@@ -279,33 +279,34 @@ export default function Services() {
           {categories.map((cat) => {
             const isSelected = activeFilter === cat.id;
             return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveFilter(cat.id)}
-                className={`px-5 py-2.5 font-bold uppercase text-[10px] tracking-widest border transition-all duration-200 ${
-                  isSelected
-                    ? 'bg-slate-950 dark:bg-white text-white dark:text-black border-transparent'
-                    : 'bg-slate-50 dark:bg-[#09090b] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30'
-                }`}
-              >
-                {cat.label}
-              </button>
+             <button
+  key={cat.id}
+  type="button"
+  onClick={() => setActiveFilter(cat.id)}
+  className={`px-5 py-2.5 font-bold uppercase text-[px] tracking-[em] border transition-all duration-300 ${
+    isSelected
+      ? 'bg-[#A] text-white border-transparent shadow-md scale-105'
+      : 'bg-white border-slate-300 text-slate-500 hover:text-[#A] hover:border-[#A] hover:shadow-sm'
+  }`}
+>
+  {cat.label}
+</button>
+
             );
           })}
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-16">
-          <div className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/80 px-4 py-2 shadow-sm dark:bg-slate-900/60">
-            <FaFilter className="text-slate-500" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Budget</span>
+          <div className="flex items-center gap-2 rounded-full border border-slate-850 dark:border-white/10 bg-white/80 px-4 py-2 shadow-sm dark:bg-slate-900/60">
+            <FaFilter className="text-slate-950" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-950">Budget</span>
             <select
               value={budgetFilter}
               onChange={(e) => setBudgetFilter(e.target.value)}
-              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-700 outline-none dark:text-slate-200"
+              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-950 outline-none dark:text-slate-200"
             >
               {budgetOptions.map((option) => (
-                <option key={option.id} value={option.id} className="text-slate-900">
+                <option key={option.id} value={option.id} className="text-slate-950">
                   {option.label}
                 </option>
               ))}
@@ -313,15 +314,15 @@ export default function Services() {
           </div>
 
           <div className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/80 px-4 py-2 shadow-sm dark:bg-slate-900/60">
-            <FaClock className="text-slate-500" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Délais</span>
+            <FaClock className="text-slate-950" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-950">Délais</span>
             <select
               value={timelineFilter}
               onChange={(e) => setTimelineFilter(e.target.value)}
-              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-700 outline-none dark:text-slate-200"
+              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-950 outline-none dark:text-slate-850"
             >
               {timelineOptions.map((option) => (
-                <option key={option.id} value={option.id} className="text-slate-900">
+                <option key={option.id} value={option.id} className="text-slate-950">
                   {option.label}
                 </option>
               ))}
@@ -344,11 +345,11 @@ export default function Services() {
                 <div>
                   {/* En-tête de carte : Icône brute & Étiquettes de catégorie */}
                   <div className="flex items-start justify-between mb-6">
-                    <div className="text-2xl text-slate-950 dark:text-white transition-colors duration-300 group-hover:text-orange-500">
+                    <div className="text-2xl text-slate-950 dark:text-black transition-colors duration-300 group-hover:text-orange-500">
                       {service.icon}
                     </div>
                     <div className="flex flex-col items-end gap-1.5 font-mono text-[9px] font-bold uppercase tracking-wider">
-                      <span className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 bg-white dark:bg-white/5">
+                      <span className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-950 dark:text-slate-850 bg-white dark:bg-white/5">
                         // {service.category === 'impact' ? 'éveil_&_impact' : 'ingénierie_tech'}
                       </span>
                       {service.badge && (
@@ -363,41 +364,52 @@ export default function Services() {
                   <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide mb-6">
+                  <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-6">
                     {service.description}
                   </p>
 
-                  {/* Tableau des spécifications d'estimation (Budget & Délais) */}
-                  <div className="grid grid-cols-2 gap-4 mb-6 text-xs font-mono">
-                    <div className="p-3 border border-slate-200/60 dark:border-white/5 bg-white/50 dark:bg-white/5">
-                      <div className="mb-1 flex items-center gap-1.5 text-[8px] uppercase tracking-wider text-slate-400">
-                        <FaDollarSign className="text-[10px]" /> Budget
-                      </div>
-                      <p className="font-bold text-slate-950 dark:text-white">{service.price}</p>
-                    </div>
-                    <div className="p-3 border border-slate-200/60 dark:border-white/5 bg-white/50 dark:bg-white/5">
-                      <div className="mb-1 flex items-center gap-1.5 text-[8px] uppercase tracking-wider text-slate-400">
-                        <FaCalendarAlt className="text-[10px]" /> Délais
-                      </div>
-                      <p className="font-bold text-slate-950 dark:text-white">{service.duration}</p>
-                    </div>
-                  </div>
+{/* Tableau des spécifications d'estimation (Budget & Délais) */}
+<div className="grid grid-cols-2 gap-4 mb-6 text-xs font-mono">
+  {/* BLOC BUDGET */}
+  <div className="p-3 border border-slate-300 bg-white shadow-sm rounded-lg">
+    <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+      <FaDollarSign className="text-[#FF6B35]" /> Budget
+    </div>
+    <p className="font-black text-[#0A1128] text-sm">
+      {service.price}
+    </p>
+  </div>
 
-                  {/* Liste des livrables inclus (Benefits) */}
-                  <ul className="space-y-2 mb-6">
-                    {service.benefits.map((benefit, i) => (
-                      <li key={i} className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sans">
-                        <FaCheck className="text-[9px] text-orange-500" />
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+  {/* BLOC DÉLAIS */}
+  <div className="p-3 border border-slate-300 bg-white shadow-sm rounded-lg">
+    <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+      <FaCalendarAlt className="text-[#FF6B35]" /> Délais
+    </div>
+    <p className="font-bold text-[#0A1128] text-sm">
+      {service.duration}
+    </p>
+  </div>
+</div>
 
+{/* Liste des livrables inclus (Benefits) */}
+<ul className="space-y-2.5 mb-6">
+  {service.benefits.map((benefit, i) => (
+    <li 
+      key={i} 
+      className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-[#475569] font-bold"
+    >
+      <div className="flex-shrink-0 w-4 h-4 rounded-full bg-orange-500/10 flex items-center justify-center">
+        <FaCheck className="text-[8px] text-[#FF6B35]" />
+      </div>
+      <span>{benefit}</span>
+    </li>
+  ))}
+</ul>
+</div>
                 {/* Panneau d'actions bas de carte style Facture */}
-                <div className="pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between gap-3 font-mono text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between gap-3 font-bold text-[9px] font-bold text-slate-950 uppercase tracking-wider">
                   <div className="flex items-center gap-2">
-                    <FaRocket className="text-slate-400" /> [scope: custom]
+                    <FaRocket className="text-slate-850" /> [scope: custom]
                   </div>
                   <button
                     type="button"

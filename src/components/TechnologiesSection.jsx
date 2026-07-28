@@ -100,7 +100,7 @@ const technologies = [
 
 function TechSection() {
   return (
-    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
+    <section className="py-24 px-6 max-w-7xl mx-auto relative z-20 border-t border-orange-500/40 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
         
         {/* --- EN-TÊTE DE SECTION ÉPURÉ & PROFESSIONNEL --- */}
@@ -109,7 +109,7 @@ function TechSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
+            className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
           >
             Stack Technologique
           </motion.span>
@@ -121,7 +121,7 @@ function TechSection() {
           >
             Maîtrise <span className="underline decoration-1 underline-offset-8">Full-Stack</span>
           </motion.h2>
-          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Une infrastructure d'outils avancés mariant ingénierie logicielle robuste, expertise réseau DevOps et intégration d'écosystèmes d'Intelligence Artificielle.
           </p>
         </div>
@@ -155,13 +155,13 @@ function TechSection() {
                   {tech.name}
                 </h3>
                 
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-normal tracking-wide">
+                <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-4">
                   {tech.description}
                 </p>
               </div>
 
               {/* Statut d'état bas de carte */}
-              <div className="mt-6 flex justify-end text-slate-300 dark:text-white/5 group-hover:text-orange-500 transition-colors duration-300 text-[10px] font-mono font-bold">
+              <div className="mt-6 flex justify-end text-slate-950 dark:text-white/5 group-hover:text-orange-500 transition-colors duration-300 text-[15px] font-orange font-bold">
                 <span>[ready_node]</span>
               </div>
             </motion.div>
