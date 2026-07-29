@@ -9,35 +9,35 @@ import GoogleMapsSection from './GoogleMapsSection';
 import { FaGraduationCap, FaRocket, FaShieldAlt,FaCertificate,  FaExternalLinkAlt, FaUserCheck, FaTerminal, FaBookOpen, FaLightbulb, FaGlobeAfrica, FaQuoteLeft } from 'react-icons/fa';
 
 const credentials = [
-  {
-    type: "certification",
-    title: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services (AWS)",
-    date: "2025",
-    id: "AUTH-AWS-8290X",
-    status: "verified",
-    icon: <FaShieldAlt />
-  },
-  {
-    type: "certification",
-    title: "MongoDB Certified Developer Associate",
-    issuer: "MongoDB Inc.",
-    date: "2024",
-    id: "AUTH-MDB-9054Z",
-    status: "verified",
-    icon: <FaCertificate />
-  },
+  // {
+  //   type: "certification",
+  //   title: "AWS Certified Solutions Architect",
+  //   issuer: "Amazon Web Services (AWS)",
+  //   date: "2025",
+  //   id: "AUTH-AWS-8290X",
+  //   status: "verified",
+  //   icon: <FaShieldAlt />
+  // },
+  // {
+  //   type: "certification",
+  //   title: "MongoDB Certified Developer Associate",
+  //   issuer: "MongoDB Inc.",
+  //   date: "2024",
+  //   id: "AUTH-MDB-9054Z",
+  //   status: "verified",
+  //   icon: <FaCertificate />
+  // },
   {
     type: "formation",
-    title: "Génie Logiciel & Systèmes Distribués",
-    issuer: "Institut Supérieur Technique",
+    title: "Informatique de Gestion",
+    issuer: "Institut Supérieur de Statistique ISS",
     date: "2020 - 2023",
     id: "DIPL-GL-243KS",
     status: "completed",
     icon: <FaGraduationCap />
   }
 ];
-
+ 
 export default function About() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true });
@@ -95,7 +95,7 @@ export default function About() {
             {/* Contenu Texte Épuré */}
             <div className="lg:col-span-7 space-y-8">
               <motion.div initial={{ opacity: 0, y: 15 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-                <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">
+                <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">
                   // Ingénieur • Coach • Auteur
                 </span>
                 
@@ -104,8 +104,8 @@ export default function About() {
                   <span className="underline decoration-1 underline-offset-8">Éveiller l'Afrique</span>
                 </h1>
                 
-                <div className="relative pl-6 border-l border-slate-200 dark:border-white/10">
-                  <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-normal tracking-wide italic">
+                <div className="relative pl-6 border-l border-slate-850 dark:border-white/10">
+                  <p className="text-base md:text-lg text-slate-950 dark:text-slate-850 leading-relaxed font-bold tracking-wide italic">
                     {about}
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function About() {
               {/* Tags atomiques de compétences */}
               <div className="flex flex-wrap gap-2">
                 {["Software Engineering", "Mindset Coaching", "African Leadership", "Strategic Vision"].map((skill, i) => (
-                  <span key={i} className="px-4 py-2 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-mono text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest hover:border-slate-400 dark:hover:border-white/30 transition-colors cursor-default">
+                  <span key={i} className="px-4 py-2 bg-slate-950 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-bold text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest hover:border-slate-400 dark:hover:border-white/30 transition-colors cursor-default">
                     {skill}
                   </span>
                 ))}
@@ -131,13 +131,13 @@ export default function About() {
         
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-20">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Academic & Professional Ledger
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
             Certifications & <span className="underline decoration-1 underline-offset-8">Cursus</span>
           </h2>
-          <p className="max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+          <p className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
             Validation des compétences techniques et jalons académiques garantissant l'excellence des architectures déployées.
           </p>
         </div>
@@ -165,11 +165,11 @@ export default function About() {
                       {item.title}
                     </h3>
                     {/* Badge de Type de Document */}
-                    <span className="font-mono text-[8px] px-1.5 py-0.5 border border-slate-200 dark:border-white/5 text-slate-400 bg-white dark:bg-white/5 uppercase">
+                    <span className="font-bold text-[8px] px-1.5 py-0.5 border border-slate-200 dark:border-white/5 text-slate-950 bg-white dark:bg-white/5 uppercase">
                       {item.type}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-normal tracking-wide">
+                  <p className="text-xs text-slate-950 dark:text-slate-850 font-normal tracking-wide">
                     {item.issuer} <span className="mx-2 text-slate-300 dark:text-white/10">|</span> {item.date}
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export default function About() {
               <div className="flex items-center justify-between md:justify-end gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-slate-200/50 dark:border-white/5 font-mono text-[10px]">
                 
                 {/* ID de registre / hash simulé */}
-                <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">
+                <span className="text-slate-950 dark:text-slate-850 hidden sm:inline">
                   ID: {item.id}
                 </span>
 
@@ -228,12 +228,12 @@ export default function About() {
                   <h3 className="text-sm font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-1">
                     {pillar.title}
                   </h3>
-                  <p className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                  <p className="text-[10px] font-normal font-bold text-slate-950 dark:text-slate-850 uppercase tracking-wider">
                     // {pillar.subtitle}
                   </p>
                 </div>
                 
-                <div className="mt-6 flex justify-end font-mono text-[9px] text-slate-300 dark:text-white/5 group-hover:text-orange-500 transition-colors">
+                <div className="mt-6 flex justify-end font-bold text-[10px] text-slate-950 dark:text-white/5 group-hover:text-orange-500 transition-colors">
                   <span>[0{i + 1}]</span>
                 </div>
               </motion.div>
@@ -243,26 +243,26 @@ export default function About() {
           {/* --- SECTION 3: CTA IMPACT --- */}
           <div className="border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] p-10 md:p-14 text-center relative overflow-hidden">
             <div className="relative z-10">
-              <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[9px] mb-3 block">
+              <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[9px] mb-3 block">
                 // Alignement Stratégique
               </span>
               <h2 className="text-2xl md:text-4xl font-black text-slate-950 dark:text-white mb-4 tracking-widest uppercase text-xs">
                 UNISSONS NOS FORCES POUR <span className="underline decoration-1 underline-offset-8">L'EXCELLENCE</span>
               </h2>
-              <p className="max-w-2xl mx-auto text-sm text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed mb-10">
+              <p className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
                 Que ce soit pour bâtir une infrastructure numérique de classe mondiale ou pour transformer votre vision de vie, je vous accompagne dans cette ascension.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button
                   type="button"
-                  onClick={() => navigate('/#projects')}
+                  onClick={() => navigate('/projects')}
                   className="px-8 py-3 border border-slate-950 dark:border-white text-slate-950 dark:text-white font-bold uppercase text-[10px] tracking-widest hover:bg-slate-950 dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-300"
                 >
                   Voir mes réalisations
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate('/#contact')}
+                  onClick={() => navigate('/contact')}
                   className="px-8 py-3 bg-slate-950 dark:bg-white text-white dark:text-black font-bold uppercase text-[10px] tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-all duration-300"
                 >
                   Travailler ensemble

@@ -14,6 +14,7 @@ import authService from '../services/authService';
 export default function NavbarSecured() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false); // Gardé pour rétrocompatibilité
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
@@ -92,7 +93,7 @@ export default function NavbarSecured() {
       ],
     },
   ];
-
+  
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -131,7 +132,7 @@ export default function NavbarSecured() {
           <div className="hidden md:flex items-center gap-8">
             {navGroups.map((group) => (
               <div key={group.label} className="relative group">
-                <button className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-slate-250 hover:text-orange-500 transition-colors">
+                <button className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white hover:text-orange-500 transition-colors">
                   {group.label} <FaChevronDown className="text-[8px] transition-transform duration-300 group-hover:rotate-180" />
                 </button>
                 
@@ -142,7 +143,7 @@ export default function NavbarSecured() {
                       key={item.href} 
                       to={item.href} 
                       onClick={(e) => handleNavClick(item.href, e)}
-                      className="flex items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-white hover:text-black transition-colors duration-150"
+                      className="flex items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black transition-colors duration-150"
                     >
                       <span className="text-slate-500 text-xs">{item.icon}</span>
                       <span>{item.label}</span>

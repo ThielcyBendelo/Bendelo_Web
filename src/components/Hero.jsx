@@ -34,8 +34,8 @@ export default function Hero() {
 
   // Tableau des backgrounds
   const backgrounds = [
-    '/background1.jpg',
-    '/background2.jpg',
+    // '/background1.jpg',
+    // '/background2.jpg',
     '/background7.jpeg',
     '/irbendelo1.jpeg',
     '/irthielcy1.jpeg',
@@ -106,11 +106,11 @@ export default function Hero() {
 <section
   ref={elementRef}
   id="home"
-  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-16 overflow-hidden bg-[rgb(224, 233, 233)]"
+  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-16 overflow-hidden bg-[#0E243A]/75"
 >
   {/* --- ARRIÈRE-PLAN : SLIDER ET OVERLAY MAT --- */}
   <div
-    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-45"
+    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-15"
     style={{
       backgroundImage: `url(${backgrounds[bgIndex]})`,
       backgroundSize: 'cover',
@@ -120,87 +120,90 @@ export default function Hero() {
     }}
   />
 
-  {/* Overlay de contraste technique adapté pour le fond clair gris-azur */}
-  <div className="absolute inset-0 bg-[rgb(224, 233, 233)]/90 z-10" />
+ {/* Overlay de contraste technique en mode Bleu Céleste Sombre (Mat pro à 75%) */}
+<div className="absolute inset-0 bg-[#0E243A]/75 z-10" />
 
-  {/* Lignes de grille structurelles discrètes (Style blueprint d'ingénieur adapté en sombre) */}
-  <div className="absolute inset-0 z-15 opacity-10 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-[#0A1128]">
-    <div className="border-r border-[#0A1128] h-full" />
-    <div className="border-r border-[#0A1128] h-full" />
-    <div className="border-r border-[#0A1128] h-full" />
-  </div>
+{/* Lignes de grille structurelles discrètes (Style blueprint d'ingénieur adapté en blanc) */}
+<div className="absolute inset-0 z-15 opacity-10 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white">
+  <div className="border-r border-white h-full" />
+  <div className="border-r border-white h-full" />
+  <div className="border-r border-white h-full" />
+</div>
+
 
   <div className="relative z-20 max-w-5xl mx-auto px-4 py-16">
     
-    {/* --- IMAGE DE PROFIL : CADRE ARCHITECTURAL CARRÉ --- */}
+    {/* --- IMAGE DE PROFIL ENTIÈREMENT RÉINTÉGRÉE ET VISIBLE --- */}
     <AnimatedSection variant="fadeIn" delay={0.2}>
       <div className="mb-12 flex justify-center">
         <motion.div
           whileTap={{ scale: 0.99 }}
-          className="relative p-2 border border-[#0A1128]/20 bg-white/80"
+          className="relative p-2 border border-white/20 bg-white/5 backdrop-blur-sm"
         >
-          {/* Cadre asymétrique technique adapté en bleu de nuit */}
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#0A1128]" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#0A1128]" />
+          {/* Cadre asymétrique technique blanc */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white" />
           
           <LazyImage
             src={irThielcy}
             alt="Ir Bendelo Thielcy"
-            className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-[#0A1128]/10"
+            className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-white/10"
             style={{ objectPosition: 'center 35%' }}
             priority={true}
             placeholder={
-              <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-200 animate-pulse" />
+              <div className="w-40 h-40 md:w-48 md:h-48 bg-white/10 animate-pulse" />
             }
           />
         </motion.div>
       </div>
     </AnimatedSection>
 
-    {/* --- BLOC TYPOGRAPHIQUE PRINCIPAL --- */}
+    {/* --- BLOC TYPOGRAPHIQUE PRINCIPAL EN BLANC ÉCLATANT --- */}
     <AnimatedSection variant="slideUp" delay={0.4}>
       <div className="mb-12 text-center flex flex-col items-center">
         
-        {/* Label de poste minimaliste */}
-        <span className="text-slate-250 font-normal uppercase tracking-[0.3em] text-[10px] mb-4 block">
+        {/* Label de poste - Adapté en texte blanc atténué */}
+        <span className="text-white/60 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">
           // Full-Stack Software Engineer
         </span>
 
-        {/* Nom de marque basculé en Bleu de nuit profond pour contraste maximal */}
+        {/* Nom principal - Basculé en Blanc pur pour un impact maximal sur fond sombre */}
         <h1
-          className="text-4xl md:text-7xl font-normal mb-6 text-slate-250 uppercase tracking-wider leading-none"
+          className="text-4xl md:text-7xl font-bold mb-6 text-white uppercase tracking-wider leading-none"
           style={{ fontFamily: "'Antonio', sans-serif" }}
         >
-          Bendelo Thielcy<span className="text-orange-500">.</span>
+          Bendelo Thielcy<span className="text-[#FF6B35]">.</span>
         </h1>
 
-        {/* Corps de texte : Basculé en nuances de Slate/Bleu de nuit pour lisibilité sur fond clair */}
-        <div className="max-w-3xl space-y-4">
-          <p className="text-lg md:text-2xl text-slate-250 font-normal tracking-wide leading-relaxed">
-            Associé & Entrepreneur Digital spécialisé dans la <span className="underline decoration-1 underline-offset-4">conception de systèmes</span> haute performance.
+        {/* Corps de texte : Hiérarchie blanche claire, visible et pro */}
+        <div className="max-w-3xl space-y-5">
+          {/* Description principale passée en blanc pur */}
+          <p className="text-lg md:text-2xl text-white font-normal tracking-wide leading-relaxed">
+            Associé & Entrepreneur Digital spécialisé dans la <span className="underline decoration-1 underline-offset-4 decoration-[#FF6B35]">conception de systèmes</span> haute performance.
           </p>
           
-          <p className="text-lg md:text-3xl text-[#FF6B35] max-w-3xl mx-auto leading-relaxed font-normal tracking-wide">
-  Expertise avancée en écosystèmes Web & Mobile pour architectures distribuées et applications critiques.
-</p>
-
+          {/* Description technique clé en Orange vibrant */}
+          <p className="text-base md:text-lg text-[#FF6B35] max-w-3xl mx-auto leading-relaxed font-semibold tracking-wide">
+            Expertise avancée en écosystèmes Web & Mobile pour architectures distribuées et applications critiques.
+          </p>
           
-          <p className="text-lg md:text-1xls text-slate-250 max-w-xl mx-auto italic font-normal pt-2">
+          {/* Citation / Baseline passée en blanc pur adouci */}
+          <p className="text-xs md:text-sm text-white/70 max-w-xl mx-auto italic font-mono pt-2">
             "Fusionner l'excellence technique et l'éveil humain pour bâtir l'avenir."
           </p>
         </div>
 
-        {/* Badge Agence - Format Log d'exécution système adapté au fond clair */}
+        {/* Badge Agence - Style Pro Console */}
         <div className="mt-12">
-          <div className="inline-flex items-center gap-3 px-4 py-2 border border-[#0A1128]/20 bg-white/60 font-black text-[10px] text-slate-950 tracking-wider">
-            <span className="w-1.5 h-1.5 bg-orange-500" />
-            <span>ROLE: INNOVATION LEAD @ <span className="text-slate-950 font-black">MUAMOKEL AGENCY</span></span>
+          <div className="inline-flex items-center gap-3 px-4 py-2 border border-white/20 bg-white/5 font-black text-[10px] text-white tracking-wider rounded">
+            <span className="w-1.5 h-1.5 bg-[#FF6B35]" />
+            <span>ROLE: INNOVATION LEAD @ <span className="text-white font-black">MUAMOKEL AGENCY</span></span>
           </div>
         </div>
       </div>
     </AnimatedSection>
 
-    {/* --- UTILS / BOUTONS D'ACTION (Strictement identiques) --- */}
+    {/* --- UTILS / BOUTONS D'ACTION (Strictement identiques à votre structure) --- */}
     <AnimatedSection variant="slideUp" delay={0.8}>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <button
@@ -222,10 +225,11 @@ export default function Hero() {
 
   {/* --- SCROLL INDICATOR INDUSTRIEL --- */}
   <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-slate-500">Scroll</span>
-    <div className="w-[1px] h-12 bg-gradient-to-b from-[#0A1128] to-transparent animate-pulse" />
+    <span className="font-mono text-[8px] uppercase tracking-[0.2em] text-white/50">Scroll</span>
+    <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent animate-pulse" />
   </div>
 </section>
+
 
  {/* SECTION TECH MARQUEE (Défilement infini) */}
 <section className="py-12 bg-white border-t border-orange-500/40 overflow-hidden">

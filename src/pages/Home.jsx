@@ -7,6 +7,7 @@ import ProcessSection from '../components/ProcessSection';
 import TechnologiesSection from '../components/TechnologiesSection';
 // import Testimonials from '../components/Testimonials';
 // import TeamSection from '../components/TeamSection';
+import PageTransition from '../components/PageTransition';
 
 
 
@@ -14,6 +15,7 @@ import TechnologiesSection from '../components/TechnologiesSection';
 export default function Home() {
   return (
     <>
+     <PageTransition>
       <NavbarSecured />
         <GoogleAnalyticsTracker /> 
         <Hero />
@@ -23,6 +25,7 @@ export default function Home() {
         {/* <TeamSection/> */}
         {/* <Testimonials/> */}
         <FAQSection />
+        </PageTransition>
     </>
   );
 }

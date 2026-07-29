@@ -13,7 +13,7 @@ function GoogleMapsSection() {
    
         {/* --- EN-TÊTE DE SECTION --- */}
         <div className="text-center mb-20">
-          <span className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
             // Global Presence / Local Hub
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
@@ -21,14 +21,14 @@ function GoogleMapsSection() {
           </h2>
 
           <div className="max-w-2xl mx-auto space-y-4">
-            <p className="text-base text-slate-600 dark:text-slate-400 font-normal tracking-wide leading-relaxed">
+            <p className="text-base md:text-lg text-slate-950 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
               Opérant depuis le cœur de Kinshasa, je déploie des écosystèmes technologiques pour des partenaires panafricains et globaux.
             </p>
 
-            <div className="flex justify-center items-center gap-4 pt-2 font-mono text-[9px] text-slate-400 dark:text-slate-500">
-              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+            <div className="flex justify-center items-center gap-4 pt-2 font-bold text-[9px] text-slate-950 dark:text-slate-850">
+              <div className="h-[1px] w-6 bg-slate-950 dark:bg-white/10" />
               <span>CONNECTIVITÉ FIBRE • SERVEURS LOCALISÉS • SUPPORT 24/7</span>
-              <div className="h-[1px] w-6 bg-slate-200 dark:bg-white/10" />
+              <div className="h-[1px] w-6 bg-slate-950 dark:bg-white/10" />
             </div>
           </div>
         </div>
@@ -48,12 +48,12 @@ function GoogleMapsSection() {
                 className="p-5 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-200 hover:border-slate-400 dark:hover:border-white/30"
               >
                 <div className="flex items-center gap-3 mb-2 text-slate-950 dark:text-white">
-                  <span className="text-slate-400 dark:text-slate-500 text-sm">
+                  <span className="text-slate-950 dark:text-slate-850 text-sm">
                     {info.icon}
                   </span>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider">// [ {info.label.toLowerCase()} ]</span>
+                  <span className="text-[10px] font-normal font-bold uppercase tracking-wider">// [ {info.label.toLowerCase()} ]</span>
                 </div>
-                <div className="text-xs font-normal text-slate-600 dark:text-slate-300 tracking-wide font-sans pl-6">
+                <div className="text-xs font-normal text-slate-950 dark:text-slate-850 tracking-wide font-sans pl-6">
                   {info.value}
                 </div>
               </div>
@@ -80,7 +80,7 @@ function GoogleMapsSection() {
         </div>
 
         {/* Note de disponibilité style bas de terminal */}
-        <div className="mt-12 text-center font-mono text-[9px] text-slate-400 dark:text-slate-500">
+        <div className="mt-12 text-center font-bold text-[9px] text-slate-950 dark:text-slate-850">
           <p>[availability_window]: Bureau ouvert du Lundi au Samedi • 08h00 - 18h00 [GMT+1]</p>
         </div>
 
