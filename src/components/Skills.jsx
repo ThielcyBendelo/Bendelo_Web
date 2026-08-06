@@ -100,24 +100,46 @@ export default function Skills() {
     : detailedSkills.filter(skill => skill.category === activeTab);
 
   return (
-    <section className="py-24 px-6 border-t border-slate-200 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }} id="skills">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      className="py-24 px-6 relative overflow-hidden bg-[#0A1622] border-t border-white/5" 
+      id="skills"
+    >
+      {/* --- MAILLAGE GÉOMÉTRIQUE STRICT EN ARRIÈRE-PLAN --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`, 
+          backgroundSize: '45px 45px',
+          backgroundPosition: 'center top'
+        }} 
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         
-        {/* --- EN-TÊTE DE SECTION --- */}
-        <div className="text-center mb-20">
-          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
-            // Technical Stack Ledger
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
-            Arsenal <span className="underline decoration-1 underline-offset-8">Cognitif</span>
+        {/* --- EN-TÊTE DE SECTION STYLE REGISTRE --- */}
+        <div className="text-center mb-20 max-w-4xl mx-auto">
+          <motion.span 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block"
+          >
+            // TECHNICAL_STACK_LEDGER
+          </motion.span>
+          
+          <h2 
+            className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-none"
+            style={{ fontFamily: "'Antonio', sans-serif" }}
+          >
+            ARSENAL <span className="text-[#FF6B35] italic">COGNITIF</span>
           </h2>
-          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
+          
+          <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
             Une fusion de maîtrise technologique avancée et d'intégration d'intelligence artificielle pour bâtir des infrastructures logicielles hautement performantes.
           </p>
         </div>
 
-        {/* --- FILTRES DE GRILLE ORTHOGONAUX --- */}
-        <div className="flex flex-wrap justify-center gap-2 mb-16">
+        {/* --- FILTRES DE GRILLE ORTHOGONAUX (SANS ARRONDIS) --- */}
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
           {categories.map((cat) => {
             const isSelected = activeTab === cat.id;
             return (
@@ -125,13 +147,13 @@ export default function Skills() {
                 key={cat.id}
                 type="button"
                 onClick={() => setActiveTab(cat.id)}
-                className={`flex items-center gap-2 px-5 py-2.5 font-bold uppercase text-[10px] tracking-widest border transition-all duration-200 ${
+                className={`flex items-center gap-2 px-6 py-3 font-mono font-bold uppercase text-[10px] tracking-widest border transition-all duration-300 rounded-none ${
                   isSelected 
-                    ? 'bg-slate-950 dark:bg-white text-white dark:text-black border-transparent' 
-                    : 'bg-slate-50 dark:bg-[#09090b] border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-white/30'
+                    ? 'bg-white text-black border-transparent shadow-xl' 
+                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
                 }`}
               >
-                <span className={isSelected ? 'text-white dark:text-black' : 'text-slate-400 dark:text-slate-500'}>
+                <span className={isSelected ? 'text-black' : 'text-slate-500 group-hover:text-[#FF6B35]'}>
                   {cat.icon}
                 </span>
                 {cat.label}
@@ -140,7 +162,7 @@ export default function Skills() {
           })}
         </div>
 
-        {/* --- GRILLE DE CAPACITÉS SYSTÈME (BENTO LIGHT) --- */}
+        {/* --- GRILLE DE CAPACITÉS SYSTÈME (STRICTEMENT CARRÉ) --- */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode='popLayout'>
             {filteredSkills.map((skill) => {
@@ -153,29 +175,35 @@ export default function Skills() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.99 }}
-                  className="p-6 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-200 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between group min-h-[120px]"
+                  className="group relative p-6 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between rounded-none shadow-2xl overflow-hidden min-h-[140px]"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="text-2xl text-slate-950 dark:text-white transition-colors duration-300 group-hover:text-orange-500 mt-0.5">
+                  {/* Lueur angulaire au survol */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+
+                  <div className="flex items-start gap-5 relative z-10">
+                    <div className="text-2xl text-slate-400 group-hover:text-[#FF6B35] group-hover:scale-110 transition-all duration-300 mt-1">
                       <Icon />
                     </div>
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-baseline mb-1">
-                        <span className="font-bold text-sm uppercase tracking-wide text-slate-950 dark:text-white truncate">
+                        <span className="font-bold text-base uppercase tracking-wider text-white truncate">
                           {skill.name}
                         </span>
                       </div>
                       
-                      <p className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
+                      <p className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.2em] text-[9px] mb-3 block">
                         &gt;_ {skill.spec}
                       </p>
                     </div>
                   </div>
                   
-                  <div className="mt-4 flex justify-end font-bold text-[10px] text-slate-950 dark:text-slate-850 group-hover:text-orange-500 transition-colors">
+                  {/* Tag system de bas de carte */}
+                  <div className="mt-4 pt-3 border-t border-white/5 flex justify-end items-center gap-2 font-mono font-bold text-[10px] text-slate-500 group-hover:text-[#FF6B35] transition-colors relative z-10">
+                    <span className="text-[8px] opacity-40 uppercase tracking-widest">Node_Status</span>
                     <span>[{skill.category.toUpperCase()}_NODE]</span>
                   </div>
                 </motion.div>
@@ -184,9 +212,12 @@ export default function Skills() {
           </AnimatePresence>
         </motion.div>
 
-        {/* --- STATUT DE VEILLE TECHNIQUE --- */}
-        <div className="mt-16 text-center font-bold text-[9px] text-slate-950 dark:text-slate-850">
-          <p>[sys_log]: pipeline_status_ok • veille_technologique_active_24/7</p>
+        {/* --- STATUT DE VEILLE TECHNIQUE STYLE CONSOLE --- */}
+        <div className="mt-20 text-center font-mono text-[10px] tracking-[0.3em] text-slate-500 uppercase">
+          <p className="flex items-center justify-center gap-3">
+            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-none animate-pulse"></span>
+            [sys_log]: pipeline_status_ok • veille_technologique_active_24/7
+          </p>
         </div>
         
       </div>

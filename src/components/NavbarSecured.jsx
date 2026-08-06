@@ -86,7 +86,7 @@ export default function NavbarSecured() {
       items: [
         { href: '/about', label: 'Ma vision', icon: <FaUser /> },
         { href: '/work', label: 'Coaching', icon: <FaUser /> },
-        { href: '/blog', label: 'Livres', icon: <FaBriefcase /> },
+        // { href: '/blog', label: 'Livres', icon: <FaBriefcase /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
         { href: '/skills', label: 'Techniques', icon: <FaCode /> },
         { href: '/testimonials', label: 'Blog', icon: <FaCode /> },
@@ -95,200 +95,250 @@ export default function NavbarSecured() {
   ];
   
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isSticky 
-          ? 'bg-slate-950/90 backdrop-blur-md border-b border-white/10 shadow-lg py-2' 
-          : 'bg-transparent border-b border-transparent py-4'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          
-          {/* --- BRANDING / LOGO TECHNIQUE --- */}
-          <div 
-            className="flex items-center gap-3 cursor-pointer group" 
-            onClick={() => navigate('/')}
+  <nav 
+  className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    isSticky 
+      ? 'bg-[#0A1622]/95 backdrop-blur-md border-b border-white/10 shadow-2xl py-2' 
+      : 'bg-transparent border-b border-transparent py-5'
+  }`}
+>
+  <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="flex justify-between h-16 items-center">
+      
+      {/* --- BRANDING / LOGO TECHNIQUE --- */}
+      <div 
+        className="flex items-center gap-4 cursor-pointer group" 
+        onClick={() => navigate('/')}
+      >
+        {/* Carré de Logo Brut Orthogonal - Zéro Arrondi */}
+        <div className="w-10 h-10 border-2 border-white bg-white text-black flex items-center justify-center transition-all group-hover:bg-[#FF6B35] group-hover:border-[#FF6B35] group-hover:rotate-90 duration-500 rounded-none">
+          <span className="font-mono font-black text-sm transition-transform group-hover:-rotate-90">BT</span>
+        </div>
+
+        <div className="flex flex-col">
+          <span 
+            className="text-lg font-bold uppercase tracking-widest text-white leading-none"
+            style={{ fontFamily: "'Antonio', sans-serif" }}
           >
-            {/* Carré de Logo Brut Orthogonal */}
-            <div className="w-10 h-10 border border-white bg-white text-black flex items-center justify-center transition-colors group-hover:bg-orange-500 group-hover:border-orange-500 duration-300">
-              <span className="font-mono font-black text-sm">BT</span>
-            </div>
-
-            <div className="flex flex-col">
-              <span 
-                className="text-base font-bold uppercase tracking-wider text-white leading-none"
-                style={{ fontFamily: "'Antonio', sans-serif" }}
-              >
-                Bendelo Thielcy<span className="text-orange-500">.</span>
-              </span>
-              <span className="text-[8px] uppercase tracking-[0.2em] font-normal text-orange-500 block mt-1">
-                // FullS-tack Software Engineer
-              </span>
-            </div>
-          </div>
-
-          {/* --- DESKTOP NAVIGATION --- */}
-          <div className="hidden md:flex items-center gap-8">
-            {navGroups.map((group) => (
-              <div key={group.label} className="relative group">
-                <button className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white hover:text-orange-500 transition-colors">
-                  {group.label} <FaChevronDown className="text-[8px] transition-transform duration-300 group-hover:rotate-180" />
-                </button>
-                
-                {/* Menu déroulant style panneau d'administration */}
-                <div className="absolute left-0 mt-3 min-w-[200px] border border-white/10 bg-slate-900 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-1 group-hover:translate-y-0 transition-all duration-200 overflow-hidden">
-                  {group.items.map((item) => (
-                    <Link 
-                      key={item.href} 
-                      to={item.href} 
-                      onClick={(e) => handleNavClick(item.href, e)}
-                      className="flex items-center gap-3 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black transition-colors duration-150"
-                    >
-                      <span className="text-slate-500 text-xs">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* --- ACCÈS ESPACE CLIENT CONNECTOR --- */}
-          <div className="flex items-center gap-4">
-            
-            <div className="hidden md:flex items-center">
-              {isAuthenticated ? (
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => navigate('/dashboard')}
-                    className="flex items-center gap-2 px-4 py-2 border border-emerald-500/30 text-emerald-400 bg-emerald-500/5 font-mono text-[10px] font-bold uppercase tracking-wider hover:border-emerald-400 transition-colors"
-                  >
-                    <FaTachometerAlt /> [ console ]
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="p-2 border border-white/10 bg-white/5 text-slate-400 hover:text-white hover:border-white transition-colors text-xs"
-                    title="Déconnexion"
-                  >
-                    <FaSignOutAlt />
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => navigate('/login')}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold uppercase text-[10px] tracking-widest hover:bg-slate-200 transition-colors"
-                >
-                  <FaSignInAlt className="text-xs" /> Espace Client
-                </button>
-              )}
-            </div>
-
-            {/* Mobile Toggle Burger */}
-            <button 
-              type="button"
-              className="md:hidden p-2 text-xl text-slate-400 hover:text-white transition-colors" 
-              onClick={() => setIsOpen(!isOpen)} 
-            >
-              {isOpen ? <FaTimes /> : <FaBars />}
-            </button>
-          </div>
-
+            Bendelo Thielcy<span className="text-[#FF6B35]">.</span>
+          </span>
+          <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[#FF6B35] font-bold block mt-1.5">
+            // PRINCIPAL_SOFTWARE_ENGINEER
+          </span>
         </div>
       </div>
-      
-      {/* --- MENU MOBILE CONSOLE LAYER --- */}
+
+      {/* --- DESKTOP NAVIGATION --- */}
+      <div className="hidden md:flex items-center gap-8 h-full">
+        {navGroups.map((group) => (
+          <div key={group.label} className="relative group h-full flex items-center">
+            <button
+              type="button"
+              className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-slate-300 hover:text-[#FF6B35] transition-all duration-300"
+            >
+              <span className="opacity-40">//</span> {group.label}
+              <FaChevronDown className="text-[9px] transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#FF6B35]" />
+            </button>
+
+            <div className="absolute top-full left-0 min-w-[240px] border border-white/10 bg-[#0A1622] opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 rounded-none shadow-2xl z-50">
+              <div className="px-5 py-3 border-b border-white/5 bg-white/[0.03]">
+                <span className="text-[9px] font-mono font-black text-slate-500 uppercase tracking-widest">
+                  Module: {group.label.replace(/\s+/g, '_').toUpperCase()}
+                </span>
+              </div>
+
+              <div className="py-2 border-t-2 border-[#FF6B35]">
+                {group.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={(e) => handleNavClick(item.href, e)}
+                    className="flex items-center justify-between px-5 py-3.5 text-[11px] font-mono font-bold uppercase tracking-widest text-slate-400 hover:bg-white hover:text-black transition-all duration-200 border-l-2 border-transparent hover:border-[#FF6B35] group/item"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-[#FF6B35] text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity">
+                        &gt;
+                      </span>
+                      <span className="text-[#FF6B35]/70 group-hover/item:text-black/50">{item.icon}</span>
+                      <span>{item.label}</span>
+                    </div>
+                    <span className="text-[9px] text-slate-600 group-hover/item:text-black/40">
+                      [LNK_{item.label.length}]
+                    </span>
+                  </Link>
+                ))}
+              </div>
+
+              <div className="px-5 py-2 border-t border-white/5 bg-black/20 flex justify-between items-center">
+                <div className="flex gap-1">
+                  <span className="w-1 h-1 bg-[#FF6B35] rounded-none animate-pulse" />
+                  <span className="w-1 h-1 bg-[#FF6B35]/40 rounded-none" />
+                </div>
+                <span className="text-[8px] font-mono text-slate-600 uppercase tracking-tighter">
+                  Secure_Access_Verified
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* --- ACTIONS DROITE (burger à droite du logo sur mobile) --- */}
+      <div className="flex items-center gap-3 shrink-0">
+        {/* Auth desktop désactivé pour l'instant
+        <div className="hidden md:flex items-center">
+          {isAuthenticated ? (
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => navigate('/dashboard')}
+                className="flex items-center gap-2 px-4 py-2 border border-emerald-500/30 text-emerald-400 bg-emerald-500/5 font-mono text-[10px] font-bold uppercase tracking-wider hover:border-emerald-400 transition-colors"
+              >
+                <FaTachometerAlt /> [ console ]
+              </button>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="p-2 border border-white/10 bg-white/5 text-slate-400 hover:text-white hover:border-white transition-colors text-xs"
+                title="Déconnexion"
+              >
+                <FaSignOutAlt />
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => navigate('/login')}
+              className="flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold uppercase text-[10px] tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors"
+            >
+              <FaSignInAlt className="text-xs" /> Espace Client
+            </button>
+          )}
+        </div>
+        */}
+
+        <button
+          type="button"
+          className="md:hidden w-10 h-10 border border-white/20 bg-white/5 flex items-center justify-center text-white hover:border-[#FF6B35] transition-all duration-300 rounded-none"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Ouvrir le menu"
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+    </div>
+  </div>
+
+      {/* --- MENU MOBILE CONSOLE LAYER (STYLE BLUEPRINT) --- */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ x: '100%' }} 
-            animate={{ x: 0 }} 
-            exit={{ x: '100%' }} 
-            transition={{ type: 'tween', duration: 0.3, ease: 'easeOut' }}
-            className="fixed inset-0 h-screen w-full md:hidden z-[100] flex flex-col bg-slate-950" 
+            initial={{ opacity: 0, x: '100%' }} 
+            animate={{ opacity: 1, x: 0 }} 
+            exit={{ opacity: 0, x: '100%' }} 
+            transition={{ type: 'tween', duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 h-screen w-full md:hidden z-[100] flex flex-col bg-[#0A1622]" 
           >
-            {/* Header Mobile Menu */}
-            <div className="flex justify-between items-center px-6 h-16 border-b border-white/10 shrink-0">
-              <span className="font-mono text-[10px] font-bold tracking-widest text-slate-500">// CONTROL_PANEL</span>
+            {/* Header Mobile Menu - Console Log */}
+            <div className="flex justify-between items-center px-6 h-20 border-b border-white/10 shrink-0 bg-[#0E243A]">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 bg-[#FF6B35] animate-pulse rounded-none" />
+                <span className="font-mono text-[10px] font-black tracking-[0.3em] text-white">SYS_COMMAND: NAVIGATION</span>
+              </div>
               <button 
                 type="button"
                 onClick={() => setIsOpen(false)} 
-                className="text-slate-400 hover:text-white text-xl"
+                className="w-10 h-10 border border-white/10 flex items-center justify-center text-white hover:bg-[#FF6B35] transition-all rounded-none"
               >
                 <FaTimes />
               </button>
             </div>
 
-            {/* Corps du menu mobile */}
-            <div className="flex-grow overflow-y-auto px-6 py-8 space-y-6">
-              {navGroups.map((group) => {
+            {/* Corps du menu mobile - Liste d'exécution */}
+            <div className="flex-grow overflow-y-auto px-6 py-10 space-y-8">
+              {navGroups.map((group, idx) => {
                 const isGroupActive = activeMobileGroup === group.label;
                 return (
-                  <div key={group.label} className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <div key={group.label} className="space-y-4">
                     <button
                       type="button"
                       onClick={() => toggleMobileGroup(group.label)}
-                      className="flex w-full items-center justify-between text-left"
+                      className="flex w-full items-center justify-between text-left border-b border-white/5 pb-2"
                     >
-                      <h4 className="font-mono text-[9px] font-bold text-slate-600 uppercase tracking-widest">
-                        // {group.label}
+                      <h4 className="font-mono text-[11px] font-black text-slate-500 uppercase tracking-[0.4em]">
+                        {idx + 1}.0_{group.label.replace(/\s+/g, '_')}
                       </h4>
-                      <span className={`text-slate-400 transition-transform duration-200 ${isGroupActive ? 'rotate-180' : ''}`}>
-                        <FaChevronDown />
+                      <span className={`text-[#FF6B35] transition-transform duration-300 ${isGroupActive ? 'rotate-180' : ''}`}>
+                        <FaChevronDown size={10} />
                       </span>
                     </button>
 
-                    {isGroupActive && (
-                      <div className="grid grid-cols-1 gap-2 pt-1">
-                        {group.items.map((item) => (
-                          <Link
-                            key={item.href}
-                            to={item.href}
-                            onClick={(e) => handleNavClick(item.href, e)}
-                            className="flex items-center gap-4 rounded-xl border border-white/5 bg-slate-900/70 p-3 text-xs font-bold uppercase tracking-wider text-slate-300 transition-colors hover:bg-white hover:text-black"
-                          >
-                            <span className="text-slate-500">{item.icon}</span>
-                            <span>{item.label}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                    <AnimatePresence>
+                      {isGroupActive && (
+                        <motion.div 
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="grid grid-cols-1 gap-3 overflow-hidden"
+                        >
+                          {group.items.map((item) => (
+                            <Link
+                              key={item.href}
+                              to={item.href}
+                              onClick={(e) => handleNavClick(item.href, e)}
+                              className="flex items-center justify-between border border-white/5 bg-white/[0.02] p-4 text-[11px] font-mono font-bold uppercase tracking-widest text-slate-300 hover:border-[#FF6B35]/40 hover:text-white rounded-none transition-all"
+                            >
+                              <div className="flex items-center gap-4">
+                                <span className="text-[#FF6B35]">&gt;</span>
+                                <span>{item.label}</span>
+                              </div>
+                              <span className="text-[9px] text-slate-600">[LINK]</span>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               })}
 
-              {/* Bouton Espace Client Mobile */}
-              <div className="pt-4 border-t border-white/10">
+              {/* Pied de Menu - Actions Systèmes (MOUNT_USER_SPACE désactivé)
+              <div className="pt-10 border-t border-white/10 space-y-4">
                 {isAuthenticated ? (
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <button
                       type="button"
                       onClick={() => handleNavClick('/dashboard')}
-                      className="w-full flex items-center justify-center gap-2 p-4 border border-emerald-500/20 bg-emerald-500/5 font-mono text-[10px] font-bold uppercase text-emerald-400 tracking-wider"
+                      className="w-full flex items-center justify-center gap-3 p-5 border border-[#FF6B35]/30 bg-[#FF6B35]/5 font-mono text-[11px] font-black uppercase text-[#FF6B35] tracking-[0.2em] rounded-none shadow-lg"
                     >
-                      <FaTachometerAlt /> Accéder à la Console
+                      <FaTachometerAlt /> EXEC_CONSOLE_ACCESS
                     </button>
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="w-full flex items-center justify-center gap-2 p-4 border border-white/10 bg-white/5 text-xs font-bold uppercase text-red-400 tracking-wider"
+                      className="w-full flex items-center justify-center gap-3 p-5 border border-white/10 bg-white/5 font-mono text-[11px] font-bold uppercase text-red-500 tracking-[0.2em] rounded-none"
                     >
-                      <FaSignOutAlt /> Déconnexion
+                      <FaSignOutAlt /> TERMINATE_SESSION
                     </button>
                   </div>
                 ) : (
                   <button
                     type="button"
                     onClick={() => handleNavClick('/login')}
-                    className="w-full flex items-center justify-center gap-3 p-4 bg-white text-black font-bold uppercase text-xs tracking-widest"
+                    className="w-full flex items-center justify-center gap-4 p-5 bg-white text-black font-black uppercase text-[11px] tracking-[0.3em] rounded-none shadow-2xl hover:bg-[#FF6B35] hover:text-white transition-all"
                   >
-                    <FaSignInAlt /> Espace Client
+                    <FaSignInAlt /> MOUNT_USER_SPACE
                   </button>
                 )}
               </div>
+              */}
+            </div>
+
+            {/* Terminal Footer Info */}
+            <div className="p-6 bg-black/40 text-center">
+               <p className="font-mono text-[8px] text-slate-600 tracking-[0.4em] uppercase">
+                 IrBT v2.4.0 // Connection: Secured_TLS_1.3
+               </p>
             </div>
           </motion.div>
         )}

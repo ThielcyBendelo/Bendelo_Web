@@ -78,11 +78,16 @@ export default function Library() {
 
   const handleOrder = () => {
     const message = `Bonjour Ir Bendelo, je souhaite commander le livre : ${books[currentIndex].title}`;
-    window.open(`https://wa.me{encodeURIComponent(message)}`, '_blank');
+    window.open(
+      `https://wa.me/243829054350?text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
   };
   
  return (
     <section 
+  
       id="library" 
       className="py-24 px-6 border-t border-slate-200 dark:border-white/10" 
       style={{ backgroundColor: 'var(--bg)' }}

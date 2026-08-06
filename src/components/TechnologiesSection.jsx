@@ -100,28 +100,41 @@ const technologies = [
 
 function TechSection() {
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto relative z-20 border-t border-orange-500/40 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className="max-w-7xl mx-auto">
+    <section 
+      className="py-24 px-6 relative overflow-hidden bg-[#0A1622] border-t border-white/5" 
+      id="tech-stack"
+    >
+      {/* --- MAILLAGE BLUEPRINT GÉOMÉTRIQUE EN ARRIÈRE-PLAN --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`, 
+          backgroundSize: '45px 45px',
+          backgroundPosition: 'center top'
+        }} 
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
         
-        {/* --- EN-TÊTE DE SECTION ÉPURÉ & PROFESSIONNEL --- */}
-        <div className="text-center mb-20">
+        {/* --- EN-TÊTE DE SECTION LOG TERMINAL --- */}
+        <div className="text-center mb-20 max-w-4xl mx-auto">
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block"
+            className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block"
           >
-            Stack Technologique
+            // STACK_TECHNOLOGIQUE
           </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs"
+          
+          <h2 
+            className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-none"
+            style={{ fontFamily: "'Antonio', sans-serif" }}
           >
-            Maîtrise <span className="underline decoration-1 underline-offset-8">Full-Stack</span>
-          </motion.h2>
-          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
+            MAÎTRISE <span className="text-[#FF6B35] italic">FULL-STACK</span>
+          </h2>
+          
+          <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
             Une infrastructure d'outils avancés mariant ingénierie logicielle robuste, expertise réseau DevOps et intégration d'écosystèmes d'Intelligence Artificielle.
           </p>
         </div>
@@ -133,36 +146,45 @@ function TechSection() {
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.03, duration: 0.4 }}
+              transition={{ delay: idx * 0.02, duration: 0.4 }}
               viewport={{ once: true }}
-              whileTap={{ scale: 0.99 }}
-              className="group relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[260px]"
+              whileHover={{ y: -6 }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[260px] rounded-none shadow-2xl"
             >
+              {/* Micro-lueur angulaire d'ingénierie au survol */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+
               <div>
                 {/* En-tête de carte : Icône monochrome & Niveau */}
                 <div className="flex justify-between items-start mb-6">
-                  <div className="text-3xl text-slate-950 dark:text-white transition-colors duration-300 group-hover:text-orange-500">
+                  <div className="text-3xl text-slate-400 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110">
                     {tech.icon}
                   </div>
                   
-                  {/* Badge de niveau type log système */}
-                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 bg-white dark:bg-white/5">
+                  {/* Badge de niveau type log système strict */}
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 border border-white/10 text-[#FF6B35] bg-[#FF6B35]/5 rounded-none">
                     // {tech.level}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+                {/* Titre de la technologie */}
+                <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-3">
                   {tech.name}
                 </h3>
                 
-                <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-4">
+                {/* Description en gris technique */}
+                <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
                   {tech.description}
                 </p>
               </div>
 
-              {/* Statut d'état bas de carte */}
-              <div className="mt-6 flex justify-end text-slate-950 dark:text-white/5 group-hover:text-orange-500 transition-colors duration-300 text-[15px] font-orange font-bold">
-                <span>[ready_node]</span>
+              {/* Statut d'état bas de carte et repère géométrique */}
+              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-slate-600 group-hover:text-[#FF6B35] transition-colors duration-300 font-mono text-[10px] tracking-widest uppercase">
+                <span>&gt;_ NODE_STATUS</span>
+                <span className="font-bold text-[11px]">
+                  [READY_NODE]
+                </span>
               </div>
             </motion.div>
           ))}

@@ -8,29 +8,30 @@
 
 @layer base {
   :root {
-    /* Variables de transition et d'animation */
+    /* Transitions et Variables partagées */
     --transition-speed: 0.3s;
 
-    /* Palette Unique : Fond Clair (Gris-Azur), Bleu de nuit, Blanc, Noir, Orange */
-    --bg: rgb(224, 233, 233);     /* Nouveau fond principal clair */
-    --surface: #FFFFFF;           /* Cartes blanches pour ressortir sur le fond */
-    --text-primary: #0A1128;      /* Texte principal en Bleu de nuit profond pour contraste maximal */
-    --text-secondary: #475569;    /* Gris ardoise pour les textes secondaires */
+    /* Palette Ultra-Sombre & Pro : Noir, Rouge, Blanc, Gris */
+    --bg: #050505;                /* Noir pur profond */
+    --surface: #0F0F0F;           /* Gris très sombre pour les cartes (Bento Grid) */
+    --text-primary: #FFFFFF;      /* Blanc pur pour le texte principal */
+    --text-secondary: #94A3B8;    /* Gris ardoise pour le texte secondaire */
     
-    --accent-1: #FF6B35;          /* Orange vibrant (Boutons, Actions) */
-    --accent-2: #F7C59F;          /* Orange clair (Dégradés secondaires) */
+    --accent-1: #CE1126;          /* Rouge DRC (Principal - Boutons, Actions) */
+    --accent-2: #B91C1C;          /* Rouge plus sombre (Hovers, Dégradés) */
     
-    /* Variables de teintes sombres préservées pour éléments spécifiques */
-    --color-dark-100: #050A18; 
-    --color-dark-200: #0A1128;
-    --color-dark-300: #101F42;
+    --border-color: #1E1E1E;      /* Bordure sombre et subtile */
+    --shadow: 0 4px 25px -2px rgba(0, 0, 0, 0.7); /* Ombre portée noire profonde */
     
-    --border-color: #CBD5E1;      /* Bordure claire et subtile */
-    --shadow: 0 4px 20px -2px rgba(10, 17, 40, 0.08); /* Ombre douce adaptée au mode clair */
+    /* Variables additionnelles pour les composants */
+    --color-dark-100: #050505;
+    --color-dark-200: #0F0F0F;
+    --color-dark-300: #1A1A1A;
   }
 
   html {
     @apply scroll-smooth;
+    background-color: var(--bg);
   }
 
   body {
@@ -47,11 +48,12 @@
 
   h1, h2, h3 {
     font-family: 'Antonio', sans-serif;
-    @apply font-bold;
+    @apply font-bold uppercase tracking-tight;
   }
 }
 
 @layer components {
+  /* Effet Machine à écrire personnalisé Rouge */
   .typewriter {
     @apply overflow-hidden whitespace-nowrap border-r-[0.15em];
     border-color: var(--accent-1);
@@ -64,9 +66,74 @@
     transform: translateY(20px);
     animation: fadeInUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
+
+  /* Cartes style Dashboard / Ingénierie */
+  .card-base {
+    background-color: var(--surface);
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    @apply transition-all duration-300;
+  }
+  
+  .card-interactive:hover {
+    box-shadow: 0 10px 40px -10px rgba(206, 17, 38, 0.2); /* Lueur rouge subtile */
+    transform: translateY(-0.4rem);
+    border-color: rgba(206, 17, 38, 0.5);
+  }
+  
+  .card-hover-scale:hover {
+    transform: scale(1.03);
+    will-change: transform;
+  }
+
+  /* Inputs de formulaires - Look sombre pro */
+  .contact-input {
+    color: #FFFFFF !important;
+    background-color: #0A0A0A !important;
+    border: 1px solid var(--border-color) !important;
+    @apply rounded-xl px-4 py-3 transition-all duration-200;
+  }
+
+  .contact-input::placeholder {
+    color: #4B5563 !important;
+  }
+
+  .contact-input:focus {
+    border-color: var(--accent-1) !important;
+    box-shadow: 0 0 0 2px rgba(206, 17, 38, 0.1);
+    outline: none;
+  }
+
+  /* Utilitaires de bordure et dégradés */
+  .border-section {
+    border-color: var(--border-color) !important;
+  }
+
+  .bg-linear-to-r {
+    background-image: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  }
+
+  /* Custom Toasts - Adaptés au thème sombre */
+  .custom-toast {
+    background: #121212 !important;
+    border: 1px solid #1E1E1E !important;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+  }
+
+  .custom-toast-body {
+    color: #FFFFFF;
+    font-family: 'Saira', sans-serif;
+  }
+
+  .custom-toast-progress {
+    background: var(--accent-1);
+  }
 }
 
-/* Animations */
+/* --- ANIMATIONS --- */
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
@@ -84,124 +151,10 @@
   }
 }
 
-/* Respect reduced motion */
+/* Gestion du mouvement réduit */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
-  }
-}
-
-/* Entrance animations */
-.fade-enter {
-  opacity: 0;
-  transform: translateY(12px);
-}
-.fade-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 420ms ease, transform 420ms ease;
-}
-
-/* Gradients */
-.bg-linear-to-r {
-  background-image: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-}
-.bg-linear-to-t {
-  background-image: linear-gradient(180deg, var(--accent-1), var(--accent-2));
-}
-
-/* Reusable card utilities */
-@layer components {
-  .card-base {
-    background-color: var(--surface);
-    border-radius: 0.75rem;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-  }
-  
-  .card-interactive {
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-  
-  .card-interactive:hover {
-    box-shadow: 0 10px 30px -5px rgba(10, 17, 40, 0.15);
-    transform: translateY(-0.25rem);
-    border-color: var(--accent-1);
-  }
-  
-  .card-hover-scale {
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    will-change: transform;
-  }
-  
-  .card-hover-scale:hover {
-    transform: scale(1.05);
-  }
-
-  /* Contact form inputs styles */
-  .contact-input {
-    color: var(--text-primary) !important;
-    background-color: #FFFFFF !important;
-    border: 1px solid var(--border-color);
-  }
-
-  .contact-input::placeholder {
-    color: var(--text-secondary) !important;
-    opacity: 0.7;
-  }
-
-  .contact-input:focus {
-    color: var(--text-primary) !important;
-    border-color: var(--accent-1) !important;
-    outline: none;
-  }
-
-  .border-section {
-  border-color: rgba(10, 17, 40, 0.15) !important; /* Bleu de nuit opacifié */
-}
-
-
-  /* Custom Toast Styles (Adaptés pour fond clair) */
-  .custom-toast {
-    background: #FFFFFF;
-    border: 1px solid rgba(255, 107, 53, 0.4);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(10, 17, 40, 0.08);
-    backdrop-filter: blur(10px);
-  }
-
-  .custom-toast-body {
-    color: var(--text-primary);
-    font-family: 'Saira', sans-serif;
-    font-weight: 500;
-  }
-
-  .custom-toast-progress {
-    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  }
-
-  /* Success Toast */
-  .Toastify__toast--success .custom-toast {
-    border-color: #22C55E;
-  }
-
-  /* Error Toast */
-  .Toastify__toast--error .custom-toast {
-    border-color: #EF4444;
-  }
-
-  /* Warning Toast */
-  .Toastify__toast--warning .custom-toast {
-    border-color: var(--accent-1);
-  }
-
-  /* Info Toast */
-  .Toastify__toast--info .custom-toast {
-    border-color: #3B82F6;
   }
 }

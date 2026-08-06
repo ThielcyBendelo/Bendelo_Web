@@ -1,15 +1,25 @@
-import React, { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   FaRocket, FaMobileAlt, FaPalette, FaShieldAlt, FaTools,
-  FaCloud, FaGraduationCap, FaCheck, FaTimes, FaPaperPlane,
-  FaWallet, FaCalendarAlt, FaBuilding, FaPhoneAlt, FaLightbulb,
-  FaBook, FaGlobeAfrica, FaLayerGroup, FaQuoteLeft, FaFilter,
-  FaClock, FaDollarSign, FaArrowRight, FaArrowUp, FaArrowDown
+  FaCloud, FaGraduationCap, FaCheck, FaPaperPlane,
+  FaCalendarAlt, FaLightbulb,
+  FaBook, FaGlobeAfrica, FaLayerGroup, FaFilter,
+  FaClock, FaDollarSign, FaWhatsapp
 } from 'react-icons/fa';
+import QuoteModal from './QuoteModal';
 
-import emailjs from '@emailjs/browser';
-import { toast } from 'react-toastify';
+/** Mappe le titre d'une carte service vers la valeur du select QuoteModal */
+const serviceTitleToProjectType = (title = '') => {
+  const t = title.toLowerCase();
+  if (t.includes('web')) return 'site-web';
+  if (t.includes('mobile')) return 'mobile';
+  if (t.includes('cybersécurité') || t.includes('cybersecurite')) return 'cybersecurite';
+  if (t.includes('cloud')) return 'cloud';
+  if (t.includes('maintenance')) return 'maintenance';
+  if (t.includes('design') || t.includes('ui')) return 'application';
+  return 'autre';
+};
 
 export default function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,61 +27,15 @@ export default function Services() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [budgetFilter, setBudgetFilter] = useState('all');
   const [timelineFilter, setTimelineFilter] = useState('all');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '', email: '', company: '', phone: '', budget: '', timeline: '', message: ''
-  });
-  const modalContentRef = useRef(null);
-
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const openQuoteModal = (service) => {
     setSelectedService(service);
     setIsModalOpen(true);
   };
 
-  const scrollModalToTop = () => {
-    modalContentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const scrollModalToBottom = () => {
-    if (!modalContentRef.current) return;
-    modalContentRef.current.scrollTo({
-      top: modalContentRef.current.scrollHeight,
-      behavior: 'smooth'
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      await emailjs.send(
-        'service_muamokel', 
-        'template_quote_request', 
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          company: formData.company,
-          message: formData.message,
-          service_selected: selectedService?.title,
-          to_email: 'contact@muamokel.com'
-        }, 
-        'YOUR_PUBLIC_KEY'
-      );
-
-      toast.success('Demande envoyée avec succès !');
-      setIsModalOpen(false);
-      setFormData({ name: '', email: '', company: '', phone: '', budget: '', timeline: '', message: '' });
-    } catch (error) {
-      console.error("Erreur EmailJS:", error);
-      toast.error("Erreur lors de l'envoi.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const closeQuoteModal = () => {
+    setIsModalOpen(false);
+    setSelectedService(null);
   };
 
   const categories = [
@@ -261,68 +225,90 @@ export default function Services() {
   });
 
   return (
-    <section className="py-24 px-6 border-t border-slate-650 dark:border-white/10" style={{ backgroundColor: 'var(--bg)' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-slate-950 dark:text-slate-850 font-bold uppercase tracking-[0.3em] text-[10px] mb-3 block">
-            // Solutions 360°
+    <section 
+      className="py-24 px-6 relative overflow-hidden bg-[#0A1622] border-t border-white/5" 
+      id="prestations"
+    >
+      {/* --- MAILLAGE BLUEPRINT GÉOMÉTRIQUE EN ARRIÈRE-PLAN --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`, 
+          backgroundSize: '45px 45px',
+          backgroundPosition: 'center top'
+        }} 
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10 w-full">
+        
+        {/* --- EN-TÊTE DE SECTION --- */}
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+          <span className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block">
+            // SOLUTIONS_360_CATALOGUE
           </span>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-950 dark:text-white mb-6 tracking-widest uppercase text-xs">
-            Catalogue des <span className="underline decoration-1 underline-offset-8">Prestations</span>
+          <h2 
+            className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-none"
+            style={{ fontFamily: "'Antonio', sans-serif" }}
+          >
+            CATALOGUE DES <span className="text-[#FF6B35] italic">PRESTATIONS</span>
           </h2>
-          <p className="text-base md:text-lg text-slate-950 dark:text-slate-400 font-black tracking-wide leading-relaxed max-w-2xl mx-auto">
-            Des prestations pensées pour transformer un besoin concret en résultat visible, rapide et durable.
+          <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
+            Des prestations d'ingénierie et d'accompagnement pensées pour transformer un besoin critique en résultat visible, rapide et souverain.
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        {/* --- FILTRES CATÉGORIES --- */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((cat) => {
             const isSelected = activeFilter === cat.id;
             return (
-             <button
-  key={cat.id}
-  type="button"
-  onClick={() => setActiveFilter(cat.id)}
-  className={`px-5 py-2.5 font-bold uppercase text-[px] tracking-[em] border transition-all duration-300 ${
-    isSelected
-      ? 'bg-[#A] text-white border-transparent shadow-md scale-105'
-      : 'bg-white border-slate-300 text-slate-500 hover:text-[#A] hover:border-[#A] hover:shadow-sm'
-  }`}
->
-  {cat.label}
-</button>
-
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setActiveFilter(cat.id)}
+                className={`px-6 py-3 font-mono font-bold uppercase text-[10px] tracking-widest border transition-all duration-300 rounded-none ${
+                  isSelected
+                    ? 'bg-white text-black border-transparent shadow-xl'
+                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
+                }`}
+              >
+                {cat.label}
+              </button>
             );
           })}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          <div className="flex items-center gap-2 rounded-full border border-slate-850 dark:border-white/10 bg-white/80 px-4 py-2 shadow-sm dark:bg-slate-900/60">
-            <FaFilter className="text-slate-950" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-950">Budget</span>
+        {/* --- ZONE BARRE D'OUTILS SÉLECTEURS (STRICTEMENT RECTILIGNE) --- */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          
+          {/* SÉLECTEUR BUDGET */}
+          <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-2.5 rounded-none">
+            <FaFilter className="text-[#FF6B35] text-xs" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">BUDGET:</span>
             <select
               value={budgetFilter}
               onChange={(e) => setBudgetFilter(e.target.value)}
-              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-950 outline-none dark:text-slate-200"
+              className="bg-transparent text-[11px] font-mono font-bold uppercase tracking-wider text-white outline-none cursor-pointer border-none p-0 pr-6"
             >
               {budgetOptions.map((option) => (
-                <option key={option.id} value={option.id} className="text-slate-950">
+                <option key={option.id} value={option.id} className="bg-[#0A1622] text-white">
                   {option.label}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/80 px-4 py-2 shadow-sm dark:bg-slate-900/60">
-            <FaClock className="text-slate-950" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-950">Délais</span>
+          {/* SÉLECTEUR DÉLAIS */}
+          <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-2.5 rounded-none">
+            <FaClock className="text-[#FF6B35] text-xs" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">DÉLAIS:</span>
             <select
               value={timelineFilter}
               onChange={(e) => setTimelineFilter(e.target.value)}
-              className="bg-transparent text-[10px] font-semibold uppercase tracking-wider text-slate-950 outline-none dark:text-slate-850"
+              className="bg-transparent text-[11px] font-mono font-bold uppercase tracking-wider text-white outline-none cursor-pointer border-none p-0 pr-6"
             >
               {timelineOptions.map((option) => (
-                <option key={option.id} value={option.id} className="text-slate-950">
+                <option key={option.id} value={option.id} className="bg-[#0A1622] text-white">
                   {option.label}
                 </option>
               ))}
@@ -330,30 +316,34 @@ export default function Services() {
           </div>
         </div>
 
-                {/* --- GRILLE DES SERVICES ORTHOGONALE STRICTE --- */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* --- GRILLE DES SERVICES ORTHOGONALE STRICTE --- */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full">
           {filteredServices.map((service, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              whileHover={{ y: -6 }}
               whileTap={{ scale: 0.99 }}
-              className="group relative p-8 border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#09090b] transition-colors duration-300 hover:border-slate-400 dark:hover:border-white/30 flex flex-col justify-between min-h-[460px]"
+              className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[520px] rounded-none shadow-2xl"
             >
-              <div className="relative flex flex-col h-full justify-between">
+              {/* Lueur angulaire au survol */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+
+              <div className="relative flex flex-col h-full justify-between z-10">
                 <div>
                   {/* En-tête de carte : Icône brute & Étiquettes de catégorie */}
                   <div className="flex items-start justify-between mb-6">
-                    <div className="text-2xl text-slate-950 dark:text-black transition-colors duration-300 group-hover:text-orange-500">
+                    <div className="text-3xl text-slate-400 transition-colors duration-300 group-hover:text-[#FF6B35] group-hover:scale-105">
                       {service.icon}
                     </div>
-                    <div className="flex flex-col items-end gap-1.5 font-mono text-[9px] font-bold uppercase tracking-wider">
-                      <span className="px-2 py-0.5 border border-slate-200 dark:border-white/10 text-slate-950 dark:text-slate-850 bg-white dark:bg-white/5">
+                    <div className="flex flex-col items-end gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 border border-white/10 text-[#FF6B35] bg-[#FF6B35]/5 rounded-none">
                         // {service.category === 'impact' ? 'éveil_&_impact' : 'ingénierie_tech'}
                       </span>
                       {service.badge && (
-                        <span className="px-2 py-0.5 border border-orange-500/20 text-orange-500 bg-orange-500/5">
+                        <span className="px-2.5 py-0.5 border border-[#FF6B35]/30 text-white bg-[#FF6B35] rounded-none text-[9px] tracking-widest font-black">
                           {service.badge}
                         </span>
                       )}
@@ -361,211 +351,98 @@ export default function Services() {
                   </div>
 
                   {/* Titre & Description de la prestation */}
-                  <h3 className="text-base font-bold uppercase tracking-wider text-slate-950 dark:text-white mb-3">
+                  <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-slate-950 dark:text-slate-850 text-sm leading-relaxed font-black tracking-wide mb-6">
+                  <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide mb-6">
                     {service.description}
                   </p>
 
-{/* Tableau des spécifications d'estimation (Budget & Délais) */}
-<div className="grid grid-cols-2 gap-4 mb-6 text-xs font-mono">
-  {/* BLOC BUDGET */}
-  <div className="p-3 border border-slate-300 bg-white shadow-sm rounded-lg">
-    <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
-      <FaDollarSign className="text-[#FF6B35]" /> Budget
-    </div>
-    <p className="font-black text-[#0A1128] text-sm">
-      {service.price}
-    </p>
-  </div>
+                  {/* Fiche d'estimation Métrique (Budget & Délais) - Carrée Style Inspecteur */}
+                  <div className="grid grid-cols-2 gap-4 mb-6 font-mono text-xs">
+                    {/* BLOC BUDGET */}
+                    <div className="p-3 border border-white/10 bg-white/[0.01] rounded-none">
+                      <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                        <FaDollarSign className="text-[#FF6B35]" /> BUDGET
+                      </div>
+                      <p className="font-bold text-white text-sm tracking-wide">
+                        {service.price}
+                      </p>
+                    </div>
 
-  {/* BLOC DÉLAIS */}
-  <div className="p-3 border border-slate-300 bg-white shadow-sm rounded-lg">
-    <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
-      <FaCalendarAlt className="text-[#FF6B35]" /> Délais
-    </div>
-    <p className="font-bold text-[#0A1128] text-sm">
-      {service.duration}
-    </p>
-  </div>
-</div>
-
-{/* Liste des livrables inclus (Benefits) */}
-<ul className="space-y-2.5 mb-6">
-  {service.benefits.map((benefit, i) => (
-    <li 
-      key={i} 
-      className="flex items-center gap-3 text-[10px] uppercase tracking-widest text-[#475569] font-bold"
-    >
-      <div className="flex-shrink-0 w-4 h-4 rounded-full bg-orange-500/10 flex items-center justify-center">
-        <FaCheck className="text-[8px] text-[#FF6B35]" />
-      </div>
-      <span>{benefit}</span>
-    </li>
-  ))}
-</ul>
-</div>
-                {/* Panneau d'actions bas de carte style Facture */}
-                <div className="pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between gap-3 font-bold text-[9px] font-bold text-slate-950 uppercase tracking-wider">
-                  <div className="flex items-center gap-2">
-                    <FaRocket className="text-slate-850" /> [scope: custom]
+                    {/* BLOC DÉLAIS */}
+                    <div className="p-3 border border-white/10 bg-white/[0.01] rounded-none">
+                      <div className="mb-1 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                        <FaCalendarAlt className="text-[#FF6B35]" /> DÉLAIS
+                      </div>
+                      <p className="font-bold text-white text-sm tracking-wide">
+                        {service.duration}
+                      </p>
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => openQuoteModal(service)}
-                    className="px-4 py-2.5 bg-slate-950 dark:bg-white text-white dark:text-black font-sans font-bold uppercase text-[9px] tracking-widest hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
-                  >
-                    Demander un devis
-                  </button>
+
+                  {/* Liste des livrables inclus (Benefits) - Vectoriel Brut */}
+                  <ul className="space-y-3 mb-8">
+                    {service.benefits.map((benefit, i) => (
+                      <li 
+                        key={i} 
+                        className="flex items-start gap-3 text-[11px] uppercase tracking-wider text-slate-400 font-mono font-bold"
+                      >
+                        <div className="flex-shrink-0 w-4 h-4 bg-[#FF6B35]/10 flex items-center justify-center text-[9px] text-[#FF6B35] rounded-none mt-0.5">
+                          <FaCheck />
+                        </div>
+                        <span className="leading-tight">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Actions de pied de carte intégrées (Devis + WhatsApp) */}
+                <div className="pt-5 border-t border-white/5 flex flex-col gap-3">
+                  <div className="flex justify-between items-center text-slate-500 font-mono text-[10px] tracking-widest uppercase mb-1">
+                    <span className="flex items-center gap-1.5"><FaRocket /> [scope: active]</span>
+                    <span>ID_0{idx + 1}</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {/* BOUTON DEVIS STANDARD */}
+                    <button
+                      type="button"
+                      onClick={() => openQuoteModal(service)}
+                      className="w-full py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#FF6B35] hover:text-white transition-all duration-300 rounded-none"
+                    >
+                      Dossier Devis
+                    </button>
+
+                    {/* BOUTON ACCÈS DIRECT CHAT WHATSAPP */}
+                    <a
+                      href={`https://wa.me/243829054350?text=${encodeURIComponent(`Bonjour, je suis intéressé par le service : ${service.title}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 border border-[#25D366] text-[#25D366] bg-[#25D366]/5 font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-[#25D366] hover:text-black flex items-center justify-center gap-2 transition-all duration-300 rounded-none text-center"
+                    >
+                      <FaWhatsapp className="text-sm" /> Chat Open
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-        </div>
+      </div>
 
-      <AnimatePresence>
-        {isModalOpen && selectedService && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.24),_transparent_32%),rgba(2,6,23,0.88)] px-4 py-6 backdrop-blur-sm"
-            onClick={() => setIsModalOpen(false)}
-          >
-            <motion.div
-              initial={{ y: 24, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 24, opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-[24px] border border-white/20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl"
-            >
-              <div className="flex items-start justify-between gap-4 border-b border-white/10 bg-white/5 p-5 md:p-6">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-500/20 text-orange-400">
-                    {selectedService.icon}
-                  </div>
-                  <div>
-                    <p className="mb-2 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                      Demande de devis
-                    </p>
-                    <h3 className="text-xl font-black uppercase tracking-wider text-white">
-                      {selectedService.title}
-                    </h3>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={scrollModalToTop}
-                    className="rounded-full border border-white/10 p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
-                    aria-label="Remonter dans la fenêtre"
-                  >
-                    <FaArrowUp />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={scrollModalToBottom}
-                    className="rounded-full border border-white/10 p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
-                    aria-label="Descendre dans la fenêtre"
-                  >
-                    <FaArrowDown />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="rounded-full border border-white/10 p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
-                  >
-                    <FaTimes />
-                  </button>
-                </div>
-              </div>
-
-              <div ref={modalContentRef} className="max-h-[calc(90vh-120px)] overflow-y-auto">
-                <form onSubmit={handleSubmit} className="space-y-6 p-5 md:p-8">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <div className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      <FaQuoteLeft className="text-orange-500" />
-                      Détails du projet
-                    </div>
-                    <p className="text-sm text-slate-300">{selectedService.description}</p>
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nom complet</label>
-                      <input type="text" name="name" required value={formData.name} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="Votre nom" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Email</label>
-                      <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="votre@email.com" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Société</label>
-                      <input type="text" name="company" value={formData.company} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="Nom de votre structure" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Téléphone</label>
-                      <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="+243 ..." />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Budget</label>
-                      <input type="text" name="budget" value={formData.budget} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="Ex. 3000$" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Délais</label>
-                      <input type="text" name="timeline" value={formData.timeline} onChange={handleInputChange} className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-slate-400" placeholder="Ex. 2 semaines" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Cahier des charges / Message</label>
-                    <textarea
-                      name="message"
-                      rows="4"
-                      required
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2.5 text-sm text-white outline-none resize-none placeholder:text-slate-400"
-                      placeholder="Détaillez vos besoins opérationnels..."
-                    />
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <div className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      <FaLayerGroup className="text-orange-500" /> Service sélectionné
-                    </div>
-                    <p className="font-semibold text-white">{selectedService.title}</p>
-                    <p className="mt-1 text-sm text-slate-300">{selectedService.description}</p>
-                  </div>
-
-                  <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(false)}
-                      className="rounded-full border border-white/10 px-4 py-2 font-sans font-bold uppercase text-[10px] tracking-widest text-slate-300 transition-colors hover:bg-white/10"
-                    >
-                      Annuler
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="rounded-full bg-gradient-to-r from-orange-500 to-amber-400 px-6 py-2 font-sans font-bold uppercase text-[10px] tracking-widest text-slate-950 transition-all duration-200 hover:brightness-110 disabled:opacity-50"
-                    >
-                      {isSubmitting ? 'Traitement...' : 'Valider la commande'}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Modal devis complet (QuoteModal) */}
+      <QuoteModal
+        isOpen={isModalOpen}
+        onClose={closeQuoteModal}
+        defaultService={
+          selectedService
+            ? serviceTitleToProjectType(selectedService.title)
+            : ''
+        }
+      />
     </section>
   );
 }
+
+
