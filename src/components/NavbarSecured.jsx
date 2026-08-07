@@ -87,10 +87,10 @@ export default function NavbarSecured() {
         { href: '/about', label: 'Ma vision', icon: <FaUser /> },
         { href: '/work', label: 'Coaching', icon: <FaUser /> },
         { href: '/gallery', label: 'Galerie', icon: <FaImages /> },
-        { href: '/blog', label: 'Blog', icon: <FaCode /> },
+        // { href: '/blog', label: 'Blog', icon: <FaCode /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
         { href: '/skills', label: 'Techniques', icon: <FaCode /> },
-        { href: '/testimonials', label: 'Avis', icon: <FaBriefcase /> },
+        // { href: '/testimonials', label: 'Avis', icon: <FaBriefcase /> },
       ],
     },
   ];
