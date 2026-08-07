@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaBars, FaTimes, FaEnvelope, FaSignInAlt, FaSignOutAlt, 
   FaTachometerAlt, FaHome, FaTools, FaBriefcase, FaUser, 
-  FaCode, FaChevronDown 
+  FaCode, FaChevronDown, FaImages 
 } from 'react-icons/fa';
 
 import notificationService from '../services/notificationService';
@@ -86,10 +86,11 @@ export default function NavbarSecured() {
       items: [
         { href: '/about', label: 'Ma vision', icon: <FaUser /> },
         { href: '/work', label: 'Coaching', icon: <FaUser /> },
-        // { href: '/blog', label: 'Livres', icon: <FaBriefcase /> },
+        { href: '/gallery', label: 'Galerie', icon: <FaImages /> },
+        { href: '/blog', label: 'Blog', icon: <FaCode /> },
         { href: '/offers', label: 'Offres', icon: <FaBriefcase /> },
         { href: '/skills', label: 'Techniques', icon: <FaCode /> },
-        { href: '/testimonials', label: 'Blog', icon: <FaCode /> },
+        { href: '/testimonials', label: 'Avis', icon: <FaBriefcase /> },
       ],
     },
   ];

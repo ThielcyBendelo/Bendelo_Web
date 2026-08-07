@@ -4,6 +4,7 @@ import GoogleAnalyticsTracker from "./components/Analytics";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Blog from './pages/Blog.jsx';
+import Gallery from './pages/Gallery.jsx';
 import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
@@ -95,6 +96,7 @@ const AppContent = () => {
             <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/offers" element={<OffersPage />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/gallery" element={<Gallery />} />
           </Route>
 
           {/* --- PORTAILS D'ACCÈS ISOLÉS --- */}

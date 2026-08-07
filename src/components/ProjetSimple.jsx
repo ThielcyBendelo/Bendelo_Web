@@ -63,28 +63,36 @@ export default function ProjetSimple() {
           </div>
         </div>
 
-        {/* --- FILTRES BARRE D'OUTILS EN ROBUSTESSE RECTILIGNE --- */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat) => {
-            const isSelected = activeFilter === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveFilter(cat.id)}
-                className={`flex items-center gap-2 px-6 py-3 font-mono font-bold uppercase text-[10px] tracking-widest border transition-all duration-300 rounded-none ${
-                  isSelected 
-                    ? 'bg-white text-black border-transparent shadow-xl' 
-                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
-                }`}
-              >
-                <span className={isSelected ? 'text-black' : 'text-slate-500 group-hover:text-[#FF6B35]'}>
-                  {cat.icon}
-                </span>
-                {cat.label}
-              </button>
-            );
-          })}
+        {/* --- FILTRES CATÉGORIES (puces alignées, scroll tactile sans barre) --- */}
+        <div className="flex justify-center mb-16">
+          <div
+            role="tablist"
+            aria-label="Catégories de projets"
+            className="inline-flex flex-nowrap items-center gap-2 sm:gap-2.5 max-w-full overflow-x-auto overscroll-x-contain px-1 py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          >
+            {categories.map((cat) => {
+              const isSelected = activeFilter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveFilter(cat.id)}
+                  className={`shrink-0 whitespace-nowrap inline-flex items-center gap-2 rounded-full px-5 sm:px-6 py-2.5 font-mono font-bold uppercase text-[10px] sm:text-[11px] tracking-widest border transition-all duration-300 ${
+                    isSelected
+                      ? 'bg-[#0f3d2e] text-emerald-100 border-emerald-500/40 shadow-[0_0_0_1px_rgba(16,185,129,0.15)]'
+                      : 'bg-[#141a22] border-white/10 text-slate-400 hover:border-white/25 hover:text-slate-200'
+                  }`}
+                >
+                  <span className={isSelected ? 'text-emerald-200' : 'text-slate-500'}>
+                    {cat.icon}
+                  </span>
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* --- GRILLE DE PROJETS CHIRURGICALE STYLE REPOSITORY INDEX --- */}

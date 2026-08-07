@@ -4,8 +4,8 @@ import {
   FaRocket, FaMobileAlt, FaPalette, FaShieldAlt, FaTools,
   FaCloud, FaGraduationCap, FaCheck, FaPaperPlane,
   FaCalendarAlt, FaLightbulb,
-  FaBook, FaGlobeAfrica, FaLayerGroup, FaFilter,
-  FaClock, FaDollarSign, FaWhatsapp
+  FaBook, FaGlobeAfrica, FaLayerGroup,
+  FaClock, FaDollarSign, FaWhatsapp, FaCogs
 } from 'react-icons/fa';
 import QuoteModal from './QuoteModal';
 
@@ -25,8 +25,6 @@ export default function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
-  const [budgetFilter, setBudgetFilter] = useState('all');
-  const [timelineFilter, setTimelineFilter] = useState('all');
 
   const openQuoteModal = (service) => {
     setSelectedService(service);
@@ -39,23 +37,9 @@ export default function Services() {
   };
 
   const categories = [
-    { id: 'all', label: 'Tous' },
-    { id: 'tech', label: 'Ingénierie Tech' },
-    { id: 'impact', label: 'Éveil & Impact' }
-  ];
-
-  const budgetOptions = [
-    { id: 'all', label: 'Tous budgets' },
-    { id: 'low', label: '≤ 1 000 $' },
-    { id: 'mid', label: '1 000 $ – 2 500 $' },
-    { id: 'high', label: '2 500 $ +' }
-  ];
-
-  const timelineOptions = [
-    { id: 'all', label: 'Tous délais' },
-    { id: 'fast', label: 'Rapide' },
-    { id: 'medium', label: 'Moyen' },
-    { id: 'long', label: 'Long' }
+    { id: 'all', label: 'Tous', icon: <FaLayerGroup /> },
+    { id: 'tech', label: 'Ingénierie Tech', icon: <FaCogs /> },
+    { id: 'impact', label: 'Éveil & Impact', icon: <FaLightbulb /> }
   ];
 
   const services = [
@@ -217,12 +201,9 @@ export default function Services() {
     }
   ];
 
-  const filteredServices = services.filter((service) => {
-    const matchesCategory = activeFilter === 'all' || service.category === activeFilter;
-    const matchesBudget = budgetFilter === 'all' || service.budgetRange === budgetFilter;
-    const matchesTimeline = timelineFilter === 'all' || service.timelineRange === timelineFilter;
-    return matchesCategory && matchesBudget && matchesTimeline;
-  });
+  const filteredServices = services.filter(
+    (service) => activeFilter === 'all' || service.category === activeFilter
+  );
 
   return (
     <section 
@@ -257,62 +238,35 @@ export default function Services() {
           </p>
         </div>
 
-        {/* --- FILTRES CATÉGORIES --- */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {categories.map((cat) => {
-            const isSelected = activeFilter === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveFilter(cat.id)}
-                className={`px-6 py-3 font-mono font-bold uppercase text-[10px] tracking-widest border transition-all duration-300 rounded-none ${
-                  isSelected
-                    ? 'bg-white text-black border-transparent shadow-xl'
-                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* --- ZONE BARRE D'OUTILS SÉLECTEURS (STRICTEMENT RECTILIGNE) --- */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
-          
-          {/* SÉLECTEUR BUDGET */}
-          <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-2.5 rounded-none">
-            <FaFilter className="text-[#FF6B35] text-xs" />
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">BUDGET:</span>
-            <select
-              value={budgetFilter}
-              onChange={(e) => setBudgetFilter(e.target.value)}
-              className="bg-transparent text-[11px] font-mono font-bold uppercase tracking-wider text-white outline-none cursor-pointer border-none p-0 pr-6"
-            >
-              {budgetOptions.map((option) => (
-                <option key={option.id} value={option.id} className="bg-[#0A1622] text-white">
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* SÉLECTEUR DÉLAIS */}
-          <div className="flex items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-md px-4 py-2.5 rounded-none">
-            <FaClock className="text-[#FF6B35] text-xs" />
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">DÉLAIS:</span>
-            <select
-              value={timelineFilter}
-              onChange={(e) => setTimelineFilter(e.target.value)}
-              className="bg-transparent text-[11px] font-mono font-bold uppercase tracking-wider text-white outline-none cursor-pointer border-none p-0 pr-6"
-            >
-              {timelineOptions.map((option) => (
-                <option key={option.id} value={option.id} className="bg-[#0A1622] text-white">
-                  {option.label}
-                </option>
-              ))}
-            </select>
+        {/* --- FILTRES CATÉGORIES (puces + icônes, scroll tactile sans barre) --- */}
+        <div className="flex justify-center mb-16">
+          <div
+            role="tablist"
+            aria-label="Catégories de services"
+            className="inline-flex flex-nowrap items-center gap-2 sm:gap-2.5 max-w-full overflow-x-auto overscroll-x-contain px-1 py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          >
+            {categories.map((cat) => {
+              const isSelected = activeFilter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveFilter(cat.id)}
+                  className={`shrink-0 whitespace-nowrap inline-flex items-center gap-2 rounded-full px-5 sm:px-6 py-2.5 font-mono font-bold uppercase text-[10px] sm:text-[11px] tracking-widest border transition-all duration-300 ${
+                    isSelected
+                      ? 'bg-[#0f3d2e] text-emerald-100 border-emerald-500/40 shadow-[0_0_0_1px_rgba(16,185,129,0.15)]'
+                      : 'bg-[#141a22] border-white/10 text-slate-400 hover:border-white/25 hover:text-slate-200'
+                  }`}
+                >
+                  <span className={isSelected ? 'text-emerald-200' : 'text-slate-500'}>
+                    {cat.icon}
+                  </span>
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
