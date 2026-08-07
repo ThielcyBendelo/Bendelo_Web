@@ -121,10 +121,10 @@ export default function NavbarSecured() {
             className="text-lg font-bold uppercase tracking-widest text-white leading-none"
             style={{ fontFamily: "'Antonio', sans-serif" }}
           >
-            Bendelo Thielcy<span className="text-[#FF6B35]">.</span>
+            Full-Stack<span className="text-[#FF6B35]">.</span>
           </span>
           <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-[#FF6B35] font-bold block mt-1.5">
-            // PRINCIPAL_SOFTWARE_ENGINEER
+            // SOFTWARE_ENGINEER
           </span>
         </div>
       </div>

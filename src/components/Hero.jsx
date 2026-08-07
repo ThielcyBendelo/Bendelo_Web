@@ -24,9 +24,38 @@ import LazyImage from './LazyImage';
 import { useEffect, useState } from 'react';
 import { irThielcy } from '../assets/assets.js';
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
-import AnimatedSection from './AnimatedSection';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+
+const easeOut = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.1, ease: easeOut },
+  }),
+};
+
+const staggerParent = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+  },
+};
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 36, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: easeOut },
+  },
+};
+
 export default function Hero() {
   const scrollY = useParallax();
   const [elementRef] = useIntersectionObserver();
@@ -103,152 +132,350 @@ export default function Hero() {
 
   return (
     <>
-{/* ================= 1. SECTION HERO : DESIGN INGENIEUR ET MAILLAGE STRICT ================= */}
+{/* ================= 1. SECTION HERO : ARCHITECTURE BLEU CÉLESTE & ORANGE ================= */}
 <section
   ref={elementRef}
   id="home"
-  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 overflow-hidden bg-[#0a1622]"
+  className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-16 overflow-hidden bg-[#0E243A]"
 >
-  {/* --- GRILLE BLUEPRINT STRICTE EN ARRIÈRE-PLAN --- */}
-  <div 
-    className="absolute inset-0 z-0 opacity-15 pointer-events-none"
-    style={{ 
-      backgroundImage: `linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)`, 
-      backgroundSize: '45px 45px',
-      backgroundPosition: 'center top'
-    }} 
-  />
-
-  {/* Image de fond avec parallaxe ultra-atténuée */}
+  {/* --- ARRIÈRE-PLAN : SLIDER ET OVERLAY MAT --- */}
   <div
-    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-[0.04] pointer-events-none"
+    className="absolute inset-0 w-full h-full transition-all duration-1000 grayscale opacity-10"
     style={{
       backgroundImage: `url(${backgrounds[bgIndex]})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
-      transform: `translateY(${scrollY * 0.3}px)`,
+      transform: `translateY(${scrollY * 0.4}px)`,
     }}
   />
 
-  {/* Lignes structurelles verticales (Piliers de construction) */}
-  <div className="absolute inset-0 z-10 opacity-10 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white">
-    <div className="border-r border-white h-full" />
-    <div className="border-r border-white h-full" />
-    <div className="border-r border-white h-full" />
+  {/* Overlay de contraste technique (Mat pro à 75% pour profondeur) */}
+  <div className="absolute inset-0 bg-[#0E243A]/75 z-10" />
+
+  {/* Lignes de grille structurelles discrètes (Style blueprint d'ingénieur) */}
+  <div className="absolute inset-0 z-15 opacity-10 pointer-events-none grid grid-cols-4 max-w-7xl mx-auto w-full border-x border-white/20">
+    <div className="border-r border-white/20 h-full" />
+    <div className="border-r border-white/20 h-full" />
+    <div className="border-r border-white/20 h-full" />
   </div>
 
-  <div className="relative z-20 max-w-5xl mx-auto px-4 py-16 w-full">
+  <motion.div
+    className="relative z-20 max-w-5xl mx-auto px-4 py-16"
+    variants={staggerParent}
+    initial="hidden"
+    animate="visible"
+  >
     
-    {/* --- IMAGE DE PROFIL : ENCADREMENT BRUT ET CARRÉ --- */}
-    <AnimatedSection variant="fadeIn" delay={0.2}>
-      <div className="mb-12 flex justify-center">
-        <motion.div
-          whileTap={{ scale: 0.99 }}
-          className="relative p-2 border border-white/20 bg-white/[0.02] backdrop-blur-md rounded-none"
-        >
-          {/* Repères angulaires géométriques parfaits (sans arrondis) */}
-          <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-white rounded-none" />
-          <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-white rounded-none" />
-          
-          <LazyImage
-            src={irThielcy}
-            alt="Ir Bendelo Thielcy"
-            className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-white/10 rounded-none"
-            style={{ objectPosition: 'center 35%' }}
-            priority={true}
-          />
-        </motion.div>
-      </div>
-    </AnimatedSection>
-
-    {/* --- BLOC TYPOGRAPHIQUE PRINCIPAL CORRESPONDANT A L'IMAGE --- */}
-    <AnimatedSection variant="slideUp" delay={0.4}>
-      <div className="mb-12 text-center flex flex-col items-center">
+    {/* --- IMAGE DE PROFIL : CADRE ARCHITECTURAL --- */}
+    <motion.div variants={fadeUp} custom={0} className="mb-12 flex justify-center">
+      <motion.div
+        whileHover={{ scale: 1.03, rotate: 0.4 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+        className="relative p-2 border border-white/20 bg-white/5 backdrop-blur-sm group"
+      >
+        {/* Cadre asymétrique technique blanc */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white transition-all duration-300 group-hover:w-6 group-hover:h-6 group-hover:border-[#FF6B35]" />
+        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white transition-all duration-300 group-hover:w-6 group-hover:h-6 group-hover:border-[#FF6B35]" />
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shadow-[0_0_40px_rgba(255,107,53,0.18)]" />
         
-        <span className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-5 block">
-          // TECHNICAL_STACK
+        <LazyImage
+          src={irThielcy}
+          alt="Ir Bendelo Thielcy"
+          className="w-40 h-40 md:w-48 md:h-48 object-cover grayscale group-hover:grayscale-0 transition-all duration-700 border border-white/10 group-hover:scale-[1.02]"
+          style={{ objectPosition: 'center 35%' }}
+          priority={true}
+        />
+      </motion.div>
+    </motion.div>
+
+    {/* --- BLOC TYPOGRAPHIQUE PRINCIPAL --- */}
+    <div className="mb-12 text-center flex flex-col items-center">
+      
+      <motion.span
+        variants={fadeUp}
+        custom={1}
+        className="text-white/60 font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block"
+      >
+        // Principal Software Engineer
+      </motion.span>
+
+      <motion.h1
+        variants={fadeUp}
+        custom={2}
+        className="text-5xl md:text-8xl font-black mb-6 text-white uppercase tracking-wider leading-none"
+        style={{ fontFamily: "'Antonio', sans-serif" }}
+      >
+        <span className="inline-block hover:tracking-[0.08em] transition-all duration-500">
+          Bendelo Thielcy
         </span>
-
-        <h1
-          className="text-4xl md:text-7xl font-black mb-8 text-white uppercase tracking-tight leading-none"
-          style={{ fontFamily: "'Antonio', sans-serif" }}
+        <motion.span
+          className="text-[#FF6B35] inline-block"
+          animate={{ opacity: [1, 0.45, 1], scale: [1, 1.08, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
         >
-          EXPERTISE <span className="text-[#FF6B35] italic">INGÉNIERIE</span>
-        </h1>
+          .
+        </motion.span>
+      </motion.h1>
 
-        <div className="max-w-3xl space-y-6">
-          <p className="text-xl md:text-2xl text-slate-200 font-light tracking-wide leading-relaxed">
-            Solutions logicielles critiques et architectures distribuées conçues pour <span className="font-semibold text-white">l'excellence opérationnelle</span> et la haute disponibilité.
-          </p>
-          
-          <p className="text-xs md:text-sm text-white/40 max-w-xl mx-auto italic font-mono pt-4 border-t border-white/5 uppercase tracking-wider">
-            "Fusionner l'excellence technique et l'éveil humain pour bâtir l'avenir."
-          </p>
-        </div>
-
-        {/* Badge Agence Style Console Strict */}
-        <div className="mt-12">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 border border-white/10 bg-white/[0.03] font-mono text-[10px] text-white tracking-[0.2em] rounded-none">
-            <span className="w-2 h-2 bg-[#FF6B35] rounded-none animate-pulse" />
-            <span>SYS_ID: LEAD @ <span className="text-[#FF6B35] font-bold">MUAMOKEL AGENCY</span></span>
-          </div>
-        </div>
+      <div className="max-w-3xl space-y-6">
+        <motion.p
+          variants={fadeUp}
+          custom={3}
+          className="text-lg md:text-3xl text-white font-light leading-snug"
+        >
+          Associé & Entrepreneur Digital spécialisé dans la{' '}
+          <span className="font-bold italic border-b-2 border-[#FF6B35]/50 hover:border-[#FF6B35] transition-colors duration-300">
+            conception de systèmes
+          </span>{' '}
+          haute performance.
+        </motion.p>
+        
+        <motion.p
+          variants={fadeUp}
+          custom={4}
+          className="text-base md:text-lg text-[#FF6B35] max-w-2xl mx-auto leading-relaxed font-black uppercase tracking-widest"
+        >
+          Expertise avancée en écosystèmes Web & Mobile pour architectures critiques.
+        </motion.p>
+        
+        <motion.p
+          variants={fadeUp}
+          custom={5}
+          className="text-xs md:text-sm text-white/50 max-w-xl mx-auto italic font-mono pt-2"
+        >
+          &quot;Fusionner l&apos;excellence technique et l&apos;éveil humain pour bâtir l&apos;avenir.&quot;
+        </motion.p>
       </div>
-    </AnimatedSection>
 
-    {/* --- BOUTONS D'ACTION RADICAUX (SANS ARRONDIS) --- */}
-    <AnimatedSection variant="slideUp" delay={0.8}>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <button
-          onClick={() => navigate('/contact')}
-          className="w-full sm:w-auto px-12 py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-all duration-300 rounded-none"
+      {/* Badge Agence Style Console */}
+      <motion.div variants={fadeUp} custom={6} className="mt-12">
+        <motion.div
+          whileHover={{ scale: 1.03, borderColor: 'rgba(255,107,53,0.45)' }}
+          className="inline-flex items-center gap-3 px-5 py-2 border border-white/10 bg-white/5 font-bold text-[10px] text-white tracking-[0.2em] rounded-sm transition-colors duration-300"
         >
-          Me contacter
-        </button>
+          <span className="w-1.5 h-1.5 bg-[#FF6B35] animate-pulse" />
+          <span>ID: INNOVATION_LEAD @ <span className="text-white font-black">MUAMOKEL AGENCY</span></span>
+        </motion.div>
+      </motion.div>
+    </div>
 
-        <button
-          onClick={() => navigate('/services')}
-          className="w-full sm:w-auto px-12 py-4 border-2 border-white text-white font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-none"
-        >
-          Explorer mes pôles
-        </button>
-      </div>
-    </AnimatedSection>
-  </div>
+    {/* --- BOUTONS D'ACTION --- */}
+    <motion.div
+      variants={fadeUp}
+      custom={7}
+      className="flex flex-col sm:flex-row gap-5 justify-center items-center"
+    >
+      <motion.button
+        type="button"
+        onClick={() => navigate('/contact')}
+        whileHover={{ scale: 1.04, y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        className="w-full sm:w-auto px-12 py-4 bg-white text-[#0A1128] font-black uppercase text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors duration-300 shadow-[0_0_0_rgba(255,107,53,0)] hover:shadow-[0_12px_40px_rgba(255,107,53,0.25)]"
+      >
+        Me contacter
+      </motion.button>
 
-  {/* --- INDICATEUR DE SCROLL INDUSTRIEL --- */}
-  <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">Scroll</span>
-    <div className="w-[1px] h-12 bg-gradient-to-b from-[#FF6B35] to-transparent" />
-  </div>
+      <motion.button
+        type="button"
+        onClick={() => navigate('/services')}
+        whileHover={{ scale: 1.04, y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        className="w-full sm:w-auto px-12 py-4 border-2 border-white text-white font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-colors duration-300"
+      >
+        Explorer mes pôles
+      </motion.button>
+    </motion.div>
+  </motion.div>
+
+  {/* --- INDICATEUR DE SCROLL --- */}
+  <motion.div
+    className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+    animate={{ y: [0, 8, 0], opacity: [0.55, 1, 0.55] }}
+    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+  >
+    <div className="w-[1px] h-14 bg-gradient-to-b from-[#FF6B35] to-transparent" />
+    <span className="text-[9px] font-mono uppercase tracking-[0.35em] text-white/40">scroll</span>
+  </motion.div>
 </section>
 
-{/* ================= 2. SECTION TECH MARQUEE : RUPTURE DE CONSTELLATION SANS COMPROMIS ================= */}
-<section className="py-14 bg-white border-y border-slate-200 overflow-hidden relative z-20">
+{/* ================= 2. SECTION TECH MARQUEE : FOND BLANC ÉPURÉ ================= */}
+<section className="py-14 bg-white border-y border-slate-100 overflow-hidden">
   <div className="flex whitespace-nowrap">
     <motion.div 
       animate={{ x: ["0%", "-50%"] }}
-      transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       className="flex items-center"
     >
       {[...techs, ...techs].map((tech, i) => (
-        <div key={i} className="flex items-center gap-5 mx-12 group cursor-default">
-          <span className="text-2xl text-slate-400 group-hover:text-[#FF6B35] transition-all duration-300 transform rounded-none">
+        <motion.div
+          key={i}
+          whileHover={{ y: -4, scale: 1.05 }}
+          className="flex items-center gap-5 mx-12 group cursor-default"
+        >
+          
+          {/* Icône technologique - Passe de Slate à Orange au survol */}
+          <span className="text-2xl text-slate-400 group-hover:text-[#FF6B35] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(255,107,53,0.45)]">
             {tech.icon} 
           </span>
-          <span className="text-xs md:text-sm font-black text-slate-600 group-hover:text-black transition-colors duration-300 uppercase tracking-[0.25em] font-mono">
+
+          {/* Nom de la technologie - Noir pro (Bleu de nuit) */}
+          <span className="text-sm font-black text-slate-500 group-hover:text-[#0A1128] transition-colors duration-300 uppercase tracking-[0.2em] font-sans group-hover:tracking-[0.28em]">
             {tech.name}
           </span>
-          <span className="ml-8 font-mono text-sm text-slate-200 group-hover:text-[#FF6B35] opacity-60">
+
+          {/* Séparateur Pipeline */}
+          <span className="ml-8 font-mono text-xs text-slate-200 group-hover:text-[#FF6B35] opacity-50 transition-colors duration-300">
             /
           </span>
-        </div>
+        </motion.div>
       ))}
     </motion.div>
   </div>
 </section>
 
+
+{/* ================= 2. SECTION DOUBLE IDENTITÉ : ÉVEILLEUR & AUTEUR ================= */}
+<section className="bg-[#0E243A] py-24 px-6 relative overflow-hidden border-t border-white/5">
+  
+  {/* Décoration d'arrière-plan subtile (Style circuit/blueprint) */}
+  <div className="absolute inset-0 z-0 opacity-5 pointer-events-none">
+    <div className="w-full h-full" style={{ 
+      backgroundImage: 'radial-gradient(#00A3E0 1px, transparent 1px)', 
+      backgroundSize: '30px 30px' 
+    }} />
+  </div>
+
+  {/* --- EN-TÊTE DE SECTION --- */}
+  <div className="relative z-10 text-center max-w-4xl mx-auto mb-20">
+    <motion.h2 
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, ease: easeOut }}
+      viewport={{ once: true, amount: 0.4 }}
+      className="text-4xl md:text-6xl font-black mb-6 text-white uppercase tracking-tighter leading-none"
+      style={{ fontFamily: "'Antonio', sans-serif" }}
+    >
+      Au-delà du <span className="text-[#FF6B35] italic">Code</span>, l&apos;Humain.
+    </motion.h2>
+    
+    <motion.p 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.15, duration: 0.6, ease: easeOut }}
+      viewport={{ once: true, amount: 0.4 }}
+      className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto"
+    >
+      Je ne construis pas seulement des systèmes logiciels performants. Je développe des écosystèmes de pensée pour catalyser l&apos;émergence d&apos;une nouvelle génération de leaders.
+    </motion.p>
+  </div>
+
+  {/* --- GRILLE DE CARTES ARCHITECTURALES --- */}
+  <motion.div
+    className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto"
+    variants={staggerParent}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.2 }}
+  >
+      
+      {/* CARTE 1 : ÉVEILLEUR DE CONSCIENCE */}
+      <motion.div 
+        variants={cardReveal}
+        whileHover={{ y: -12, scale: 1.01 }}
+        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+        className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="space-y-8 relative z-10">
+          <motion.div
+            whileHover={{ rotate: -8, scale: 1.12 }}
+            className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
+          >
+            <FaLightbulb className="animate-pulse" />
+          </motion.div>
+          
+          <div>
+            <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
+              Éveilleur de <span className="text-[#FF6B35]">Conscience</span>
+            </h4>
+            <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
+              Catalyser le potentiel de la jeunesse africaine par une approche systémique du leadership et du mindset stratégique. Déconstruire les barrières mentales pour activer une productivité à fort impact.
+            </p>
+          </div>
+
+          {/* Style Terminal Info */}
+          <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
+            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Focus: Décolonisation Mentale</p>
+            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Objectif: Souveraineté Intellectuelle</p>
+          </div>
+        </div>
+        
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
+          <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">CORE_SYSTEM_01</span>
+          <motion.button 
+            type="button"
+            onClick={() => navigate('/work')}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto px-8 py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors duration-300"
+          >
+            Vision Stratégique
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* CARTE 2 : PLUME D'IMPACT (AUTEUR) */}
+      <motion.div 
+        variants={cardReveal}
+        whileHover={{ y: -12, scale: 1.01 }}
+        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+        className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="space-y-8 relative z-10">
+          <motion.div
+            whileHover={{ rotate: 8, scale: 1.12 }}
+            className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
+          >
+            <FaBookOpen />
+          </motion.div>
+          
+          <div>
+            <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
+              Plume d&apos;<span className="text-[#FF6B35]">Impact</span>
+            </h4>
+            <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
+              Transmettre des architectures de pensée à travers des ouvrages dédiés à la transformation intérieure profonde. Coder des manifestes littéraires pour ancrer le succès et le leadership.
+            </p>
+          </div>
+
+          {/* Style Terminal Info */}
+          <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
+            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Edition: Ouvrages de Leadership</p>
+            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Statut: En cours de publication</p>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
+          <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">LIT_LEDGER_02</span>
+          <motion.button 
+            type="button"
+            onClick={() => navigate('/projects')}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto px-8 py-3 bg-transparent border border-white text-white font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors duration-300"
+          >
+            Consulter les Livres
+          </motion.button>
+        </div>
+      </motion.div>
+      
+  </motion.div>
+</section>
 
 
 {/* ================= 3. SECTION BENTO SERVICES : INGÉNIERIE & PERFORMANCE ================= */}
@@ -264,7 +491,12 @@ export default function Hero() {
 
   {/* --- EN-TÊTE DE SECTION --- */}
   <div className="relative z-10 text-center mb-20 max-w-4xl mx-auto">
-    <AnimatedSection variant="slideUp">
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, ease: easeOut }}
+      viewport={{ once: true, amount: 0.4 }}
+    >
       <span className="text-[#FF6B35] font-bold uppercase tracking-[0.5em] text-[10px] mb-4 block">
         // Technical_Stack
       </span>
@@ -273,37 +505,46 @@ export default function Hero() {
         Expertise <span className="text-[#FF6B35] italic">Ingénierie</span>
       </h2>
       <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
-        Solutions logicielles critiques et architectures distribuées conçues pour l'excellence opérationnelle et la haute disponibilité.
+        Solutions logicielles critiques et architectures distribuées conçues pour l&apos;excellence opérationnelle et la haute disponibilité.
       </p>
-    </AnimatedSection>
+    </motion.div>
   </div>
 
   {/* --- GRILLE SERVICES CHIRURGICALE : STYLE GLASSMORPHISM --- */}
-  <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+  <motion.div
+    className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
+    variants={staggerParent}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.15 }}
+  >
     {services.map((s, i) => (
       <motion.div 
         key={i}
-        whileHover={{ y: -8 }}
+        variants={cardReveal}
+        whileHover={{ y: -10, scale: 1.015 }}
         whileTap={{ scale: 0.98 }}
-        className={`${s.size || ''} relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm transition-all duration-500 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[320px] group shadow-2xl`}
+        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+        className={`${s.size || ''} relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm transition-colors duration-500 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[320px] group shadow-2xl overflow-hidden`}
       >
         {/* Glow discret au survol */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
 
         <div className="relative z-10 flex flex-col h-full justify-between">
           <div>
             {/* Icône - S'illumine en orange au survol */}
-            <div className="text-white text-3xl mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110">
+            <div className="text-white text-3xl mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6">
               {s.icon}
             </div>
             
             {/* Titre épuré en Blanc pur */}
-            <h3 className="text-xl font-bold uppercase tracking-widest text-white mb-4">
+            <h3 className="text-xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.14em] transition-all duration-500">
               {s.title}
             </h3>
             
             {/* Description en gris bleuté pour la lisibilité */}
-            <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
+            <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide group-hover:text-slate-300 transition-colors duration-300">
               {s.desc}
             </p>
           </div>
@@ -320,7 +561,7 @@ export default function Hero() {
         </div>
       </motion.div>
     ))}
-  </div>
+  </motion.div>
 </section>
 
 

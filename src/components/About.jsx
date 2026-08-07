@@ -8,6 +8,35 @@ import LazyImage from './LazyImage';
 import GoogleMapsSection from './GoogleMapsSection';
 import { FaGraduationCap, FaRocket, FaShieldAlt,FaCertificate,  FaExternalLinkAlt, FaUserCheck, FaTerminal, FaBookOpen, FaLightbulb, FaGlobeAfrica, FaQuoteLeft } from 'react-icons/fa';
 
+const easeOut = [0.22, 1, 0.36, 1];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, delay: i * 0.08, ease: easeOut },
+  }),
+};
+
+const staggerParent = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+  },
+};
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: easeOut },
+  },
+};
+
 const credentials = [
   // {
   //   type: "certification",
@@ -79,65 +108,95 @@ export default function About() {
       
       {/* Image avec cadre asymétrique technique - Strictement Carré */}
       <motion.div className="lg:col-span-5 relative" 
-        initial={{ opacity: 0, x: -30 }}
+        initial={{ opacity: 0, x: -36 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.75, ease: easeOut }}
       >
-        <div className="relative p-2 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-none">
+        <motion.div
+          whileHover={{ scale: 1.015 }}
+          transition={{ type: 'spring', stiffness: 240, damping: 18 }}
+          className="relative p-2 border border-white/10 bg-white/[0.02] backdrop-blur-md rounded-none group"
+        >
           {/* Repères angulaires géométriques parfaits (sans arrondis) */}
-          <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-white rounded-none" />
-          <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-white rounded-none" />
+          <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-white rounded-none transition-all duration-300 group-hover:w-7 group-hover:h-7 group-hover:border-[#FF6B35]" />
+          <div className="absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-white rounded-none transition-all duration-300 group-hover:w-7 group-hover:h-7 group-hover:border-[#FF6B35]" />
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shadow-[0_0_50px_rgba(255,107,53,0.14)]" />
           
           <motion.div style={{ y: yImage }} className="overflow-hidden border border-white/10 bg-neutral-900 rounded-none">
             <LazyImage
               src={irbendelo1}
               alt="Bendelo Thielcy"
-              className="w-full h-[500px] md:h-[600px] object-cover grayscale hover:grayscale-0 transition-all duration-700 rounded-none"
+              className="w-full h-[500px] md:h-[600px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 rounded-none group-hover:scale-[1.03]"
             />
           </motion.div>
           
           {/* Indicateur de métrique minimaliste style log - Carré */}
-          <div className="absolute -bottom-6 -right-4 bg-white text-black px-4 py-2.5 border border-white/10 font-mono text-[10px] tracking-widest font-black uppercase rounded-none shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.45, duration: 0.5 }}
+            whileHover={{ scale: 1.04, y: -2 }}
+            className="absolute -bottom-6 -right-4 bg-white text-black px-4 py-2.5 border border-white/10 font-mono text-[10px] tracking-widest font-black uppercase rounded-none shadow-2xl"
+          >
             [ENGAGEMENT: 100%]
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </motion.div>
 
       {/* Contenu Texte Épuré Haute Visibilité */}
-      <div className="lg:col-span-7 space-y-8">
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
-          <span className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block">
+      <motion.div
+        className="lg:col-span-7 space-y-8"
+        variants={staggerParent}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+      >
+        <div>
+          <motion.span
+            variants={fadeUp}
+            custom={0}
+            className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block"
+          >
             // INGENIEUR • COACH • AUTEUR
-          </span>
+          </motion.span>
           
-          <h1 
+          <motion.h1 
+            variants={fadeUp}
+            custom={1}
             className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-none mb-8"
             style={{ fontFamily: "'Antonio', sans-serif" }}
           >
             CODER LE FUTUR, <br />
-            <span className="text-[#FF6B35] italic">ÉVEILLER L'AFRIQUE</span>
-          </h1>
+            <span className="text-[#FF6B35] italic inline-block hover:tracking-[0.06em] transition-all duration-500">
+              ÉVEILLER L&apos;AFRIQUE
+            </span>
+          </motion.h1>
           
           {/* Bordure latérale repensée aux couleurs de l'architecture d'ingénierie */}
-          <div className="relative pl-6 border-l-2 border-[#FF6B35]/40">
+          <motion.div
+            variants={fadeUp}
+            custom={2}
+            className="relative pl-6 border-l-2 border-[#FF6B35]/40 hover:border-[#FF6B35] transition-colors duration-500"
+          >
             <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed tracking-wide italic">
               {about}
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Tags atomiques de compétences - Style console rigide */}
-        <div className="flex flex-wrap gap-3 pt-4">
+        <motion.div variants={fadeUp} custom={3} className="flex flex-wrap gap-3 pt-4">
           {["Software Engineering", "Mindset Coaching", "African Leadership", "Strategic Vision"].map((skill, i) => (
-            <span 
-              key={i} 
-              className="px-4 py-2 bg-white/[0.03] border border-white/10 font-mono font-bold text-[10px] text-slate-400 uppercase tracking-widest hover:border-[#FF6B35]/50 hover:text-[#FF6B35] transition-all duration-300 cursor-default rounded-none"
+            <motion.span 
+              key={i}
+              whileHover={{ y: -3, scale: 1.04 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-4 py-2 bg-white/[0.03] border border-white/10 font-mono font-bold text-[10px] text-slate-400 uppercase tracking-widest hover:border-[#FF6B35]/50 hover:text-[#FF6B35] transition-colors duration-300 cursor-default rounded-none"
             >
               &gt;_ {skill}
-            </span>
+            </motion.span>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
 
     <section 
@@ -157,7 +216,13 @@ export default function About() {
       <div className="max-w-7xl mx-auto relative z-10 w-full">
         
         {/* --- EN-TÊTE DE SECTION STYLE REGISTRE --- */}
-        <div className="text-center mb-20 max-w-4xl mx-auto">
+        <motion.div
+          className="text-center mb-20 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: easeOut }}
+          viewport={{ once: true, amount: 0.35 }}
+        >
           <span className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block">
             // ACADEMIC_&_PROFESSIONAL_LEDGER
           </span>
@@ -170,34 +235,39 @@ export default function About() {
           </h2>
           
           <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
-            Validation des compétences techniques et jalons académiques officiels garantissant l'excellence et la conformité des architectures déployées.
+            Validation des compétences techniques et jalons académiques officiels garantissant l&apos;excellence et la conformité des architectures déployées.
           </p>
-        </div>
+        </motion.div>
 
         {/* --- REGISTRE / TABLEAU DES CERTIFICATIONS RECTILIGNE --- */}
-        <div className="grid gap-4 max-w-5xl mx-auto w-full">
+        <motion.div
+          className="grid gap-4 max-w-5xl mx-auto w-full"
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {credentials.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05, duration: 0.4 }}
-              viewport={{ once: true }}
-              whileHover={{ x: 6 }}
+              variants={cardReveal}
+              whileHover={{ x: 8, scale: 1.01 }}
               whileTap={{ scale: 0.995 }}
-              className="group relative p-6 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-none shadow-2xl"
+              transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+              className="group relative p-6 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-colors duration-300 hover:border-[#FF6B35]/40 flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-none shadow-2xl overflow-hidden"
             >
               {/* Micro-lueur angulaire d'arrière-plan au survol */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+              <div className="absolute left-0 top-0 h-full w-0 bg-[#FF6B35]/80 group-hover:w-[3px] transition-all duration-300" />
 
               {/* Colonne Gauche : Icône, Titre, Émetteur */}
               <div className="flex items-start gap-5 min-w-0 relative z-10">
-                <div className="text-2xl text-slate-400 group-hover:text-[#FF6B35] group-hover:scale-110 transition-all duration-300 mt-1 md:mt-0">
+                <div className="text-2xl text-slate-400 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300 mt-1 md:mt-0">
                   {item.icon}
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-3 mb-2 flex-wrap">
-                    <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-white">
+                    <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-white group-hover:tracking-[0.08em] transition-all duration-400">
                       {item.title}
                     </h3>
                     
@@ -207,7 +277,7 @@ export default function About() {
                     </span>
                   </div>
                   
-                  <p className="text-xs md:text-sm text-slate-400 font-medium tracking-wide">
+                  <p className="text-xs md:text-sm text-slate-400 font-medium tracking-wide group-hover:text-slate-300 transition-colors duration-300">
                     {item.issuer} <span className="mx-2 text-white/10">|</span> <span className="font-mono text-slate-500">{item.date}</span>
                   </p>
                 </div>
@@ -232,7 +302,7 @@ export default function About() {
                   </span>
                   
                   {/* Flèche d'action discrète */}
-                  <span className="text-slate-500 group-hover:text-[#FF6B35] group-hover:translate-x-0.5 transition-all duration-300">
+                  <span className="text-slate-500 group-hover:text-[#FF6B35] group-hover:translate-x-1 transition-all duration-300">
                     <FaExternalLinkAlt className="text-xs" />
                   </span>
                 </div>
@@ -240,13 +310,19 @@ export default function About() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
 
                     {/* --- SECTION 2: LES PILIERS (Format Grille Industrielle) --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-36 relative z-10">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-36 relative z-10"
+            variants={staggerParent}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {[
               { icon: <FaTerminal />, title: "Tech Architecture", subtitle: "MUAMOKEL AGENCY" },
               { icon: <FaBookOpen />, title: "Plume d'Éveil", subtitle: "Auteur d'ouvrages" },
@@ -255,20 +331,23 @@ export default function About() {
             ].map((pillar, i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -6 }}
+                variants={cardReveal}
+                whileHover={{ y: -10, scale: 1.02 }}
                 whileTap={{ scale: 0.99 }}
-                className="relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[220px] group rounded-none shadow-2xl"
+                transition={{ type: 'spring', stiffness: 280, damping: 18 }}
+                className="relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-colors duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[220px] group rounded-none shadow-2xl overflow-hidden"
               >
                 {/* Lueur angulaire fine au survol */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
 
                 <div>
                   {/* Icône qui s'illumine en orange au survol */}
-                  <div className="text-2xl text-slate-400 mb-6 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110">
+                  <div className="text-2xl text-slate-400 mb-6 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6">
                     {pillar.icon}
                   </div>
                   {/* Titre principal */}
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-1">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-1 group-hover:tracking-[0.12em] transition-all duration-400">
                     {pillar.title}
                   </h3>
                   {/* Sous-titre style log système */}
@@ -283,15 +362,23 @@ export default function About() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* --- SECTION 3: CTA IMPACT (Style Panneau de Contrôle Reste Sombre) --- */}
-          <div className="border border-white/10 bg-white/[0.02] backdrop-blur-xl p-10 md:p-14 text-center relative overflow-hidden rounded-none shadow-2xl mb-24 z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: easeOut }}
+            viewport={{ once: true, amount: 0.25 }}
+            whileHover={{ scale: 1.005 }}
+            className="border border-white/10 bg-white/[0.02] backdrop-blur-xl p-10 md:p-14 text-center relative overflow-hidden rounded-none shadow-2xl mb-24 z-10 group"
+          >
             {/* Lignes de repères intérieures pour un look industriel renforcé */}
-            <div className="absolute top-0 left-0 w-6 h-[2px] bg-[#FF6B35]" />
-            <div className="absolute top-0 left-0 w-[2px] h-6 bg-[#FF6B35]" />
-            <div className="absolute bottom-0 right-0 w-6 h-[2px] bg-[#FF6B35]" />
-            <div className="absolute bottom-0 right-0 w-[2px] h-6 bg-[#FF6B35]" />
+            <div className="absolute top-0 left-0 w-6 h-[2px] bg-[#FF6B35] group-hover:w-10 transition-all duration-500" />
+            <div className="absolute top-0 left-0 w-[2px] h-6 bg-[#FF6B35] group-hover:h-10 transition-all duration-500" />
+            <div className="absolute bottom-0 right-0 w-6 h-[2px] bg-[#FF6B35] group-hover:w-10 transition-all duration-500" />
+            <div className="absolute bottom-0 right-0 w-[2px] h-6 bg-[#FF6B35] group-hover:h-10 transition-all duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
             <div className="relative z-10">
               <span className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block">
@@ -300,7 +387,7 @@ export default function About() {
               
               <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight uppercase leading-none"
                   style={{ fontFamily: "'Antonio', sans-serif" }}>
-                UNISSONS NOS FORCES POUR <span className="text-[#FF6B35] italic">L'EXCELLENCE</span>
+                UNISSONS NOS FORCES POUR <span className="text-[#FF6B35] italic">L&apos;EXCELLENCE</span>
               </h2>
               
               <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto mb-10">
@@ -309,23 +396,27 @@ export default function About() {
               
               {/* Boutons carrés industriels */}
               <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                <button
+                <motion.button
                   type="button"
                   onClick={() => navigate('/projects')}
-                  className="w-full sm:w-auto px-8 py-4 border border-white text-white font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all duration-300 rounded-none"
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full sm:w-auto px-8 py-4 border border-white text-white font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-colors duration-300 rounded-none"
                 >
                   Voir mes réalisations
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   type="button"
                   onClick={() => navigate('/contact')}
-                  className="w-full sm:w-auto px-8 py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-all duration-300 rounded-none"
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="w-full sm:w-auto px-8 py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors duration-300 rounded-none shadow-[0_0_0_rgba(255,107,53,0)] hover:shadow-[0_12px_40px_rgba(255,107,53,0.25)]"
                 >
                   Travailler ensemble
-                </button>
+                </motion.button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Section d'affichage cartographique */}
           <GoogleMapsSection />
