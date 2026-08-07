@@ -204,12 +204,13 @@ export default function Hero() {
       <motion.h1
         variants={fadeUp}
         custom={2}
-        className="text-5xl md:text-8xl font-black mb-6 text-white uppercase tracking-wider leading-none"
+        className="text-5xl md:text-6xl font-black mb-6 text-white uppercase tracking-wider leading-none"
         style={{ fontFamily: "'Antonio', sans-serif" }}
       >
         <span className="inline-block hover:tracking-[0.08em] transition-all duration-500">
-          Bendelo Thielcy
+          Bendelo
         </span>
+        <span className="inline-block hover:tracking-[0.08em] transition-all duration-500 text-[#FF6B35] italic">Thielcy</span>
         <motion.span
           className="text-[#FF6B35] inline-block"
           animate={{ opacity: [1, 0.45, 1], scale: [1, 1.08, 1] }}
@@ -563,8 +564,6 @@ export default function Hero() {
     ))}
   </motion.div>
 </section>
-
-
-      </>
+     </>
   );
 }
