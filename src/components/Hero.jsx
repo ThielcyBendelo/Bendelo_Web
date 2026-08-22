@@ -301,40 +301,45 @@ export default function Hero() {
   </motion.div>
 </section>
 
-{/* ================= 2. SECTION TECH MARQUEE : FOND BLANC ÉPURÉ ================= */}
-<section className="py-14 bg-white border-y border-slate-100 overflow-hidden">
-  <div className="flex whitespace-nowrap">
-    <motion.div 
-      animate={{ x: ["0%", "-50%"] }}
-      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      className="flex items-center"
-    >
-      {[...techs, ...techs].map((tech, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ y: -4, scale: 1.05 }}
-          className="flex items-center gap-5 mx-12 group cursor-default"
+
+    {/* ================= 2. SECTION TECH MARQUEE COMPACTE & SOMBRE ================= */}
+    <section className="py-8 bg-[#0A1622] border-y border-white/5 overflow-hidden relative w-full">
+      
+      {/* Masques de fondu discrets sur les côtés pour adoucir le défilement */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0A1622] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0A1622] to-transparent z-10 pointer-events-none" />
+
+      <div className="flex whitespace-nowrap overflow-hidden">
+        <motion.div 
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex items-center"
         >
-          
-          {/* Icône technologique - Passe de Slate à Orange au survol */}
-          <span className="text-2xl text-slate-400 group-hover:text-[#FF6B35] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(255,107,53,0.45)]">
-            {tech.icon} 
-          </span>
+          {[...techs, ...techs].map((tech, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -2 }}
+              className="flex items-center gap-3.5 mx-8 group cursor-default select-none"
+            >
+              {/* Icône technologique - Passe de Slate à Orange au survol */}
+              <span className="text-xl text-slate-400 group-hover:text-[#FF6B35] transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(255,107,53,0.3)]">
+                {tech.icon} 
+              </span>
 
-          {/* Nom de la technologie - Noir pro (Bleu de nuit) */}
-          <span className="text-sm font-black text-slate-500 group-hover:text-[#0A1128] transition-colors duration-300 uppercase tracking-[0.2em] font-sans group-hover:tracking-[0.28em]">
-            {tech.name}
-          </span>
+              {/* Nom de la technologie - Gris clair à Blanc pur au survol */}
+              <span className="text-xs font-bold text-slate-400 group-hover:text-white transition-colors duration-300 uppercase tracking-[0.15em] font-mono">
+                {tech.name}
+              </span>
 
-          {/* Séparateur Pipeline */}
-          <span className="ml-8 font-mono text-xs text-slate-200 group-hover:text-[#FF6B35] opacity-50 transition-colors duration-300">
-            /
-          </span>
+              {/* Séparateur Minimaliste en pipeline */}
+              <span className="ml-6 font-mono text-[10px] text-slate-700 group-hover:text-[#FF6B35]/40 transition-colors duration-300">
+                //
+              </span>
+            </motion.div>
+          ))}
         </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</section>
+      </div>
+    </section>
 
 
 {/* ================= 2. SECTION DOUBLE IDENTITÉ : ÉVEILLEUR & AUTEUR ================= */}

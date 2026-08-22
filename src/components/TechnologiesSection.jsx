@@ -99,9 +99,12 @@ const technologies = [
 ];
 
 function TechSection() {
+  // Duplication du tableau pour créer l'illusion du défilement infini et fluide sans coupure
+  const duplicatedTech = [...technologies, ...technologies];
+
   return (
     <section 
-      className="py-24 px-6 relative overflow-hidden bg-[#0A1622] border-t border-white/5" 
+      className="py-24 relative overflow-hidden bg-[#0A1622] border-t border-white/5" 
       id="tech-stack"
     >
       {/* --- MAILLAGE BLUEPRINT GÉOMÉTRIQUE EN ARRIÈRE-PLAN --- */}
@@ -114,43 +117,50 @@ function TechSection() {
         }} 
       />
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
+      {/* --- EN-TÊTE DE SECTION LOG TERMINAL --- */}
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center mb-20">
+        <motion.span 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block"
+        >
+          // STACK_TECHNOLOGIQUE
+        </motion.span>
         
-        {/* --- EN-TÊTE DE SECTION LOG TERMINAL --- */}
-        <div className="text-center mb-20 max-w-4xl mx-auto">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.4em] text-[11px] mb-4 block"
-          >
-            // STACK_TECHNOLOGIQUE
-          </motion.span>
-          
-          <h2 
-            className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-none"
-            style={{ fontFamily: "'Antonio', sans-serif" }}
-          >
-            MAÎTRISE <span className="text-[#FF6B35] italic">FULL-STACK</span>
-          </h2>
-          
-          <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
-            Une infrastructure d'outils avancés mariant ingénierie logicielle robuste, expertise réseau DevOps et intégration d'écosystèmes d'Intelligence Artificielle.
-          </p>
-        </div>
+        <h2 
+          className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-none"
+          style={{ fontFamily: "'Antonio', sans-serif" }}
+        >
+          MAÎTRISE <span className="text-[#FF6B35] italic">FULL-STACK</span>
+        </h2>
+        
+        <p className="text-lg md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl mx-auto">
+          Une infrastructure d'outils avancés mariant ingénierie logicielle robuste, expertise réseau DevOps et intégration d'écosystèmes d'Intelligence Artificielle.
+        </p>
+      </div>
 
-        {/* --- GRILLE TECHNIQUE ORTHOGONALE STRICTE --- */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {technologies.map((tech, idx) => (
+      {/* --- CONTENEUR DE DÉROULEMENT AUTOMATIQUE HORIZONTAL --- */}
+      <div className="relative w-full overflow-hidden z-10 flex">
+        {/* Masques de dégradé sur les bords pour adoucir l'entrée/sortie des cartes */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none" />
+
+        <motion.div 
+          className="flex gap-6 pr-6 w-max"
+          animate={{ x: [0, "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 45, // Ajustez cette valeur pour accélérer ou ralentir le défilement global
+            repeat: Infinity,
+          }}
+        >
+          {duplicatedTech.map((tech, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.02, duration: 0.4 }}
-              viewport={{ once: true }}
               whileHover={{ y: -6 }}
               whileTap={{ scale: 0.98 }}
-              className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[260px] rounded-none shadow-2xl"
+              className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[260px] w-[350px] shrink-0 rounded-none shadow-2xl"
             >
               {/* Micro-lueur angulaire d'ingénierie au survol */}
               <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
@@ -163,7 +173,7 @@ function TechSection() {
                   </div>
                   
                   {/* Badge de niveau type log système strict */}
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 border border-white/10 text-[#FF6B35] bg-[#FF6B35]/5 rounded-none">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 border border-white/10 text-[#FF6B35] bg-[#FF6B35]/5 rounded-none whitespace-nowrap">
                     // {tech.level}
                   </span>
                 </div>
@@ -188,7 +198,7 @@ function TechSection() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
