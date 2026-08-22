@@ -298,34 +298,40 @@ export default function OffersPage() {
             </div>
           </div>
 
-          {/* Offers grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+                 {/* --- DÉROULEMENT RESPONSIVE MOBILE HORIZONTAL / GRILLE DESKTOP --- */}
+        <div className="relative w-full z-10">
+          {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+
+          {/* Offers grid adaptatif */}
+          <div className="flex flex-nowrap md:grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-4 px-1 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x mb-24">
             {offers.map((offer) => (
               <motion.div
                 key={offer.id}
                 whileHover={{ y: -8 }}
-                className={`group relative p-8 border transition-all duration-300 flex flex-col h-full rounded-none shadow-2xl ${
+                className={`group relative p-8 border transition-all duration-300 flex flex-col h-full rounded-none shadow-2xl w-[290px] sm:w-[350px] md:w-full shrink-0 md:shrink ${
                   offer.popular
                     ? 'bg-white/[0.04] border-[#FF6B35]/50 backdrop-blur-xl md:scale-[1.02] z-10'
                     : 'bg-white/[0.02] border-white/10 backdrop-blur-md hover:border-white/20'
                 }`}
               >
                 {offer.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF6B35] text-white px-5 py-1.5 rounded-none text-[9px] font-black uppercase tracking-widest shadow-xl">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#FF6B35] text-white px-5 py-1.5 rounded-none text-[9px] font-black uppercase tracking-widest shadow-xl whitespace-nowrap">
                     Plus Populaire
                   </div>
                 )}
 
                 <div className="flex justify-between items-start mb-8">
-                  <div className="text-2xl p-4 bg-white/5 border border-white/10 text-[#FF6B35] group-hover:scale-105 transition-transform rounded-none">
+                  <div className="text-2xl p-4 bg-white/5 border border-white/10 text-[#FF6B35] group-hover:scale-105 transition-transform rounded-none flex-shrink-0">
                     {offer.icon}
                   </div>
-                  <div className="text-right">
+                  <div className="text-right ml-4">
                     <span className="text-[10px] font-mono font-bold line-through text-slate-500 block">
                       {offer.originalPrice}
                     </span>
-                    <span className="text-3xl font-black text-white">{offer.price}</span>
-                    <span className="block text-[9px] font-mono font-bold text-emerald-400 uppercase mt-1 tracking-widest">
+                    <span className="text-3xl font-black text-white whitespace-nowrap">{offer.price}</span>
+                    <span className="block text-[9px] font-mono font-bold text-emerald-400 uppercase mt-1 tracking-widest whitespace-nowrap">
                       &gt; Save {offer.savings}
                     </span>
                   </div>
@@ -345,9 +351,9 @@ export default function OffersPage() {
 
                 <div className="space-y-3 mb-8 flex-grow">
                   {offer.features.map((feat, i) => (
-                    <div key={i} className="flex items-center gap-3 text-[11px] text-slate-300">
-                      <FaChevronRight className="text-[#FF6B35] text-[10px] flex-shrink-0" />
-                      <span className="tracking-wide uppercase font-mono font-bold">{feat.text}</span>
+                    <div key={i} className="flex items-start gap-3 text-[11px] text-slate-300">
+                      <FaChevronRight className="text-[#FF6B35] text-[10px] flex-shrink-0 mt-0.5" />
+                      <span className="tracking-wide uppercase font-mono font-bold leading-tight">{feat.text}</span>
                     </div>
                   ))}
                 </div>
@@ -360,16 +366,16 @@ export default function OffersPage() {
                     {offer.benefits.map((benefit, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-wide"
+                        className="flex items-start gap-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-wide"
                       >
-                        <FaCheck className="shrink-0 text-[#FF6B35] text-[10px]" />
-                        <span>{benefit}</span>
+                        <FaCheck className="shrink-0 text-[#FF6B35] text-[10px] mt-0.5" />
+                        <span className="leading-tight">{benefit}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 mt-auto">
                   <button
                     type="button"
                     onClick={() => openOrderModal(offer)}
@@ -387,7 +393,7 @@ export default function OffersPage() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="sm:col-span-2 w-full py-4 border border-[#25D366] text-[#25D366] font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-[#25D366] hover:text-black transition-all flex items-center justify-center gap-2"
+                    className="sm:col-span-2 w-full py-4 border border-[#25D366] text-[#25D366] font-mono font-bold uppercase text-[10px] tracking-widest hover:bg-[#25D366] hover:text-black transition-all flex items-center justify-center gap-2 rounded-none text-center"
                   >
                     <FaWhatsapp /> Chat
                   </a>
@@ -396,6 +402,7 @@ export default function OffersPage() {
             ))}
           </div>
         </div>
+</div>
 
         <FAQSection />
         <Footer />

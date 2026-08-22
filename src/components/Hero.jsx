@@ -301,7 +301,6 @@ export default function Hero() {
   </motion.div>
 </section>
 
-
     {/* ================= 2. SECTION TECH MARQUEE COMPACTE & SOMBRE ================= */}
     <section className="py-8 bg-[#0A1622] border-y border-white/5 overflow-hidden relative w-full">
       
@@ -386,101 +385,117 @@ export default function Hero() {
     viewport={{ once: true, amount: 0.2 }}
   >
       
-      {/* CARTE 1 : ÉVEILLEUR DE CONSCIENCE */}
-      <motion.div 
-        variants={cardReveal}
-        whileHover={{ y: -12, scale: 1.01 }}
-        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
-        className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-        <div className="space-y-8 relative z-10">
-          <motion.div
-            whileHover={{ rotate: -8, scale: 1.12 }}
-            className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
-          >
-            <FaLightbulb className="animate-pulse" />
-          </motion.div>
-          
-          <div>
-            <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
-              Éveilleur de <span className="text-[#FF6B35]">Conscience</span>
-            </h4>
-            <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
-              Catalyser le potentiel de la jeunesse africaine par une approche systémique du leadership et du mindset stratégique. Déconstruire les barrières mentales pour activer une productivité à fort impact.
-            </p>
-          </div>
+      {/* --- STRUCTURE CONTENEUR AVEC SCROLL HORIZONTAL MOBILE ET GRILLE DESKTOP --- */}
+<div className="relative w-full z-10">
+  {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
+  <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+  <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
 
-          {/* Style Terminal Info */}
-          <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
-            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Focus: Décolonisation Mentale</p>
-            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Objectif: Souveraineté Intellectuelle</p>
-          </div>
-        </div>
+  <motion.div 
+    variants={staggerParent}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.15 }}
+    className="flex flex-nowrap md:grid md:grid-cols-2 gap-8 overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-2 px-4 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+  >
+    
+    {/* CARTE 1 : ÉVEILLEUR DE CONSCIENCE */}
+    <motion.div 
+      variants={cardReveal}
+      whileHover={{ y: -12, scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+      className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] w-[290px] sm:w-[350px] md:w-full shrink-0 md:shrink transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      <div className="space-y-8 relative z-10">
+        <motion.div
+          whileHover={{ rotate: -8, scale: 1.12 }}
+          className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
+        >
+          <FaLightbulb className="animate-pulse" />
+        </motion.div>
         
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
-          <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">CORE_SYSTEM_01</span>
-          <motion.button 
-            type="button"
-            onClick={() => navigate('/work')}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto px-8 py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors duration-300"
-          >
-            Vision Stratégique
-          </motion.button>
-        </div>
-      </motion.div>
-
-      {/* CARTE 2 : PLUME D'IMPACT (AUTEUR) */}
-      <motion.div 
-        variants={cardReveal}
-        whileHover={{ y: -12, scale: 1.01 }}
-        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
-        className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-        <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-        <div className="space-y-8 relative z-10">
-          <motion.div
-            whileHover={{ rotate: 8, scale: 1.12 }}
-            className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
-          >
-            <FaBookOpen />
-          </motion.div>
-          
-          <div>
-            <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
-              Plume d&apos;<span className="text-[#FF6B35]">Impact</span>
-            </h4>
-            <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
-              Transmettre des architectures de pensée à travers des ouvrages dédiés à la transformation intérieure profonde. Coder des manifestes littéraires pour ancrer le succès et le leadership.
-            </p>
-          </div>
-
-          {/* Style Terminal Info */}
-          <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
-            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Edition: Ouvrages de Leadership</p>
-            <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Statut: En cours de publication</p>
-          </div>
+        <div>
+          <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
+            Éveilleur de <span className="text-[#FF6B35]">Conscience</span>
+          </h4>
+          <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
+            Catalyser le potentiel de la jeunesse africaine par une approche systémique du leadership et du mindset stratégique. Déconstruire les barrières mentales pour activer une productivité à fort impact.
+          </p>
         </div>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
-          <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">LIT_LEDGER_02</span>
-          <motion.button 
-            type="button"
-            onClick={() => navigate('/projects')}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto px-8 py-3 bg-transparent border border-white text-white font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors duration-300"
-          >
-            Consulter les Livres
-          </motion.button>
+        {/* Style Terminal Info */}
+        <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
+          <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Focus: Décolonisation Mentale</p>
+          <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Objectif: Souveraineté Intellectuelle</p>
         </div>
-      </motion.div>
+      </div>
       
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
+        <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">CORE_SYSTEM_01</span>
+        <motion.button 
+          type="button"
+          onClick={() => navigate('/work')}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full sm:w-auto px-8 py-3 bg-white text-black font-black uppercase text-[10px] tracking-widest hover:bg-[#FF6B35] hover:text-white transition-colors duration-300"
+        >
+          Vision Stratégique
+        </motion.button>
+      </div>
+    </motion.div>
+
+    {/* CARTE 2 : PLUME D'IMPACT (AUTEUR) */}
+    <motion.div 
+      variants={cardReveal}
+      whileHover={{ y: -12, scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+      className="group relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm flex flex-col justify-between min-h-[500px] w-[290px] sm:w-[350px] md:w-full shrink-0 md:shrink transition-colors duration-500 hover:border-[#FF6B35]/50 shadow-2xl overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute -right-10 -top-10 w-40 h-40 bg-[#FF6B35]/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      <div className="space-y-8 relative z-10">
+        <motion.div
+          whileHover={{ rotate: 8, scale: 1.12 }}
+          className="w-14 h-14 bg-[#FF6B35]/10 rounded-full flex items-center justify-center text-[#FF6B35] text-3xl group-hover:scale-110 transition-transform duration-300"
+        >
+          <FaBookOpen />
+        </motion.div>
+        
+        <div>
+          <h4 className="text-2xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.12em] transition-all duration-500">
+            Plume d&apos;<span className="text-[#FF6B35]">Impact</span>
+          </h4>
+          <p className="text-slate-400 text-base leading-relaxed font-medium group-hover:text-slate-300 transition-colors duration-300">
+            Transmettre des architectures de pensée à travers des ouvrages dédiés à la transformation intérieure profonde. Coder des manifestes littéraires pour ancrer le succès et le leadership.
+          </p>
+        </div>
+
+        {/* Style Terminal Info */}
+        <div className="pt-6 border-t border-white/5 font-mono text-[11px] text-slate-500 space-y-2 uppercase tracking-widest">
+          <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300"><span className="text-[#FF6B35] font-black">&gt;</span> Edition: Ouvrages de Leadership</p>
+          <p className="flex items-center gap-2 group-hover:translate-x-1 transition-transform duration-300 delay-75"><span className="text-[#FF6B35] font-black">&gt;</span> Statut: En cours de publication</p>
+        </div>
+      </div>
+
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/5 pt-6 relative z-10">
+        <span className="font-mono text-[9px] text-[#FF6B35] font-bold tracking-[0.3em]">LIT_LEDGER_02</span>
+        <motion.button 
+          type="button"
+          onClick={() => navigate('/projects')}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full sm:w-auto px-8 py-3 bg-transparent border border-white text-white font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors duration-300"
+        >
+          Consulter les Livres
+        </motion.button>
+      </div>
+    </motion.div>
+    
   </motion.div>
+</div>
+</motion.div>
 </section>
 
 
@@ -516,58 +531,64 @@ export default function Hero() {
     </motion.div>
   </div>
 
-  {/* --- GRILLE SERVICES CHIRURGICALE : STYLE GLASSMORPHISM --- */}
-  <motion.div
-    className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
-    variants={staggerParent}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.15 }}
-  >
-    {services.map((s, i) => (
-      <motion.div 
-        key={i}
-        variants={cardReveal}
-        whileHover={{ y: -10, scale: 1.015 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: 'spring', stiffness: 280, damping: 20 }}
-        className={`${s.size || ''} relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm transition-colors duration-500 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[320px] group shadow-2xl overflow-hidden`}
-      >
-        {/* Glow discret au survol */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
+    {/* --- GRILLE SERVICES : SROLL HORIZONTAL MOBILE / GRILLE DESKTOP --- */}
+  <div className="relative w-full z-10 max-w-7xl mx-auto">
+    {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués via md:hidden) */}
+    <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+    <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
 
-        <div className="relative z-10 flex flex-col h-full justify-between">
-          <div>
-            {/* Icône - S'illumine en orange au survol */}
-            <div className="text-white text-3xl mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6">
-              {s.icon}
+    <motion.div
+      className="flex flex-nowrap md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-2 px-4 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+      variants={staggerParent}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+    >
+      {services.map((s, i) => (
+        <motion.div 
+          key={i}
+          variants={cardReveal}
+          whileHover={{ y: -10, scale: 1.015 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+          className={`${s.size || ''} relative p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-sm transition-colors duration-500 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[320px] w-[280px] sm:w-[340px] md:w-full shrink-0 md:shrink group shadow-2xl overflow-hidden`}
+        >
+          {/* Glow discret au survol */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
+
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              {/* Icône - S'illumine en orange au survol */}
+              <div className="text-white text-3xl mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6">
+                {s.icon}
+              </div>
+              
+              {/* Titre épuré en Blanc pur */}
+              <h3 className="text-xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.14em] transition-all duration-500">
+                {s.title}
+              </h3>
+              
+              {/* Description en gris bleuté pour la lisibilité */}
+              <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide group-hover:text-slate-300 transition-colors duration-300">
+                {s.desc}
+              </p>
             </div>
-            
-            {/* Titre épuré en Blanc pur */}
-            <h3 className="text-xl font-bold uppercase tracking-widest text-white mb-4 group-hover:tracking-[0.14em] transition-all duration-500">
-              {s.title}
-            </h3>
-            
-            {/* Description en gris bleuté pour la lisibilité */}
-            <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide group-hover:text-slate-300 transition-colors duration-300">
-              {s.desc}
-            </p>
-          </div>
 
-          {/* Indicateur de statut industriel en bas de carte */}
-          <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-6">
-            <span className="font-mono text-[10px] text-slate-500 group-hover:text-[#FF6B35] transition-colors duration-300 font-bold uppercase tracking-widest">
-              &gt; system_0{i + 1}
-            </span>
-            <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#FF6B35] text-sm font-black">
-              →
-            </span>
+            {/* Indicateur de statut industriel en bas de carte */}
+            <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-6">
+              <span className="font-mono text-[10px] text-slate-500 group-hover:text-[#FF6B35] transition-colors duration-300 font-bold uppercase tracking-widest">
+                &gt; system_0{i + 1}
+              </span>
+              <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#FF6B35] text-sm font-black">
+                →
+              </span>
+            </div>
           </div>
-        </div>
-      </motion.div>
-    ))}
-  </motion.div>
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
 </section>
      </>
   );

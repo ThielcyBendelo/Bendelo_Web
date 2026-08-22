@@ -86,72 +86,82 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* --- ARCHITECTURE PIPELINE DE LA TIMELINE --- */}
-        <motion.div 
-          className="relative"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          variants={containerVariants}
-        >
-          {/* Ligne centrale structurelle stricte (Carrée) */}
-          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 bg-white/10" />
+               {/* --- ARCHITECTURE PIPELINE DE LA TIMELINE ADAPTATIVE --- */}
+        <div className="relative w-full z-10">
+          {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
 
-          <div className="space-y-16">
-            {experiences.map((exp, idx) => (
-              <motion.div 
-                key={idx} 
-                variants={itemVariants}
-                className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
-              >
-                {/* Point d'ancrage / Icône brute style registre de log - Strictement Carré */}
-                <div 
-                  className="flex items-center justify-center w-10 h-10 border bg-[#0A1622] text-slate-400 border-white/10 shrink-0 absolute left-5 md:left-1/2 -translate-x-1/2 z-10 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:border-[#FF6B35]/40 group-hover:scale-110 rounded-none shadow-2xl"
+          <motion.div 
+            className="flex flex-nowrap md:block gap-6 overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-4 px-4 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={containerVariants}
+          >
+            {/* Ligne centrale structurelle stricte (Carrée) - Visible UNIQUEMENT sur Desktop */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 bg-white/10" />
+
+            {/* Ligne de pipeline horizontale continue - Visible UNIQUEMENT sur Mobile */}
+            <div className="block md:hidden absolute left-0 right-0 top-[34px] h-[1px] bg-white/10 z-0" />
+
+            <div className="flex flex-nowrap md:space-y-16 w-full gap-6 md:gap-0">
+              {experiences.map((exp, idx) => (
+                <motion.div 
+                  key={idx} 
+                  variants={itemVariants}
+                  className="relative flex flex-col md:flex-row items-start md:items-center justify-between md:justify-normal md:odd:flex-row-reverse group shrink-0 md:shrink w-[290px] sm:w-[360px] md:w-full"
                 >
-                  {roleIcon(exp.type || exp.category)}
-                </div>
+                  {/* Point d'ancrage / Icône brute style registre de log - Ajusté pour s'aligner sur les deux axes */}
+                  <div 
+                    className="flex items-center justify-center w-10 h-10 border bg-[#0A1622] text-slate-400 border-white/10 shrink-0 absolute left-4 md:left-1/2 top-0 md:top-auto md:-translate-x-1/2 z-10 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:border-[#FF6B35]/40 group-hover:scale-110 rounded-none shadow-2xl"
+                  >
+                    {roleIcon(exp.type || exp.category)}
+                  </div>
 
-                {/* Panneau de contenu orthogonal (Zéro Radius) */}
-                <div className="w-[calc(100%-4rem)] md:w-[44%] p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between rounded-none shadow-2xl relative overflow-hidden">
-                  {/* Glow discret au survol */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  {/* Panneau de contenu orthogonal (Zéro Radius) - Marge supérieure sur mobile pour laisser la place à l'icône */}
+                  <div className="w-full md:w-[44%] mt-16 md:mt-0 p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between rounded-none shadow-2xl relative overflow-hidden h-[380px] md:h-auto">
+                    {/* Glow discret au survol */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  <div className="relative z-10">
-                    <div className="flex flex-col mb-6">
-                      <span className="font-mono font-bold text-[10px] uppercase tracking-[0.3em] text-[#FF6B35] mb-2">
-                        &gt;_ {exp.year}
-                      </span>
-                      <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-2 leading-tight">
-                        {exp.role}
-                      </h3>
-                      <div className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-widest text-slate-500">
-                        <FaBuilding className="text-[#FF6B35]" />
-                        <span>{exp.company}</span>
+                    <div className="relative z-10">
+                      <div className="flex flex-col mb-6">
+                        <span className="font-mono font-bold text-[10px] uppercase tracking-[0.3em] text-[#FF6B35] mb-2">
+                          &gt;_ {exp.year}
+                        </span>
+                        <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-2 leading-tight line-clamp-2 md:line-clamp-none">
+                          {exp.role}
+                        </h3>
+                        <div className="flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-widest text-slate-500">
+                          <FaBuilding className="text-[#FF6B35]" />
+                          <span className="truncate">{exp.company}</span>
+                        </div>
                       </div>
+                      
+                      <p className="text-slate-400 text-sm leading-relaxed font-medium mb-6 line-clamp-4 md:line-clamp-none">
+                        {exp.description}
+                      </p>
                     </div>
-                    
-                    <p className="text-slate-400 text-sm leading-relaxed font-medium mb-6">
-                      {exp.description}
-                    </p>
-                  </div>
 
-                  {/* Badges de technologies au format micro-log - Carrés */}
-                  <div className="flex flex-wrap gap-2 font-mono text-[9px] relative z-10">
-                    <span className="px-2.5 py-1 border border-[#FF6B35]/30 text-white bg-[#FF6B35] uppercase tracking-widest font-black rounded-none">
-                      {exp.type || 'FULL-TIME'}
-                    </span>
-                    {exp.tags?.map((tag) => (
-                      <span key={tag} className="px-2.5 py-1 border border-white/10 text-slate-300 bg-white/5 uppercase tracking-wider rounded-none">
-                        {tag}
+                    {/* Badges de technologies au format micro-log - Carrés */}
+                    <div className="flex flex-wrap gap-2 font-mono text-[9px] relative z-10 mt-auto md:mt-0">
+                      <span className="px-2.5 py-1 border border-[#FF6B35]/30 text-white bg-[#FF6B35] uppercase tracking-widest font-black rounded-none whitespace-nowrap">
+                        {exp.type || 'FULL-TIME'}
                       </span>
-                    ))}
+                      {exp.tags?.map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 border border-white/10 text-slate-300 bg-white/5 uppercase tracking-wider rounded-none whitespace-nowrap">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
 
         {/* --- REGISTRE DE VÉRIFICATION FINAL STYLE TERMINAL --- */}
         <div className="mt-28 p-10 border border-white/10 bg-white/[0.01] rounded-none shadow-2xl relative">

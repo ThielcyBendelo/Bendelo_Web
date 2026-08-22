@@ -138,79 +138,102 @@ export default function Skills() {
           </p>
         </div>
 
-        {/* --- FILTRES DE GRILLE ORTHOGONAUX (SANS ARRONDIS) --- */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat) => {
-            const isSelected = activeTab === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => setActiveTab(cat.id)}
-                className={`flex items-center gap-2 px-6 py-3 font-mono font-bold uppercase text-[10px] tracking-widest border transition-all duration-300 rounded-none ${
-                  isSelected 
-                    ? 'bg-white text-black border-transparent shadow-xl' 
-                    : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
-                }`}
-              >
-                <span className={isSelected ? 'text-black' : 'text-slate-500 group-hover:text-[#FF6B35]'}>
-                  {cat.icon}
-                </span>
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* --- GRILLE DE CAPACITÉS SYSTÈME (STRICTEMENT CARRÉ) --- */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode='popLayout'>
-            {filteredSkills.map((skill) => {
-              const Icon = skillIcons[skill.name] || FaTerminal;
-
+        {/* --- FILTRES CATÉGORIES (Orthogonaux, scroll tactile sans barre, optimisé UX) --- */}
+        <div className="flex justify-center mb-16 w-full">
+          <div
+            role="tablist"
+            aria-label="Catégories de projets"
+            className="inline-flex flex-nowrap items-center gap-2 sm:gap-3 max-w-full overflow-x-auto overscroll-x-contain px-1 py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          >
+            {categories.map((cat) => {
+              const isSelected = activeTab === cat.id; // Utilise activeTab selon votre premier code
               return (
-                <motion.div
-                  layout
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.3 }}
-                  whileHover={{ y: -5 }}
-                  whileTap={{ scale: 0.99 }}
-                  className="group relative p-6 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between rounded-none shadow-2xl overflow-hidden min-h-[140px]"
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveTab(cat.id)}
+                  className={`shrink-0 whitespace-nowrap inline-flex items-center gap-2 rounded-none px-5 sm:px-6 py-2.5 sm:py-3 font-mono font-bold uppercase text-[10px] sm:text-[11px] tracking-widest border transition-all duration-300 ${
+                    isSelected
+                      ? 'bg-[#FF6B35]/10 text-white border-[#FF6B35] shadow-[0_0_20px_rgba(255,107,53,0.15)]'
+                      : 'bg-white/[0.02] border-white/10 text-slate-400 hover:border-[#FF6B35]/50 hover:text-white'
+                  }`}
                 >
-                  {/* Lueur angulaire au survol */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
-
-                  <div className="flex items-start gap-5 relative z-10">
-                    <div className="text-2xl text-slate-400 group-hover:text-[#FF6B35] group-hover:scale-110 transition-all duration-300 mt-1">
-                      <Icon />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-baseline mb-1">
-                        <span className="font-bold text-base uppercase tracking-wider text-white truncate">
-                          {skill.name}
-                        </span>
-                      </div>
-                      
-                      <p className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.2em] text-[9px] mb-3 block">
-                        &gt;_ {skill.spec}
-                      </p>
-                    </div>
-                  </div>
+                  {/* Icône - Devient orange quand sélectionné ou au survol */}
+                  <span className={`transition-colors duration-300 ${
+                    isSelected ? 'text-[#FF6B35]' : 'text-slate-500'
+                  }`}>
+                    {cat.icon}
+                  </span>
                   
-                  {/* Tag system de bas de carte */}
-                  <div className="mt-4 pt-3 border-t border-white/5 flex justify-end items-center gap-2 font-mono font-bold text-[10px] text-slate-500 group-hover:text-[#FF6B35] transition-colors relative z-10">
-                    <span className="text-[8px] opacity-40 uppercase tracking-widest">Node_Status</span>
-                    <span>[{skill.category.toUpperCase()}_NODE]</span>
-                  </div>
-                </motion.div>
+                  {cat.label}
+                </button>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        </div>
+
+
+        {/* --- ADAPTATIF : DÉROULEMENT MOBILE & GRILLE DESKTOP --- */}
+        <div className="relative w-full z-10">
+          {/* Masques de dégradé visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+
+          <motion.div 
+            layout 
+            className="flex flex-nowrap md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-6 pt-2 px-4 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          >
+            <AnimatePresence mode='popLayout'>
+              {filteredSkills.map((skill) => {
+                const Icon = skillIcons[skill.name] || FaTerminal;
+
+                return (
+                  <motion.div
+                    layout
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.3 }}
+                    whileHover={{ y: -5 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="group relative p-6 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between rounded-none shadow-2xl overflow-hidden min-h-[140px] w-[290px] sm:w-[320px] md:w-full shrink-0 md:shrink"
+                  >
+                    {/* Lueur angulaire au survol */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+
+                    <div className="flex items-start gap-5 relative z-10">
+                      <div className="text-2xl text-slate-400 group-hover:text-[#FF6B35] group-hover:scale-110 transition-all duration-300 mt-1">
+                        <Icon />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-baseline mb-1">
+                          <span className="font-bold text-base uppercase tracking-wider text-white truncate">
+                            {skill.name}
+                          </span>
+                        </div>
+                        
+                        <p className="text-[#FF6B35] font-mono font-bold uppercase tracking-[0.2em] text-[9px] mb-3 block">
+                          &gt;_ {skill.spec}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Tag system de bas de carte */}
+                    <div className="mt-4 pt-3 border-t border-white/5 flex justify-end items-center gap-2 font-mono font-bold text-[10px] text-slate-500 group-hover:text-[#FF6B35] transition-colors relative z-10">
+                      <span className="text-[8px] opacity-40 uppercase tracking-widest">Node_Status</span>
+                      <span>[{skill.category.toUpperCase()}_NODE]</span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+
 
         {/* --- STATUT DE VEILLE TECHNIQUE STYLE CONSOLE --- */}
         <div className="mt-20 text-center font-mono text-[10px] tracking-[0.3em] text-slate-500 uppercase">

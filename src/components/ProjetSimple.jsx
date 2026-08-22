@@ -95,92 +95,101 @@ export default function ProjetSimple() {
           </div>
         </div>
 
-        {/* --- GRILLE DE PROJETS CHIRURGICALE STYLE REPOSITORY INDEX --- */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          <AnimatePresence mode='popLayout'>
-            {filteredProjects.map((projet) => (
-              <motion.div
-                layout
-                key={projet.titre}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ y: -6 }}
-                whileTap={{ scale: 0.99 }}
-                className="group relative border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col h-full rounded-none shadow-2xl"
-              >
-                {/* Zone Média / Image avec Grayscale et Cache Technique */}
-                <div className="relative h-52 overflow-hidden border-b border-white/10 grayscale group-hover:grayscale-0 transition-all duration-500 bg-neutral-950 rounded-none">
-                  <img 
-                    src={projet.image} 
-                    alt={projet.titre} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-none" 
-                    loading="lazy"
-                  />
-                  
-                  {/* Actions au survol Mat - Strictement carrées */}
-                  <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20 rounded-none">
-                    <a 
-                      href={projet.lienDemo} 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      className="p-3.5 bg-white text-black hover:bg-[#FF6B35] hover:text-white transition-colors rounded-none"
-                    >
-                      <FaExternalLinkAlt className="text-sm" />
-                    </a>
-                    
-                    <a 
-                      href={projet.lienGithub} 
-                      target="_blank" 
-                      rel="noreferrer" 
-                      className="p-3.5 border-2 border-white text-white hover:bg-white hover:text-black transition-colors rounded-none"
-                    >
-                      <FaGithub className="text-sm" />
-                    </a>
-                  </div>
-                </div>
+               {/* --- DÉROULEMENT RESPONSIVE MOBILE HORIZONTAL / GRILLE DESKTOP --- */}
+        <div className="relative w-full z-10">
+          {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
 
-                {/* Contenu textuel Haute Visibilité */}
-                <div className="p-6 flex flex-col justify-between flex-grow relative z-10">
-                  <div>
-                    <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-3">
-                      {projet.titre}
-                    </h3>
+          <motion.div 
+            layout 
+            className="flex flex-nowrap md:grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-2 px-1 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          >
+            <AnimatePresence mode='popLayout'>
+              {filteredProjects.map((projet) => (
+                <motion.div
+                  layout
+                  key={projet.titre}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.3 }}
+                  whileHover={{ y: -6 }}
+                  whileTap={{ scale: 0.99 }}
+                  className="group relative border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col h-full rounded-none shadow-2xl w-[290px] sm:w-[350px] md:w-full shrink-0 md:shrink"
+                >
+                  {/* Zone Média / Image avec Grayscale et Cache Technique */}
+                  <div className="relative h-52 overflow-hidden border-b border-white/10 grayscale group-hover:grayscale-0 transition-all duration-500 bg-neutral-950 rounded-none flex-shrink-0">
+                    <img 
+                      src={projet.image} 
+                      alt={projet.titre} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 rounded-none" 
+                      loading="lazy"
+                    />
                     
-                    <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide mb-6">
-                      {projet.description}
-                    </p>
-                    
-                    {/* Tags au format micro-log de commit Git */}
-                    <div className="flex flex-wrap gap-1.5 font-mono text-[10px] mb-6">
-                      {projet.technologies?.map((tech, i) => (
-                        <span 
-                          key={i} 
-                          className="px-2.5 py-0.5 border border-white/5 text-[#FF6B35] bg-[#FF6B35]/5 uppercase tracking-wider rounded-none"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    {/* Actions au survol Mat - Strictement carrées */}
+                    <div className="absolute inset-0 bg-slate-950/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20 rounded-none">
+                      <a 
+                        href={projet.lienDemo} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="p-3.5 bg-white text-black hover:bg-[#FF6B35] hover:text-white transition-colors rounded-none"
+                      >
+                        <FaExternalLinkAlt className="text-sm" />
+                      </a>
+                      
+                      <a 
+                        href={projet.lienGithub} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="p-3.5 border-2 border-white text-white hover:bg-white hover:text-black transition-colors rounded-none"
+                      >
+                        <FaGithub className="text-sm" />
+                      </a>
                     </div>
                   </div>
 
-                  {/* Bouton d'action intégré - Bordure franche, sans angles */}
-                  <div className="pt-4 border-t border-white/5">
-                    <a 
-                      href={projet.lienDemo} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block w-full py-4 bg-white text-black font-black uppercase text-center text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-all duration-300 rounded-none"
-                    >
-                      Démo Live
-                    </a>
+                  {/* Contenu textuel Haute Visibilité */}
+                  <div className="p-6 flex flex-col justify-between flex-grow relative z-10">
+                    <div>
+                      <h3 className="text-lg font-bold uppercase tracking-wider text-white mb-3">
+                        {projet.titre}
+                      </h3>
+                      
+                      <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide mb-6">
+                        {projet.description}
+                      </p>
+                      
+                      {/* Tags au format micro-log de commit Git */}
+                      <div className="flex flex-wrap gap-1.5 font-mono text-[10px] mb-6">
+                        {projet.technologies?.map((tech, i) => (
+                          <span 
+                            key={i} 
+                            className="px-2.5 py-0.5 border border-white/5 text-[#FF6B35] bg-[#FF6B35]/5 uppercase tracking-wider rounded-none whitespace-nowrap"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bouton d'action intégré - Bordure franche, sans angles */}
+                    <div className="pt-4 border-t border-white/5 mt-auto">
+                      <a 
+                        href={projet.lienDemo} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block w-full py-4 bg-white text-black font-black uppercase text-center text-xs tracking-widest hover:bg-[#FF6B35] hover:text-white transition-all duration-300 rounded-none"
+                      >
+                        Démo Live
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

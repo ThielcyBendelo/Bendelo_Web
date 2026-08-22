@@ -70,60 +70,66 @@ function ProcessSection() {
           </p>
         </div>
 
-        {/* --- GRILLE CHIRURGICALE DE CARTES GÉOMÉTRIQUES --- */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12">
-          {steps.map((step, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1, duration: 0.4 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -6 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[340px] rounded-none shadow-2xl"
-            >
-              {/* Effet lueur de fond angulaire au survol */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+        {/* --- DÉROULEMENT RESPONSIVE MOBILE HORIZONTAL / GRILLE DESKTOP --- */}
+        <div className="relative w-full">
+          {/* Masques de dégradé horizontaux visibles UNIQUEMENT sur mobile (masqués sur md:) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
 
-              <div>
-                {/* En-tête de carte : Icône brute & Phase */}
-                <div className="flex justify-between items-start mb-8">
-                  <div className="text-white text-2xl transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110">
-                    {step.icon}
+          <div className="flex flex-nowrap md:grid gap-8 md:grid-cols-2 lg:grid-cols-4 mt-12 overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-6 pt-2 px-1 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x">
+            {steps.map((step, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.4 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -6 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[340px] w-[280px] sm:w-[320px] md:w-full shrink-0 md:shrink rounded-none shadow-2xl"
+              >
+                {/* Effet lueur de fond angulaire au survol */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+
+                <div>
+                  {/* En-tête de carte : Icône brute & Phase */}
+                  <div className="flex justify-between items-start mb-8">
+                    <div className="text-white text-2xl transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110">
+                      {step.icon}
+                    </div>
+                    <span className="text-[11px] font-mono font-bold text-[#FF6B35] bg-[#FF6B35]/10 px-2 py-0.5 tracking-widest rounded-none">
+                      {step.tag}
+                    </span>
                   </div>
-                  <span className="text-[11px] font-mono font-bold text-[#FF6B35] bg-[#FF6B35]/10 px-2 py-0.5 tracking-widest rounded-none">
-                    {step.tag}
+                  
+                  {/* Titre de l'étape */}
+                  <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-4">
+                    {step.title}
+                  </h3>
+                  
+                  {/* Description de l'étape */}
+                  <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Indicateur inférieur de complétion de pipeline */}
+                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-slate-500 font-mono text-[10px] tracking-widest">
+                  <span>&gt;_ STEP_READY</span>
+                  <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#FF6B35] font-black text-xs">
+                    // OK
                   </span>
                 </div>
-                
-                {/* Titre de l'étape */}
-                <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-4">
-                  {step.title}
-                </h3>
-                
-                {/* Description de l'étape */}
-                <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
-                  {step.description}
-                </p>
-              </div>
 
-              {/* Indicateur inférieur de complétion de pipeline */}
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-slate-500 font-mono text-[10px] tracking-widest">
-                <span>&gt;_ STEP_READY</span>
-                <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-[#FF6B35] font-black text-xs">
-                  // OK
-                </span>
-              </div>
-
-              {/* Flèche de liaison minimaliste (Uniquement desktop) */}
-              {idx !== steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 z-20 text-white/20 text-xs pointer-events-none group-hover:text-[#FF6B35]/60 transition-colors">
-                  <FaChevronRight />
-                </div>
-              )}
-            </motion.div>
-          ))}
+                {/* Flèche de liaison minimaliste (Uniquement desktop) */}
+                {idx !== steps.length - 1 && (
+                  <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 z-20 text-white/20 text-xs pointer-events-none group-hover:text-[#FF6B35]/60 transition-colors">
+                    <FaChevronRight />
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
