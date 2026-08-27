@@ -315,60 +315,56 @@ export default function About() {
       </div>
     </section>
 
-                          {/* --- SECTION 2: LES PILIERS (DÉROULEMENT MOBILE HORIZONTAL / GRILLE DESKTOP) --- */}
-          <div className="relative w-full z-10 mb-36">
-            {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+                       {/* --- SECTION 2: LES PILIERS RESPONSIVE (GRILLE SANS SCROLL MOBILE) --- */}
+<div className="relative w-full z-10 mb-36">
+  <motion.div
+    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full px-1"
+    variants={staggerParent}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.2 }}
+  >
+    {[
+      { icon: <FaTerminal />, title: "Tech Architecture", subtitle: "MUAMOKEL AGENCY" },
+      { icon: <FaBookOpen />, title: "Plume d'Éveil", subtitle: "Auteur d'ouvrages" },
+      { icon: <FaGlobeAfrica />, title: "Impact Continental", subtitle: "Jeunesse Africaine" },
+      { icon: <FaUserCheck />, title: "Haute Conscience", subtitle: "Coaching Holistique" }
+    ].map((pillar, i) => (
+      <motion.div
+        key={i}
+        variants={cardReveal}
+        whileHover={{ y: -10, scale: 1.02 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ type: 'spring', stiffness: 280, damping: 18 }}
+        className="relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-colors duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[220px] w-full group rounded-none shadow-2xl overflow-hidden"
+      >
+        {/* Lueur angulaire fine au survol */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
+        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
 
-            <motion.div
-              className="flex flex-nowrap md:grid gap-6 md:grid-cols-2 lg:grid-cols-4 w-full overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-6 pt-2 px-1 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
-              variants={staggerParent}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              {[
-                { icon: <FaTerminal />, title: "Tech Architecture", subtitle: "MUAMOKEL AGENCY" },
-                { icon: <FaBookOpen />, title: "Plume d'Éveil", subtitle: "Auteur d'ouvrages" },
-                { icon: <FaGlobeAfrica />, title: "Impact Continental", subtitle: "Jeunesse Africaine" },
-                { icon: <FaUserCheck />, title: "Haute Conscience", subtitle: "Coaching Holistique" }
-              ].map((pillar, i) => (
-                <motion.div
-                  key={i}
-                  variants={cardReveal}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  whileTap={{ scale: 0.99 }}
-                  transition={{ type: 'spring', stiffness: 280, damping: 18 }}
-                  className="relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-colors duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[220px] w-[240px] sm:w-[280px] md:w-full shrink-0 md:shrink group rounded-none shadow-2xl overflow-hidden"
-                >
-                  {/* Lueur angulaire fine au survol */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
-                  <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF6B35] group-hover:w-full transition-all duration-500" />
-
-                  <div>
-                    {/* Icône qui s'illumine en orange au survol */}
-                    <div className="text-2xl text-slate-400 mb-6 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6 flex-shrink-0">
-                      {pillar.icon}
-                    </div>
-                    {/* Titre principal */}
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-1 group-hover:tracking-[0.12em] transition-all duration-400 whitespace-nowrap">
-                      {pillar.title}
-                    </h3>
-                    {/* Sous-titre style log système */}
-                    <p className="text-[10px] font-mono font-bold text-[#FF6B35] uppercase tracking-widest whitespace-nowrap">
-                      // {pillar.subtitle}
-                    </p>
-                  </div>
-                  
-                  {/* Indexation de ligne numérique */}
-                  <div className="mt-6 flex justify-end font-mono font-bold text-[11px] text-slate-600 group-hover:text-[#FF6B35] transition-colors">
-                    <span>[0{i + 1}]</span>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+        <div>
+          {/* Icône qui s'illumine en orange au survol */}
+          <div className="text-2xl text-slate-400 mb-6 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 group-hover:-rotate-6 flex-shrink-0">
+            {pillar.icon}
           </div>
+          {/* Titre principal */}
+          <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-1 group-hover:tracking-[0.12em] transition-all duration-400 whitespace-nowrap">
+            {pillar.title}
+          </h3>
+          {/* Sous-titre style log système */}
+          <p className="text-[10px] font-mono font-bold text-[#FF6B35] uppercase tracking-widest whitespace-nowrap">
+            // {pillar.subtitle}
+          </p>
+        </div>
+        
+        {/* Indexation de ligne numérique */}
+        <div className="mt-6 flex justify-end font-mono font-bold text-[11px] text-slate-600 group-hover:text-[#FF6B35] transition-colors">
+          <span>[0{i + 1}]</span>
+        </div>
+      </motion.div>
+    ))}
+  </motion.div>
+</div>
 
 
           {/* --- SECTION 3: CTA IMPACT (Style Panneau de Contrôle Reste Sombre) --- */}

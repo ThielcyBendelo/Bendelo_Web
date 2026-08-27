@@ -85,49 +85,46 @@ export default function Coaching() {
           </p>
         </div>
 
-               {/* --- DÉROULEMENT RESPONSIVE MOBILE HORIZONTAL / GRILLE DESKTOP --- */}
-        <div className="relative w-full z-10">
-          {/* Masques de dégradé discrets visibles UNIQUEMENT sur mobile (masqués sur desktop via md:hidden) */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0A1622] to-transparent z-20 pointer-events-none md:hidden" />
+              {/* --- GRILLE DE COMPOSANTS RESPONSIVE --- */}
+<div className="relative w-full z-10">
+  {/* Grille des programmes adaptative */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-12 px-1 mb-24">
+    {programs.map((p, i) => (
+      <motion.div
+        key={i}
+        whileHover={{ y: -6 }}
+        whileTap={{ scale: 0.98 }}
+        className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[340px] w-full rounded-none shadow-2xl"
+      >
+        {/* Lueur angulaire au survol */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
 
-          {/* Grille des programmes adaptative */}
-          <div className="flex flex-nowrap md:grid gap-8 md:grid-cols-3 w-full overflow-x-auto md:overflow-x-visible overscroll-x-contain pb-8 pt-2 px-1 max-w-full [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x mb-24">
-            {programs.map((p, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -6 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative p-8 border border-white/10 bg-white/[0.02] backdrop-blur-xl transition-all duration-300 hover:border-[#FF6B35]/40 flex flex-col justify-between min-h-[340px] w-[290px] sm:w-[340px] md:w-full shrink-0 md:shrink rounded-none shadow-2xl"
-              >
-                {/* Lueur angulaire au survol */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6B35]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-none" />
-
-                <div>
-                  <div className="text-3xl text-slate-400 mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 flex-shrink-0">
-                    {p.icon}
-                  </div>
-                  
-                  <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-4">
-                    {p.title}
-                  </h3>
-                  
-                  <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
-                    {p.desc}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedProgram(p)}
-                  className="mt-8 flex items-center gap-3 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#FF6B35] hover:text-white transition-colors duration-200 whitespace-nowrap"
-                >
-                  &gt;_ EN_SAVOIR_PLUS <FaArrowRight className="text-sm transition-transform group-hover:translate-x-2" />
-                </button>
-              </motion.div>
-            ))}
+        <div>
+          <div className="text-3xl text-slate-400 mb-8 transition-all duration-300 group-hover:text-[#FF6B35] group-hover:scale-110 flex-shrink-0">
+            {p.icon}
           </div>
+          
+          <h3 className="text-xl font-bold uppercase tracking-wider text-white mb-4">
+            {p.title}
+          </h3>
+          
+          <p className="text-slate-400 text-sm leading-relaxed font-medium tracking-wide">
+            {p.desc}
+          </p>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setSelectedProgram(p)}
+          className="mt-8 flex items-center gap-3 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#FF6B35] hover:text-white transition-colors duration-200 whitespace-nowrap"
+        >
+          &gt;_ EN_SAVOIR_PLUS <FaArrowRight className="text-sm transition-transform group-hover:translate-x-2" />
+        </button>
+      </motion.div>
+    ))}
+  </div>
+</div>
+
 
         {/* --- SECTION D'IMPACT CONTINENTAL (Style Bloc Technique) --- */}
         <div className="relative border border-white/10 bg-white/[0.02] backdrop-blur-xl p-8 md:p-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center rounded-none shadow-2xl">
